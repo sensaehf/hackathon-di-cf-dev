@@ -9,7 +9,7 @@ import {
 } from 'sequelize-typescript'
 import { Optional } from 'sequelize/types'
 
-interface ResourceAttributes {
+interface ConsentAttributes {
   id: string
   nationalId: string
   created: Date
@@ -18,18 +18,18 @@ interface ResourceAttributes {
 }
 
 interface ResourceCreationAttributes
-  extends Optional<ResourceAttributes, 'id' | 'created' | 'modified' | 'consented'> {}
+  extends Optional<ConsentAttributes, 'id' | 'created' | 'modified' | 'consented'> {}
 
 @Table({
-  tableName: 'resource',
+  tableName: 'consent',
   indexes: [
     {
       fields: ['national_id'],
     },
   ],
 })
-export class Resource extends Model<
-  ResourceAttributes,
+export class Consent extends Model<
+  ConsentAttributes,
   ResourceCreationAttributes
 > {
   @ApiProperty()
@@ -64,4 +64,5 @@ export class Resource extends Model<
     defaultValue: false,
   })
   consented!: boolean
+
 }

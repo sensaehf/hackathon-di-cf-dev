@@ -15,7 +15,7 @@ describe('AppService', () => {
 
   describe('getData', () => {
     it('should return "Hello API"', () => {
-      expect(service.getData()).toEqual({ message: 'Hello API' })
+      expect(service.findByNationalId('1234567890')).toEqual({ message: 'Hello API' })
     })
   })
 })

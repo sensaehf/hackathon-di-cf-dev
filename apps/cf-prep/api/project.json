@@ -47,6 +47,20 @@
       "options": {
         "jestConfig": "apps/cf-prep/api/jest.config.ts"
       }
+    },
+    "migrate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "../../../node_modules/.bin/sequelize-cli db:migrate",
+        "cwd": "apps/cf-prep/api"
+      }
+    },
+    "migrate/generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "../../../node_modules/.bin/sequelize-cli migration:generate --name $(whoami)",
+        "cwd": "apps/cf-prep/api"
+      }
     }
   }
 }

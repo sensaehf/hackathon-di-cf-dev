@@ -8,6 +8,6 @@ export class ConsentController {
 
   @Get()
   getData() {
-    return this.concentService.getData()
+    return this.concentService.findByNationalId('1234567890');
   }
 }
