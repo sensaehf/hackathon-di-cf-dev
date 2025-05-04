@@ -1,0 +1,19 @@
+{
+  "name": "cf-prep-webapp-e2e",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/cf-prep/webapp-e2e/src",
+  "tags": [],
+  "implicitDependencies": ["cf-prep-webapp"],
+  "targets": {
+    "e2e": {
+      "executor": "@nx/playwright:playwright",
+      "outputs": ["{workspaceRoot}/dist/.playwright/apps/cf-prep/webapp-e2e"],
+      "options": {
+        "config": "apps/cf-prep/webapp-e2e/playwright.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}

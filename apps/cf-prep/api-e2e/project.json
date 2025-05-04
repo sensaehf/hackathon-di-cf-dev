@@ -1,0 +1,20 @@
+{
+  "name": "cf-prep-api-e2e",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "implicitDependencies": ["cf-prep-api"],
+  "targets": {
+    "e2e": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{e2eProjectRoot}"],
+      "options": {
+        "jestConfig": "apps/cf-prep/api-e2e/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "dependsOn": ["cf-prep-api:build"]
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  }
+}
