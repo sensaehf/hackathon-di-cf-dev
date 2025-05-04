@@ -40,9 +40,9 @@ jobs:
           docker tag $ECR_FRONTEND_REPO:latest ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_FRONTEND_REPO }}:latest
           docker push ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_FRONTEND_REPO }}:latest
 
-      - name: Build and Push Backend Image
-        working-directory: ./backend
-        run: |
-          docker build --build-arg NODE_VERSION=${{ env.NODE_VERSION }} -t $ECR_BACKEND_REPO:latest .
-          docker tag $ECR_BACKEND_REPO:latest ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_BACKEND_REPO }}:latest
-          docker push ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_BACKEND_REPO }}:latest
+      # - name: Build and Push Backend Image
+      #   working-directory: ./backend
+      #   run: |
+      #     docker build --build-arg NODE_VERSION=${{ env.NODE_VERSION }} -t $ECR_BACKEND_REPO:latest .
+      #     docker tag $ECR_BACKEND_REPO:latest ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_BACKEND_REPO }}:latest
+      #     docker push ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_BACKEND_REPO }}:latest
