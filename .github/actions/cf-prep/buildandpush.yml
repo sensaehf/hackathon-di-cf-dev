@@ -3,6 +3,8 @@ name: Build and Push Docker Images to ECR
 on:
   push:
     branches: [ cf-cicd ]
+  workflow_dispatch
+  
 
 env:
   AWS_REGION: eu-nordic-1
