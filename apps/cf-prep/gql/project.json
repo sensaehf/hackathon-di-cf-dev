@@ -1,0 +1,59 @@
+{
+  "name": "cf-prep-gql",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/cf-prep/gql/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/cf-prep/gql",
+        "main": "apps/cf-prep/gql/src/main.ts",
+        "tsConfig": "apps/cf-prep/gql/tsconfig.app.json",
+        "assets": ["apps/cf-prep/gql/src/assets"],
+        "webpackConfig": "apps/cf-prep/gql/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "cf-prep-gql:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "cf-prep-gql:build:development"
+        },
+        "production": {
+          "buildTarget": "cf-prep-gql:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/cf-prep/gql/jest.config.ts"
+      }
+    },
+    "codegen/backend-schema": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "yarn ts-node -P apps/cf-prep/gql/tsconfig.json scripts/build-graphql-schema.ts apps/cf-prep/gql/src/app/app.module"
+      },
+      "outputs": ["{projectRoot}/src/api.graphql"]
+    }
+  }
+}
