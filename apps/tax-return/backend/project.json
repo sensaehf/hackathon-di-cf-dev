@@ -48,6 +48,20 @@
         "jestConfig": "apps/tax-return/backend/jest.config.ts"
       }
     },
+    "migrate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "../../../node_modules/.bin/sequelize-cli db:migrate",
+        "cwd": "apps/tax-return/backend"
+      }
+    },
+    "migrate/generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "../../../node_modules/.bin/sequelize-cli migration:generate --name $(whoami)",
+        "cwd": "apps/tax-return/backend"
+      }
+    },
     "codegen/backend-schema": {
       "executor": "nx:run-commands",
       "options": {
@@ -60,6 +74,6 @@
         "{projectRoot}/src/openapi.yaml",
         "{projectRoot}/src/private-openapi.yaml"
       ]
-    },
+    }
   }
 }
