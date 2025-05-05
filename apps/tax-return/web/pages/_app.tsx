@@ -6,7 +6,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Welcome to apps/tax-return/web!</title>
+        <title>Island.is - Tax returns</title>
       </Head>
       <main className="app">
         <Component {...pageProps} />
