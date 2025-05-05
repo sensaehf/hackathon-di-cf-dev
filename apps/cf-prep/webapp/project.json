@@ -50,6 +50,26 @@
         "jestConfig": "apps/cf-prep/webapp/jest.config.ts"
       }
     },
+    "codegen/frontend-client": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "grapqhl-codegen --config apps/cf-prep/webapp/codegen.yml"
+      },
+      "dependsOn": [
+        {
+          "projects": ["cf-prep-gql"],
+          "target": "codegen/backend-schema"
+        }
+      ],
+      "inputs": [
+        "default",
+        "{workspaceRoot}/apps/cf-prep/gql/src/api.graphql"
+      ],
+      "outputs": [
+        "{projectRoot}/graphql/schema.tsx",
+        "{projectRoot}/graphql/possibleTypes.json"
+      ]
+    },
     "lint": {
       "executor": "@nx/eslint:lint"
     }

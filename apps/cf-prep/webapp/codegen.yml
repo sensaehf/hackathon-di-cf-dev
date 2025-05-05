@@ -1,0 +1,26 @@
+generates:
+  ./apps/cf-prep/webapp/graphql/schema.tsx:
+    schema:
+      - ./apps/cf-prep/gql/src/api.graphql
+    documents:
+      - ./apps/cf-prep/webapp/**/*.(ts|tsx)
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      withHooks: true
+      withHOC: false
+      withComponent: false
+      avoidOptionals:
+        object: true
+  ./apps/air-discount-scheme/web/graphql/possibleTypes.json:
+    schema:
+      - ./apps/cf-prep/gql/src/api.graphql
+    plugins:
+      - fragment-matcher
+    config:
+      apolloClientVersion: 3
+hooks:
+  afterAllFileWrite:
+    - prettier --write
