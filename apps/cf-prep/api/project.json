@@ -61,6 +61,14 @@
         "command": "../../../node_modules/.bin/sequelize-cli migration:generate --name $(whoami)",
         "cwd": "apps/cf-prep/api"
       }
-    }
+    },
+    "codegen/backend-schema": {  
+      "executor": "nx:run-commands",  
+      "options": {  
+        "command": "yarn ts-node -P apps/cf-prep/api/tsconfig.app.json apps/cf-prep/api/src/buildOpenApi.ts"  
+      },  
+      "outputs": ["{projectRoot}/src/openapi.yaml"]  
+    }      
   }
+
 }
