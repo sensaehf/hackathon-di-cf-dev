@@ -1,0 +1,30 @@
+{
+    "tableOfContentsTitle": "Efnisyfirlit",
+    "headings": {
+        "0": "Skattframtal",
+        "1": "Skattaafsláttarkort",
+        "2": "Skattareiknivél"
+    },
+    "breadcrumbs": {
+        "islandIs": "Island.is",
+        "financesAndTaxes": "Fjármál & Skattar",
+        "fileYourTaxReturn": "Skila inn skattframtali"
+    },
+    "pageTitle": "Skila inn skattframtali",
+    "introText": "Á hverju ári þarf hver sem býr á Íslandi að skila inn skattframtali. Það gefur yfirlit yfir tekjur, eignir og skuldir á síðasta ári.",
+    "filingInfo": "Að skila inn skattframtali er einfalt og öruggt í gegnum Ísland.is. Flestar upplýsingar eru þegar fylltar inn fyrir þig. Þú getur yfirfarið, breytt og sent inn þegar þú ert tilbúin/n.",
+    "checkTaxesTitle": "Yfirfara skatta",
+    "checkTaxesInfo": "Til að tryggja að þú hafir ekki greitt of mikið eða of lítið í skatt þarftu að ganga úr skugga um að upplýsingarnar í skattframtalinu séu réttar.",
+    "heading": "Hvað þú getur gert",
+    "bulletList": {
+        "logIn": "Skráðu þig inn og fáðu aðgang að skattframtalinu þínu",
+        "review": "Yfirfara og uppfæra upplýsingarnar þínar",
+        "saveDraft": "Vista drög og halda áfram síðar",
+        "submit": "Skila þegar þú ert tilbúin/n",
+        "viewPrevious": "Skoða fyrri skattframtöl (kemur fljótlega)"
+    },
+    "actionCard": {
+        "heading": "Athugaðu skatta þína",
+        "ctaLabel": "Athugaðu skatta þína"
+    }
+}
