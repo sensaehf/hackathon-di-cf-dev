@@ -1,0 +1,1 @@
+export const NationalIdHeader : string = 'X-Query-National-Id'
