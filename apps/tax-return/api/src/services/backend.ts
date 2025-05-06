@@ -34,7 +34,6 @@ class BackendAPI extends RESTDataSource {
       },
     })
   
-    // Extract the submissions array from the response
     return response.submissions
   }
 
