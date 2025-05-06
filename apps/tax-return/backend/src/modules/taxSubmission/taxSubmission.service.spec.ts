@@ -6,7 +6,7 @@ import { LOGGER_PROVIDER } from '@island.is/logging';
 
 describe('TaxSubmissionService', () => {
   let service: TaxSubmissionService;
-  let taxSubmissionMock: typeof TaxSubmission;
+  let taxSubmissionMock:{ findAll: jest.Mock; create: jest.Mock };  
   let loggerMock: { debug: jest.Mock };
 
   const mockSubmissions: TaxSubmission[] = [
@@ -29,7 +29,7 @@ describe('TaxSubmissionService', () => {
     taxSubmissionMock = {
       findAll: jest.fn(),
       create: jest.fn(),
-    } as any;
+    };
 
     loggerMock = {
       debug: jest.fn(),
@@ -40,13 +40,7 @@ describe('TaxSubmissionService', () => {
       providers: [
         {
                 provide: getModelToken(TaxSubmission),
-                useValue: {
-                  create: jest.fn(),
-                  findOne: jest.fn(),
-                  findAll: jest.fn(),
-                  update: jest.fn(),
-                  count: jest.fn(),
-                },
+                useValue: taxSubmissionMock
         },
         TaxSubmissionService,
         {
