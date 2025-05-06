@@ -14,8 +14,8 @@ export class MortgageInterest {
   @Field()
   type?: string;
 
-  @Field()
-  description?: string;
+  // @Field()
+  // description?: string;
 
   @Field()
   startDate?: string;

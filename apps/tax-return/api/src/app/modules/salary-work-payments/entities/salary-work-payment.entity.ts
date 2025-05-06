@@ -22,7 +22,4 @@ export class SalaryWorkPayments {
 
   @Field()
   year?: number;
-
-  @Field()
-  modified?: string;
 }
