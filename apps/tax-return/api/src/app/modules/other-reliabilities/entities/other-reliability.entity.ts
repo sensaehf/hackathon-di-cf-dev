@@ -1,7 +1,25 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql'
+import { ObjectType, Field, ID } from '@nestjs/graphql';
 
 @ObjectType()
-export class OtherReliability {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number
+export class OtherReliabilities {
+  @Field(() => ID)
+  id!: number;
+
+  @Field()
+  taxSubmissionId?: number;
+
+  @Field()
+  description?: string;
+
+  @Field()
+  interestAmount?: number;
+
+  @Field()
+  balance?: number;
+
+  @Field()
+  year?: number;
+
+  @Field()
+  currency?: string;
 }

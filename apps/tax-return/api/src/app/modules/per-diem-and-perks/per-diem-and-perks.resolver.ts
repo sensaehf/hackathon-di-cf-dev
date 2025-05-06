@@ -1,42 +1,13 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql'
-import { PerDiemAndPerk } from './entities/per-diem-and-perk.entity'
-import { CreatePerDiemAndPerkInput } from './dto/create-per-diem-and-perk.input'
-import { UpdatePerDiemAndPerkInput } from './dto/update-per-diem-and-perk.input'
+import { Resolver, Query, Args, Int, Context } from '@nestjs/graphql';
+import { PerDiemAndPerks } from './entities/per-diem-and-perk.entity';
 
-@Resolver(() => PerDiemAndPerk)
+@Resolver(() => PerDiemAndPerks)
 export class PerDiemAndPerksResolver {
-
-  @Mutation(() => PerDiemAndPerk)
-  createPerDiemAndPerk(
-    @Args('createPerDiemAndPerkInput')
-    createPerDiemAndPerkInput: CreatePerDiemAndPerkInput,
-  ) {
-    return this.perDiemAndPerksService.create(createPerDiemAndPerkInput)
-  }
-
-  @Query(() => [PerDiemAndPerk], { name: 'perDiemAndPerks' })
-  findAll() {
-    return this.perDiemAndPerksService.findAll()
-  }
-
-  @Query(() => PerDiemAndPerk, { name: 'perDiemAndPerk' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.perDiemAndPerksService.findOne(id)
-  }
-
-  @Mutation(() => PerDiemAndPerk)
-  updatePerDiemAndPerk(
-    @Args('updatePerDiemAndPerkInput')
-    updatePerDiemAndPerkInput: UpdatePerDiemAndPerkInput,
-  ) {
-    return this.perDiemAndPerksService.update(
-      updatePerDiemAndPerkInput.id,
-      updatePerDiemAndPerkInput,
-    )
-  }
-
-  @Mutation(() => PerDiemAndPerk)
-  removePerDiemAndPerk(@Args('id', { type: () => Int }) id: number) {
-    return this.perDiemAndPerksService.remove(id)
+  @Query(() => [PerDiemAndPerks], { name: 'findAllPerDiemAndPerksByTaxSubmission' })
+  async findAllPerDiemAndPerksByTaxSubmission(
+    @Context('dataSources') { backendApi },
+    @Args('taxSubmissionId', { type: () => Int }) taxSubmissionId: number,
+  ): Promise<PerDiemAndPerks[]> {
+    return await backendApi.getAllPerDiemAndPerksByTaxSubmission(taxSubmissionId);
   }
 }

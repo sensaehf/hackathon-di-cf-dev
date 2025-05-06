@@ -1,5 +1,5 @@
-import { Module } from '@nestjs/common'
-import { MortgageInterestResolver } from './mortgage-interest.resolver'
+import { Module } from '@nestjs/common';
+import { MortgageInterestResolver } from './mortgage-interest.resolver';
 
 @Module({
   providers: [MortgageInterestResolver],

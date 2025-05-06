@@ -3,8 +3,13 @@ import { RESTDataSource, RequestOptions } from 'apollo-datasource-rest'
 
 import { environment } from '../environments'
 import { TaxSubmission } from '../app/modules/tax-submission/entities/tax-submission.entity'
-import { logger } from '@island.is/logging'
-import { rm } from 'fs'
+import { MortgageInterest } from '../app/modules/mortgage-interest/entities/mortgage-interest.entity';
+import { RealEstate } from '../app/modules/real-estate/entities/real-estate.entity';
+import { Vehicle } from '../app/modules/vehicle/entities/vehicle.entity';
+import { OtherReliabilities } from '../app/modules/other-reliabilities/entities/other-reliability.entity';
+import { PensionsGrantsSubsidies } from '../app/modules/pensions-grants-subsidies/entities/pensions-grants-subsidy.entity';
+import { PerDiemAndPerks } from '../app/modules/per-diem-and-perks/entities/per-diem-and-perk.entity';
+import { SalaryWorkPayments } from '../app/modules/salary-work-payments/entities/salary-work-payment.entity';
 
 @Injectable()
 class BackendAPI extends RESTDataSource {
@@ -28,13 +33,41 @@ class BackendAPI extends RESTDataSource {
   }
 
   async getAllTaxSubmissionsForUser(personId: number): Promise<TaxSubmission[]> {
-    const response = await this.get<{ submissions: TaxSubmission[] }>('taxSubmissions', undefined, {
+    const response = await this.get<{ submissions: TaxSubmission[] }>('tax-submissions', undefined, {
       headers: {
         'X-Query-National-Id': personId.toString(),
       },
     })
   
     return response.submissions
+  }
+
+  async getAllMortgageInterestsByTaxSubmission(taxSubmissionId: number): Promise<MortgageInterest[]> {
+    return this.get<MortgageInterest[]>(`tax-submissions/${taxSubmissionId}/mortgage-interests`);
+  }
+
+  async getAllOtherReliabilitiesByTaxSubmission(taxSubmissionId: number): Promise<OtherReliabilities[]> {
+    return this.get<OtherReliabilities[]>(`tax-submissions/${taxSubmissionId}/other-reliabilities`);
+  }
+
+  async getAllPensionsGrantsSubsidiesByTaxSubmission(taxSubmissionId: number): Promise<PensionsGrantsSubsidies[]> {
+    return this.get<PensionsGrantsSubsidies[]>(`tax-submissions/${taxSubmissionId}/subsidies`);
+  }
+
+  async getAllPerDiemAndPerksByTaxSubmission(taxSubmissionId: number): Promise<PerDiemAndPerks[]> {
+    return this.get<PerDiemAndPerks[]>(`tax-submissions/${taxSubmissionId}/perks`);
+  }
+
+  async getAllRealEstatesByTaxSubmission(taxSubmissionId: number): Promise<RealEstate[]> {
+    return this.get<RealEstate[]>(`tax-submissions/${taxSubmissionId}/real-estates`);
+  }
+
+  async getAllSalaryWorkPaymentsByTaxSubmission(taxSubmissionId: number): Promise<SalaryWorkPayments[]> {
+    return this.get<SalaryWorkPayments[]>(`tax-submissions/${taxSubmissionId}/salaries`);
+  }
+
+  async getAllVehiclesByTaxSubmission(taxSubmissionId: number): Promise<Vehicle[]> {
+    return this.get<Vehicle[]>(`tax-submissions/${taxSubmissionId}/vehicles`);
   }
 
   getTaxSubmissionById(id: number): Promise<TaxSubmission> {

@@ -1,42 +1,13 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql'
-import { OtherReliability } from './entities/other-reliability.entity'
-import { CreateOtherReliabilityInput } from './dto/create-other-reliability.input'
-import { UpdateOtherReliabilityInput } from './dto/update-other-reliability.input'
+import { Resolver, Query, Args, Int, Context } from '@nestjs/graphql';
+import { OtherReliabilities } from './entities/other-reliability.entity';
 
-@Resolver(() => OtherReliability)
+@Resolver(() => OtherReliabilities)
 export class OtherReliabilitiesResolver {
-
-  @Mutation(() => OtherReliability)
-  createOtherReliability(
-    @Args('createOtherReliabilityInput')
-    createOtherReliabilityInput: CreateOtherReliabilityInput,
-  ) {
-    return this.otherReliabilitiesService.create(createOtherReliabilityInput)
-  }
-
-  @Query(() => [OtherReliability], { name: 'otherReliabilities' })
-  findAll() {
-    return this.otherReliabilitiesService.findAll()
-  }
-
-  @Query(() => OtherReliability, { name: 'otherReliability' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.otherReliabilitiesService.findOne(id)
-  }
-
-  @Mutation(() => OtherReliability)
-  updateOtherReliability(
-    @Args('updateOtherReliabilityInput')
-    updateOtherReliabilityInput: UpdateOtherReliabilityInput,
-  ) {
-    return this.otherReliabilitiesService.update(
-      updateOtherReliabilityInput.id,
-      updateOtherReliabilityInput,
-    )
-  }
-
-  @Mutation(() => OtherReliability)
-  removeOtherReliability(@Args('id', { type: () => Int }) id: number) {
-    return this.otherReliabilitiesService.remove(id)
+  @Query(() => [OtherReliabilities], { name: 'findAllOtherReliabilitiesByTaxSubmission' })
+  async findAllOtherReliabilitiesByTaxSubmission(
+    @Context('dataSources') { backendApi },
+    @Args('taxSubmissionId', { type: () => Int }) taxSubmissionId: number,
+  ): Promise<OtherReliabilities[]> {
+    return await backendApi.getAllOtherReliabilitiesByTaxSubmission(taxSubmissionId);
   }
 }
