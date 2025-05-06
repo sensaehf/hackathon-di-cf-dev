@@ -4,7 +4,7 @@ module.exports = {
     username: process.env.DB_USER_APPLICATION_SYSTEM_API || 'dev_db',
     password: process.env.DB_PASS_APPLICATION_SYSTEM_API || 'dev_db',
     database: process.env.DB_NAME_APPLICATION_SYSTEM_API || 'dev_db',
-    host: 'host.docker.internal',
+    host: 'localhost',
     dialect: 'postgres',
   },
   test: {

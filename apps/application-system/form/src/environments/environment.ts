@@ -6,11 +6,6 @@ const devConfig = {
   DD_LOGS_CLIENT_TOKEN: 'unknown',
   APP_VERSION: 'unknown',
   ENVIRONMENT: 'unknown',
-  identityServerAuth: {
-    issuer: 'https://identity-server.dev01.devland.is',
-    audience: '@island.is',
-  },
-  idsTokenCookieName: 'next-auth.session-token',
 }
 
 const prodConfig = {
