@@ -24,10 +24,10 @@ export class MortgageService {
     return `This action returns all mortgage`
   }
 
-  async findAllBySubmissionId(submissionId: string): Promise<Mortgage[] | null> {
+  async findAllBySubmissionId(submissionId: number): Promise<Mortgage[] | null> {
       this.logger.debug(`Finding mortgages for submissionId - "${submissionId}"`)
       return this.mortgage.findAll({
-        where: { id: submissionId },
+        where: { taxSubmissionId: submissionId },
       })
     }
 

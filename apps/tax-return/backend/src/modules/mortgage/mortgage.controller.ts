@@ -13,8 +13,10 @@ import { UpdateMortgageDto } from './dto/update-mortgage.dto'
 import { Mortgage } from './mortgage.model'
 import { MortgageResponse } from './dto/mortgageResponse'
 import { MortgageViewModel } from './dto/mortgage.dto'
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger'
 
-@Controller('mortgage')
+@ApiTags('mortgage')
+@Controller('v1/taxSubmissions/:taxSubmissionId/mortgages')
 export class MortgageController {
   constructor(private readonly mortgageService: MortgageService) {}
 
@@ -23,10 +25,11 @@ export class MortgageController {
     return this.mortgageService.create(createMortgageDto)
   }
 
+  @ApiOkResponse({type: MortgageResponse})
   @Get()
-  async findAll() {
+  async findAll(@Param('taxSubmissionId') taxSubmissionId: number) {
     let mortgages : Mortgage[] | null = [];
-    await this.mortgageService.findAllBySubmissionId('56783900123')
+    await this.mortgageService.findAllBySubmissionId(taxSubmissionId)
     .then((e) =>
     {
       mortgages = e

@@ -13,7 +13,7 @@ import { TaxSubmission } from '../taxSubmission/taxSubmission.model'
 
 interface MortgageAttributes {
   id: string
-  nationalId: string
+  taxSubmissionId: string
   created: Date
   modified: Date
 }

@@ -4,6 +4,7 @@ import { Mortgage } from "../mortgage.model";
 export class MortgageViewModel {
     constructor(mortgage: Mortgage){
         this.id = mortgage.id
+        this.taxSubmissionId = mortgage.taxSubmissionId
         this.lenderName = mortgage.lenderName
         this.type = mortgage.type
         this.startDate = mortgage.startDate
@@ -19,6 +20,8 @@ export class MortgageViewModel {
 
     @ApiProperty()
     id!: string
+    @ApiProperty()
+    taxSubmissionId!: number
     @ApiProperty()
     lenderName!: string
     @ApiProperty()
