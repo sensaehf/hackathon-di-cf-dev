@@ -3,6 +3,8 @@ import { RESTDataSource, RequestOptions } from 'apollo-datasource-rest'
 
 import { environment } from '../environments'
 import { TaxSubmission } from '../app/modules/tax-submission/entities/tax-submission.entity'
+import { logger } from '@island.is/logging'
+import { rm } from 'fs'
 
 @Injectable()
 class BackendAPI extends RESTDataSource {
@@ -11,7 +13,7 @@ class BackendAPI extends RESTDataSource {
     req.headers.set('cookie', this.context.req.headers.cookie)
   }
 
-  baseURL = `${environment.backendUrl}/api`
+  baseURL = `${environment.backendUrl}/v1`
 
   createTaxSubmission(body: Record<string, unknown>): Promise<TaxSubmission> {
     // Temp Mock data
@@ -25,24 +27,30 @@ class BackendAPI extends RESTDataSource {
     // return this.post('tax-submissions', body)
   }
 
-  getAllTaxSubmissions(): Promise<TaxSubmission[]> {
+  async getAllTaxSubmissionsForUser(personId: number): Promise<TaxSubmission[]> {
     // Temp Mock data
-    return Promise.resolve([
-        {
-          id: 1,
-          personId: 123,
-          taxYear: 2025,
-          createdAt: new Date(),
-        },
-        {
-          id: 2,
-          personId: 456,
-          taxYear: 2024,
-          createdAt: new Date(),
-        },
-      ] as unknown as TaxSubmission[])
+    // return Promise.resolve([
+    //   {
+    //     id: 1,
+    //     personId: 123,
+    //     taxYear: 2025,
+    //     createdAt: new Date(),
+    //   },
+    //   {
+    //     id: 2,
+    //     personId: 456,
+    //     taxYear: 2024,
+    //     createdAt: new Date(),
+    //   },
+    // ] as unknown as TaxSubmission[])
 
-    // return this.get('tax-submissions')
+    const r = await this.get<Promise<TaxSubmission[]>>('taxSubmissions', undefined, {
+      headers: {
+        'X-Query-National-Id': personId.toString(),
+      },
+    })
+  
+    return r
   }
 
   getTaxSubmissionById(id: number): Promise<TaxSubmission> {

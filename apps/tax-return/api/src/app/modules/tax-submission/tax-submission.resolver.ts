@@ -14,11 +14,12 @@ export class TaxSubmissionResolver {
     return await backendApi.createTaxSubmission(input)
   }
 
-  @Query(() => [TaxSubmission], { name: 'findAllTaxSubmissions' })
-  async findAllTaxSubmissions(
+  @Query(() => [TaxSubmission], { name: 'findAllTaxSubmissionsForUser' })
+  async findAllTaxSubmissionsForUser(
     @Context('dataSources') { backendApi },
+    @Args('personId', { type: () => Int }) personId: number,
   ): Promise<TaxSubmission[]> {
-    return await backendApi.getAllTaxSubmissions()
+    return await backendApi.getAllTaxSubmissionsForUser(personId)
   }
 
   @Query(() => TaxSubmission, { name: 'findOneTaxSubmission' })
