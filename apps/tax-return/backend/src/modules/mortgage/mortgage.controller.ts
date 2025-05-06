@@ -15,8 +15,8 @@ import { MortgageResponse } from './dto/mortgageResponse'
 import { MortgageViewModel } from './dto/mortgage.dto'
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger'
 
-@ApiTags('mortgage')
-@Controller('v1/taxSubmissions/:taxSubmissionId/mortgages')
+@ApiTags('Mortgage')
+@Controller('v1/tax-submissions/:taxSubmissionId/mortgages')
 export class MortgageController {
   constructor(private readonly mortgageService: MortgageService) {}
 
