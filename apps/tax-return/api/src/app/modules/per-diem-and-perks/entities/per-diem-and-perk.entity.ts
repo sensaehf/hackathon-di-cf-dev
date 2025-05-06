@@ -19,10 +19,4 @@ export class PerDiemAndPerks {
 
   @Field()
   description?: string;
-
-  @Field()
-  year?: number;
-
-  @Field()
-  modified?: string;
 }
