@@ -1,19 +1,22 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql'
+import { ObjectType, Field, ID } from '@nestjs/graphql'
 
 @ObjectType()
 export class TaxSubmission {
-  @Field(() => Int, { description: 'Unique identifier for the tax submission' })
+  @Field(() => ID)
   id!: number
 
-  @Field(() => Int, { description: 'Identifier for the associated person' })
+  @Field()
   personId!: number
 
-  @Field(() => Int, { description: 'Tax year for the submission' })
+  @Field()
   taxYear?: number
 
-  @Field(() => Date, { description: 'Timestamp when the submission was created' })
-  createdAt?: Date
+  @Field()
+  createdAt?: string
 
-  @Field(() => Date, { description: 'Timestamp when the submission was created' })
-  submittedAt?: Date
+  @Field()
+  submittedAt?: string
+
+  @Field()
+  modified?: string
 }

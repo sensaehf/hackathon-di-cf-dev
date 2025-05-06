@@ -41,7 +41,7 @@ describe('TaxSubmissionResolver', () => {
         id: 1,
         personId: 1,
         taxYear: 2025,
-        createdAt: new Date(),
+        createdAt: "2025-05-06T12:58:32.731Z",
       }
       backendApi.createTaxSubmission.mockResolvedValue(result)
 
@@ -53,11 +53,11 @@ describe('TaxSubmissionResolver', () => {
   describe('findAllTaxSubmissions', () => {
     it('should return all tax submissions', async () => {
       const result: TaxSubmission[] = [
-        { id: 1, personId: 1, taxYear: 2025, createdAt: new Date() },
+        { id: 1, personId: 1, taxYear: 2025, createdAt: "2025-05-06T12:58:32.731Z" },
       ]
       backendApi.getAllTaxSubmissions.mockResolvedValue(result)
 
-      expect(await resolver.findAllTaxSubmissions({ backendApi })).toEqual(result)
+      expect(await resolver.findAllTaxSubmissionsForUser({ backendApi }, 1)).toEqual(result)
       expect(backendApi.getAllTaxSubmissions).toHaveBeenCalled()
     })
   })
@@ -69,7 +69,7 @@ describe('TaxSubmissionResolver', () => {
         id: 1,
         personId: 1,
         taxYear: 2025,
-        createdAt: new Date(),
+        createdAt: "2025-05-06T12:58:32.731Z",
       }
       backendApi.getTaxSubmissionById.mockResolvedValue(result)
 
@@ -85,7 +85,7 @@ describe('TaxSubmissionResolver', () => {
         id: 1,
         personId: 1,
         taxYear: 2026,
-        createdAt: new Date(),
+        createdAt: "2025-05-06T12:58:32.731Z",
       }
       backendApi.updateTaxSubmission.mockResolvedValue(result)
 
