@@ -1,0 +1,13 @@
+{
+    "applications": {
+      "name": "Applications",
+      "description": "Status of applications you have applied for through island.is"
+    },
+    "accessControl": {
+      "name": "Access control",
+      "description": "Access management and overview of accesses you have granted"
+    },
+    "digitalMailbox": {
+      "title": "Digital mailbox"
+    }
+  }

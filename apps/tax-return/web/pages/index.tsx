@@ -1,3 +1,3 @@
-import Landing from '../screens/Landing'
+import Landing from '../screens/Landing/Landing'
 
 export default Landing
