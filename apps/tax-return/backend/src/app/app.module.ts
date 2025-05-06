@@ -8,6 +8,7 @@ import { SalaryModule } from '../modules/salary/salary.module'
 import { PerkModule } from '../modules/perks/perk.module'
 import { SubsidyModule } from '../modules/subsidy/subsidy.module'
 import { OtherReliabilitiesModule } from '../modules/other-reliabilities/other-reliabilities.module'
+import { VehicleModule } from '../modules/vehicle/vehicle.module'
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { OtherReliabilitiesModule } from '../modules/other-reliabilities/other-r
     PerkModule,
     SalaryModule,
     SubsidyModule,
-    OtherReliabilitiesModule
+    OtherReliabilitiesModule,
+    VehicleModule
   ]  
 })
 export class AppModule {}
