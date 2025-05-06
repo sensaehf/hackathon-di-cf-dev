@@ -23,8 +23,8 @@ export class RealEstateService {
     return `This action returns all RealEstate`
   }
 
-  async findAllBySubmissionId(submissionId: number): Promise<RealEstate[] | null> {
-      this.logger.debug(`Finding RealEstates for submissionId - "${submissionId}"`)
+  async findAllByTaxSubmissionId(submissionId: number): Promise<RealEstate[] | null> {
+      this.logger.debug(`Finding real estates for taxSubmissionId - "${submissionId}"`)
       return this.realEstate.findAll({
         where: { taxSubmissionId: submissionId },
       })

@@ -1,7 +1,7 @@
 import { RealEstateViewModel } from "./realEstate.dto";
 export class RealEstateResponse {
-    constructor(realEstate: RealEstateViewModel[]){
-        this.realEstate = realEstate
+    constructor(realEstates: RealEstateViewModel[]){
+        this.realEstates = realEstates
     }
-    realEstate: RealEstateViewModel []
+    realEstates: RealEstateViewModel []
 }

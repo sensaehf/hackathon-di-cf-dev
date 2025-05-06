@@ -14,6 +14,9 @@ import { TaxSubmission } from '../taxSubmission/taxSubmission.model'
 interface RealEstateAttributes {
   id: string
   taxSubmissionId: string
+  address: string
+  assessedValue: number
+  currency: string
   created: Date
   modified: Date
 }

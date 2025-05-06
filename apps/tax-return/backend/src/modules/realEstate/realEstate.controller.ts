@@ -25,9 +25,9 @@ export class RealEstateController {
 
   @ApiOkResponse({type: RealEstateResponse})
   @Get()
-  async findAll(@Param('taxSubmissionId') taxSubmissionId: number) {
+  async getByTaxSubmissionId(@Param('taxSubmissionId') taxSubmissionId: number) {
     let realEstates : RealEstate[] | null = [];
-    await this.realEstateService.findAllBySubmissionId(taxSubmissionId)
+    await this.realEstateService.findAllByTaxSubmissionId(taxSubmissionId)
     .then((e) =>
     {
       realEstates = e
