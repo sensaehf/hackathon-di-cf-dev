@@ -8,7 +8,12 @@ describe('MortgageController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [MortgageController],
-      providers: [MortgageService],
+      providers: [{
+        provide: MortgageService,
+        useValue: {
+          findAllBySubmissionId: jest.fn()
+        }
+      }],
     }).compile()
 
     controller = module.get<MortgageController>(MortgageController)

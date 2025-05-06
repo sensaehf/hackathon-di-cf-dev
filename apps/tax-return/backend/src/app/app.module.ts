@@ -5,6 +5,7 @@ import { MortgageModule } from '../modules/mortgage/mortgage.module'
 import { SequelizeModule } from '@nestjs/sequelize'
 import { SequelizeConfigService } from './sequelizeConfig.service'
 import { SalaryModule } from '../modules/salary/salary.module'
+import { PerkModule } from '../modules/perks/perk.module'
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { SalaryModule } from '../modules/salary/salary.module'
     }),
     TaxSubmissionModule,
     MortgageModule,
-    SalaryModule
+    SalaryModule,
+    PerkModule
   ]  
 })
 export class AppModule {}

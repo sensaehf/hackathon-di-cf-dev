@@ -7,8 +7,8 @@ import { NationalIdHeader } from '../../app/constants'
 import { TaxSubmission } from './taxSubmission.model'
 import { TaxSubmissionResponse } from './dto/taxSubmissionResponse'
 
-@ApiTags('taxSubmissions')
-@Controller('v1/taxSubmissions')
+@ApiTags('Tax Submissions')
+@Controller('v1/tax-submissions')
 export class TaxSubmissionController {
   constructor(private readonly taxSubmissionService: TaxSubmissionService) {}
 
