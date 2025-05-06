@@ -1,1 +1,1 @@
-export const NationalIdHeader : string = 'X-Query-National-Id'
+export const NationalIdHeader = 'X-Query-National-Id'
