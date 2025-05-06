@@ -7,6 +7,7 @@ import { SequelizeConfigService } from './sequelizeConfig.service'
 import { SalaryModule } from '../modules/salary/salary.module'
 import { PerkModule } from '../modules/perks/perk.module'
 import { SubsidyModule } from '../modules/subsidy/subsidy.module'
+import { RealEstateModule } from '../modules/realEstate/realEstate.module'
 
 @Module({
   imports: [
@@ -17,7 +18,9 @@ import { SubsidyModule } from '../modules/subsidy/subsidy.module'
     MortgageModule,
     PerkModule,
     SalaryModule,
-    SubsidyModule
+    SubsidyModule,
+    PerkModule,
+    RealEstateModule
   ]  
 })
 export class AppModule {}
