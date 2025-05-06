@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 
 import { TaxSubmissionModule } from '../modules'
+import { MortgageModule } from '../modules/mortgage/mortgage.module'
 import { SequelizeModule } from '@nestjs/sequelize'
 import { SequelizeConfigService } from './sequelizeConfig.service'
 
@@ -9,7 +10,8 @@ import { SequelizeConfigService } from './sequelizeConfig.service'
     SequelizeModule.forRootAsync({
       useClass: SequelizeConfigService,
     }),
-    TaxSubmissionModule
+    TaxSubmissionModule,
+    MortgageModule
   ]  
 })
 export class AppModule {}
