@@ -14,7 +14,7 @@ import { RealEstateViewModel } from './dto/realEstate.dto'
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger'
 
 @ApiTags('Real Estate')
-@Controller('v1/tax-submissions/:taxSubmissionId/real-estate')
+@Controller('v1/tax-submissions/:taxSubmissionId/real-estates')
 export class RealEstateController {
   constructor(private readonly realEstateService: RealEstateService) {}
 
