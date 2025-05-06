@@ -1,0 +1,13 @@
+{
+    "applications": {
+      "name": "Umsóknir",
+      "description": "Staða umsókna sem þú hefur sótt um í gegnum island.is"
+    },
+    "accessControl": {
+      "name": "Aðgangsstýring",
+      "description": "Aðgangsstýring og yfirlit yfir aðganga sem þú hefur veitt"
+    },
+    "digitalMailbox": {
+      "title": "Stafræn pósthólf"
+    }
+}

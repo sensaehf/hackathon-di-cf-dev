@@ -23,14 +23,13 @@ import {
   Hidden,
 } from '@island.is/island-ui/core'
 
-import en from '../public/locales/en/landing.json'
-import is from '../public/locales/is/landing.json'
-import { theme } from '@island.is/island-ui/theme'
+import en from '../../public/locales/en/landing.json'
+import is from '../../public/locales/is/landing.json'
 
 const translations: any = { en, is }
 
 const Landing = () => {
-  const { locale = 'en' } = useRouter()
+  const { locale = 'en', push } = useRouter()
 
   const t = translations[locale] || translations.en
 
@@ -124,6 +123,9 @@ const Landing = () => {
                 variant: 'primary',
                 icon: 'open',
                 iconType: 'outline',
+                onClick: () => {
+                  push('dashboard')
+                },
               }}
               heading={t.actionCard['heading']}
               headingVariant="h3"
