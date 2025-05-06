@@ -59,17 +59,17 @@ export class BackendAPI extends RESTDataSource {
   }
   
   async getAllPensionsGrantsSubsidiesByTaxSubmission(taxSubmissionId: number): Promise<PensionsGrantsSubsidies[]> {
-    const response = await this.get<{ pensionsGrantsSubsidies: PensionsGrantsSubsidies[] }>(
+    const response = await this.get<{ subsidies: PensionsGrantsSubsidies[] }>(
       `tax-submissions/${taxSubmissionId}/subsidies`
     );
-    return response.pensionsGrantsSubsidies;
+    return response.subsidies;
   }
   
   async getAllPerDiemAndPerksByTaxSubmission(taxSubmissionId: number): Promise<PerDiemAndPerks[]> {
-    const response = await this.get<{ perDiemAndPerks: PerDiemAndPerks[] }>(
+    const response = await this.get<{ perks: PerDiemAndPerks[] }>(
       `tax-submissions/${taxSubmissionId}/perks`
     );
-    return response.perDiemAndPerks;
+    return response.perks;
   }
   
   async getAllRealEstatesByTaxSubmission(taxSubmissionId: number): Promise<RealEstate[]> {
