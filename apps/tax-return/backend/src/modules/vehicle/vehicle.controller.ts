@@ -15,15 +15,14 @@ export class VehicleController {
   @ApiOkResponse({type: VehicleResponse})
   @Get()
   async getByTaxSubmissionId(@Param('taxSubmissionId')taxSubmissionId: number) {
-    let subsidies : Vehicle[] | null = [];
+    let vehicles : Vehicle[] | null = [];
     await this.vehicleService.findByTaxSubmissionId(taxSubmissionId)
     .then((e) =>
     {
-      subsidies = e
+      vehicles = e
     })
     
-    return new VehicleResponse(subsidies?.map(o => new VehicleViewModel(o)) ?? []);
-    
+    return new VehicleResponse(vehicles?.map(o => new VehicleViewModel(o)) ?? []);
     
   }
 }
