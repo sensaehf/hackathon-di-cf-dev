@@ -124,7 +124,7 @@ const Landing = () => {
                 icon: 'open',
                 iconType: 'outline',
                 onClick: () => {
-                  push('dashboard')
+                  push('login')
                 },
               }}
               heading={t.actionCard['heading']}
