@@ -56,9 +56,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
           </GridContainer>
         </header>
         <Component {...pageProps} />
-        <footer>
-          <Footer />
-        </footer>
+        <Footer />
       </>
     </>
   )
