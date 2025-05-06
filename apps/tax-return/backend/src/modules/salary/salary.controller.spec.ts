@@ -29,7 +29,7 @@ describe('SalaryController', () => {
     expect(controller).toBeDefined();
   });
 
-  it('should return submissions mapped to view models', async () => {
+  it('should return salaries mapped to view models', async () => {
     // Mock data
     const taxSubmissionId = 12345;
     const mockSalarys: Salary[] = [
