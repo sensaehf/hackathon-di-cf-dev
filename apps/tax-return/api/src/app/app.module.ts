@@ -1,11 +1,30 @@
 import { Module } from '@nestjs/common'
 
-import { AppController } from './app.controller'
-import { AppService } from './app.service'
+import { ApolloDriver } from '@nestjs/apollo'
+import { GraphQLModule } from '@nestjs/graphql'
+import { BackendAPI } from '../services'
+import { environment } from '../environments'
+import { TaxSubmissionModule } from './modules/tax-submission/tax-submission.module'
+
+const debug = process.env.NODE_ENV === 'development'
+const playground = debug || process.env.GQL_PLAYGROUND_ENABLED === 'true'
+
+const autoSchemaFile = environment.production
+  ? true
+  : 'apps/tax-return/api/src/api.graphql'
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    GraphQLModule.forRoot({
+      debug,
+      playground,
+      autoSchemaFile,
+      path: '/api/graphql',
+      context: ({ req }) => ({ req }),
+      dataSources: () => ({ backendApi: new BackendAPI() }),
+      driver: ApolloDriver,
+    }),
+    TaxSubmissionModule
+  ]
 })
 export class AppModule {}
