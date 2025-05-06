@@ -1,0 +1,31 @@
+{
+    "tableOfContentsTitle": "Table of contents",
+    "headings": {
+    "0": "Tax return",
+    "1": "Tax deduction cards",
+    "2": "Tax calculator"
+    },
+    "breadcrumbs": {
+    "islandIs": "Island.is",
+    "financesAndTaxes": "Finances & Taxes",
+    "fileYourTaxReturn": "File your tax return"
+    },
+    "pageTitle": "File your tax return",
+    "introText": "Each year, everyone who lives in Iceland must submit a tax return. It gives an overview of your income, assets and liabilities during the previous year.",
+    "filingInfo": "Filing your tax return is simple and secure through Ísland.is. Most of the information is already filled in for you. You can review, edit and submit when you're ready.",
+    "checkTaxesTitle": "Check your taxes",
+    "checkTaxesInfo": "To make sure you’ve not paid too much or too little tax, you must check that the information in your tax return is correct.",
+    "heading": "What you can do",
+    "bulletList": {
+      "logIn": "Log in and access your tax return",
+      "review": "Review and update your information",
+      "saveDraft": "Save a draft and continue later",
+      "submit": "Submit when you're ready",
+      "viewPrevious": "View previous tax returns (coming soon)"
+    },
+    "actionCard": {
+      "heading": "Check your tax",
+      "ctaLabel": "Check your tax"
+    }
+}
+
