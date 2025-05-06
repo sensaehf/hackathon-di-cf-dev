@@ -6,8 +6,8 @@ import { PerkViewModel } from './dto/perkViewModel.dto'
 import { Perk } from './perk.model'
 import { PerkResponse } from './dto/perkResponse'
 
-@ApiTags('perks')
-@Controller('v1/taxSubmissions/:taxSubmissionId/perks')
+@ApiTags('Perks and per diems')
+@Controller('v1/tax-submissions/:taxSubmissionId/perks')
 export class PerkController {
   constructor(private readonly perksService: PerkService) {}
 

@@ -1,38 +1,38 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PerkController } from './perk.controller';
-import { PerksService } from './perk.service';
-import { PerksViewModel } from './dto/perkViewModel.dto';
+import { PerkService } from './perk.service';
+import { PerkViewModel } from './dto/perkViewModel.dto';
 import { Perk } from './perk.model';
 
 describe('PerksController', () => {
   let controller: PerkController;
-  let service: PerksService;
+  let service: PerkService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [PerkController],
       providers: [
         {
-          provide: PerksService,
+          provide: PerkService,
           useValue: {
-            findByPersonId: jest.fn(), // Mock the PerksService method
+            findByTaxSubmissionId: jest.fn(), // Mock the PerksService method
           },
         },
       ],
     }).compile();
 
     controller = module.get<PerkController>(PerkController);
-    service = module.get<PerksService>(PerksService);
+    service = module.get<PerkService>(PerkService);
   });
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
 
-  it('should return submissions mapped to view models', async () => {
+  it('should return perks mapped to view models', async () => {
     // Mock data
     const personId = 12345;
-    const mockPerkss: Perk[] = [
+    const mockPerks: Perk[] = [
       {
         id: 1,
       } as Perk,
@@ -42,16 +42,16 @@ describe('PerksController', () => {
     ];
 
     // Mock the service behavior
-    jest.spyOn(service, 'findByPersonId').mockResolvedValue(mockPerkss);
+    jest.spyOn(service, 'findByTaxSubmissionId').mockResolvedValue(mockPerks);
 
     // Call the controller method
     const result = await controller.getById(personId);
 
     // Assert that the result matches expectations
     expect(result).toEqual({
-     "submissions": mockPerkss.map((submission) => new PerksViewModel(submission)),
+     "perks": mockPerks.map((perk) => new PerkViewModel(perk)),
     });
-    expect(service.findByPersonId).toHaveBeenCalledWith(personId); // Ensure the service method is called correctly
+    expect(service.findByTaxSubmissionId).toHaveBeenCalledWith(personId); // Ensure the service method is called correctly
   });
 
   it('should handle an empty result gracefully', async () => {
@@ -59,13 +59,13 @@ describe('PerksController', () => {
     const personId = 54321;
 
     // Mock the service to return null
-    jest.spyOn(service, 'findByPersonId').mockResolvedValue(null);
+    jest.spyOn(service, 'findByTaxSubmissionId').mockResolvedValue(null);
 
     // Call the controller method
     const result = await controller.getById(personId);
 
     // Assert the empty mapping
-    expect(result).toEqual( { submissions: []}); // Should return an empty array
-    expect(service.findByPersonId).toHaveBeenCalledWith(personId);
+    expect(result).toEqual( { perks: []}); // Should return an empty array
+    expect(service.findByTaxSubmissionId).toHaveBeenCalledWith(personId);
   });
 });

@@ -6,15 +6,26 @@ import { LOGGER_PROVIDER } from '@island.is/logging';
 
 describe('PerkService', () => {
   let service: PerkService;
-  let perksMock: typeof Perk;
+  let perksMock: { findAll: jest.Mock; create: jest.Mock };
   let loggerMock: { debug: jest.Mock };
 
   const mockSubmissions: Perk[] = [
     {
       id: 1,
+      taxSubmissionId: 123,
+      description: 'Yaya ya ya',
+      amount: 10056,
+      currency: 'ISK',
+      type: 'Baffel'
+
     } as Perk,
     {
       id: 2,
+      taxSubmissionId: 123,
+      description: 'No no no',
+      amount: 100,
+      currency: 'EUR',
+      type: 'Test of type'
     } as Perk,
   ];
 
@@ -23,7 +34,7 @@ describe('PerkService', () => {
     perksMock = {
       findAll: jest.fn(),
       create: jest.fn(),
-    } as any;
+    };
 
     loggerMock = {
       debug: jest.fn(),
@@ -34,19 +45,9 @@ describe('PerkService', () => {
       providers: [
         {
                 provide: getModelToken(Perk),
-                useValue: {
-                  create: jest.fn(),
-                  findOne: jest.fn(),
-                  findAll: jest.fn(),
-                  update: jest.fn(),
-                  count: jest.fn(),
-                },
+                useValue: perksMock
         },
-        PerkService,
-        {
-          provide: Perk,
-          useValue: perksMock, // Mock Sequelize model
-        },
+        PerkService,       
         {
           provide: LOGGER_PROVIDER,
           useValue: loggerMock, // Mock Logger
@@ -61,77 +62,46 @@ describe('PerkService', () => {
     expect(service).toBeDefined();
   });
 
-  describe('findByPersonId', () => {
-    it('should find submissions by personId and log debug message', async () => {
+  describe('findByTaxSubmissionId', () => {
+    it('should find perks by taxSubmissionId and log debug message', async () => {
       // Mock data
-      const personId = 12345;
+      const taxSubmissionId = 12345;
      
-
       // Set up mocks
       (perksMock.findAll as jest.Mock).mockResolvedValue(mockSubmissions);
 
       // Call service method
-      const result = await service.findByPersonId(personId);
+      const result = await service.findByTaxSubmissionId(taxSubmissionId);
 
       // Assertions
       expect(result).toEqual(mockSubmissions);
       expect(perksMock.findAll).toHaveBeenCalledWith({
-        where: { person_id: personId },
+        where: { taxSubmissionId: taxSubmissionId },
       });
       expect(loggerMock.debug).toHaveBeenCalledWith(
-        `Finding tax submissions for nationalId - "${personId}"`,
+        `Finding perks for taxSubmissionId - "${taxSubmissionId}"`,
       );
     });
 
-    it('should return null if no submissions are found', async () => {
+    it('should return null if no perks are found', async () => {
       // Mock data
-      const personId = 11;
+      const taxSubmissionId = 11;
 
       // Set up mocks
       (perksMock.findAll as jest.Mock).mockResolvedValue([]);
 
       // Call service method
-      const result = await service.findByPersonId(personId);
+      const result = await service.findByTaxSubmissionId(taxSubmissionId);
 
       // Assertions
       expect(result).toEqual([]);
       expect(perksMock.findAll).toHaveBeenCalledWith({
-        where: { person_id: personId },
+        where: { taxSubmissionId },
       });
       expect(loggerMock.debug).toHaveBeenCalledWith(
-        `Finding tax submissions for nationalId - "${personId}"`,
+        `Finding perks for taxSubmissionId - "${taxSubmissionId}"`,
       );
     });
   });
 
-  // describe('create', () => {
-  //   it('should create a new tax submission and log debug message', async () => {
-  //     // Mock data
-  //     const mockPerksViewModel: PerksViewModel = {
-  //       personId: 12345,
-  //       taxYear: 2022,
-  //     };
-
-  //     const mockCreatedSubmission: Perks = new Perks({
-  //       person_id: mockPerksViewModel.personId,
-  //       tax_year: mockPerksViewModel.taxYear,
-  //     });
-
-  //     // Set up mocks
-  //     (perksMock.create as jest.Mock).mockResolvedValue(mockCreatedSubmission);
-
-  //     // Call service method
-  //     const result = await service.create(mockPerksViewModel);
-
-  //     // Assertions
-  //     expect(result).toEqual(mockCreatedSubmission);
-  //     expect(perksMock.create).toHaveBeenCalledWith({
-  //       person_id: mockPerksViewModel.personId,
-  //       tax_year: mockPerksViewModel.taxYear,
-  //     });
-  //     expect(loggerMock.debug).toHaveBeenCalledWith(
-  //       `Creating tax submission with person id - ${mockPerksViewModel.personId} and tax year ${mockPerksViewModel.taxYear}`,
-  //     );
-  //   });
-  // });
 });

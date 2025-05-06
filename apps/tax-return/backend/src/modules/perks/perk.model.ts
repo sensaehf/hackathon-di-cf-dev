@@ -11,6 +11,10 @@ import { Optional } from 'sequelize/types'
 interface PerkAttributes {
   id: number
   taxSubmissionId: number
+  type: string
+  amount: number
+  currency: string
+  description: string
 }
 
 interface PerkCreationAttributes
@@ -41,8 +45,25 @@ export class Perk extends Model<
 
   @Column({
     field:'tax_submission_id'
-  })
+  })  
   taxSubmissionId!: number
 
+  @Column
+  type!: string
+
+  @Column({
+    type: DataType.DECIMAL
+  })
+  amount!: number
+
+  @Column({
+    type: DataType.CHAR(3)
+  })
+  currency!: string
+
+  @Column({
+    type: DataType.STRING(255)
+  })
+  description!: string
   
 }

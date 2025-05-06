@@ -16,7 +16,7 @@ export class PerkService
   ) {}
 
   async findByTaxSubmissionId(taxSubmissionId: number): Promise<Perk[] | null> {
-    this.logger.debug(`Finding ... for - "${taxSubmissionId}"`)
+    this.logger.debug(`Finding perks for taxSubmissionId - "${taxSubmissionId}"`)
    
     const result = await this.perk.findAll({
       where: { taxSubmissionId: taxSubmissionId },
@@ -25,13 +25,17 @@ export class PerkService
     return result || []
   }
 
-  async create(perks: PerkViewModel): Promise<Perk> {
+  async create(perk: PerkViewModel): Promise<Perk> {
     this.logger.debug(
-      `Creating perks with tax submission id - ${perks.taxSubmissionId}`,
+      `Creating perks with tax submission id - ${perk.taxSubmissionId}`,
     )
     
     return this.perk.create({
-      taxSubmissionId: perks.taxSubmissionId
+      taxSubmissionId: perk.taxSubmissionId,
+      currency: perk.currency,
+      amount: perk.amount,
+      type: perk.type,
+      description: perk.description
     })
   }
 }
