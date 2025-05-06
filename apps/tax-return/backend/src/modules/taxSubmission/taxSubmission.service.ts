@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common'
 import { InjectModel } from '@nestjs/sequelize'
 import { TaxSubmission } from './taxSubmission.model'
-import { TaxSubmissionViewModel } from './dto/taxSubmissionViewModel.dto'
 import { LOGGER_PROVIDER } from '@island.is/logging'
 import type { Logger } from '@island.is/logging'
+import { CreateTaxSubmissionDto } from './dto/create-taxSubmission.dto'
 
 @Injectable()
 export class TaxSubmissionService 
@@ -25,7 +25,7 @@ export class TaxSubmissionService
     return result || []
   }
 
-  async create(taxSubmission: TaxSubmissionViewModel): Promise<TaxSubmission> {
+  async create(taxSubmission: CreateTaxSubmissionDto): Promise<TaxSubmission> {
     this.logger.debug(
       `Creating tax submission with person id - ${taxSubmission.personId} and tax year ${taxSubmission.taxYear}`,
     )
