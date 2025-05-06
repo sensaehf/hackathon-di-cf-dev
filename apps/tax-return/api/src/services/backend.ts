@@ -28,29 +28,14 @@ class BackendAPI extends RESTDataSource {
   }
 
   async getAllTaxSubmissionsForUser(personId: number): Promise<TaxSubmission[]> {
-    // Temp Mock data
-    // return Promise.resolve([
-    //   {
-    //     id: 1,
-    //     personId: 123,
-    //     taxYear: 2025,
-    //     createdAt: new Date(),
-    //   },
-    //   {
-    //     id: 2,
-    //     personId: 456,
-    //     taxYear: 2024,
-    //     createdAt: new Date(),
-    //   },
-    // ] as unknown as TaxSubmission[])
-
-    const r = await this.get<Promise<TaxSubmission[]>>('taxSubmissions', undefined, {
+    const response = await this.get<{ submissions: TaxSubmission[] }>('taxSubmissions', undefined, {
       headers: {
         'X-Query-National-Id': personId.toString(),
       },
     })
   
-    return r
+    // Extract the submissions array from the response
+    return response.submissions
   }
 
   getTaxSubmissionById(id: number): Promise<TaxSubmission> {
