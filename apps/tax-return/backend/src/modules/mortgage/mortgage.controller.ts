@@ -36,7 +36,6 @@ export class MortgageController {
     })
 
     return new MortgageResponse(mortgages?.map(o => new MortgageViewModel(o)) ?? []);
-    return this.mortgageService.findAll()
   }
 
   @Get(':id')
