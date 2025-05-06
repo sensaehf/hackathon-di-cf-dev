@@ -49,14 +49,17 @@ function CustomApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>Island.is - Tax returns</title>
       </Head>
-      <main className="app">
-        <GridContainer>
-          <Header headerItems={headerItems()} />
-        </GridContainer>
+      <>
+        <header>
+          <GridContainer>
+            <Header headerItems={headerItems()} />
+          </GridContainer>
+        </header>
         <Component {...pageProps} />
-
-        <Footer />
-      </main>
+        <footer>
+          <Footer />
+        </footer>
+      </>
     </>
   )
 }
