@@ -7,7 +7,7 @@ import { Salary } from './salary.model'
 import { SalaryResponse } from './dto/salaryResponse'
 
 @ApiTags('Salary work payments')
-@Controller('v1/taxSubmissions/:taxSubmissionId/salaries')
+@Controller('v1/tax-submissions/:taxSubmissionId/salaries')
 export class SalaryController {
   constructor(private readonly salaryService: SalaryService) {}
 
