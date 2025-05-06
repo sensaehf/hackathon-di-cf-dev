@@ -5,6 +5,14 @@ export const openApi = new DocumentBuilder()
   .setDescription(
     'Backend for Tax Return Form - Hackathon project',
   )
+  .addGlobalParameters({
+    in: 'header',
+    required: false,
+    name: 'X-Query-National-Id',
+    schema: {
+      example: '12345-567',
+    },
+  })
   .setVersion('1.0')
   .addTag('taxreturn')
   .build()
