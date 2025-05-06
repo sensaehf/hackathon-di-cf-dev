@@ -10,7 +10,7 @@ import {
 import { Optional } from 'sequelize/types'
 
 interface TaxSubmissionAttributes {
-  tax_submission_id: number
+  id: number
   person_id: number
   created_at: Date
   tax_year: number
@@ -18,13 +18,13 @@ interface TaxSubmissionAttributes {
 }
 
 interface TaxSubmissionCreationAttributes
-  extends Optional<TaxSubmissionAttributes, 'tax_submission_id'| 'created_at' | 'submitted_at'> {}
+  extends Optional<TaxSubmissionAttributes, 'id'| 'created_at' | 'submitted_at'> {}
 
 @Table({
   tableName: 'tax_submission',
   indexes: [
     {
-      fields: ['tax_submission_id', 'person_id'],
+      fields: ['id', 'person_id'],
     },
   ],
 })
@@ -39,9 +39,9 @@ export class TaxSubmission extends Model<
     primaryKey: true,
     allowNull: false,
     defaultValue: DataType.INTEGER,
-    field: 'tax_submission_id'
+    field: 'id'
   })
-  taxSubmissionId!: number
+  id!: number
 
   @ApiProperty()
   @Column({

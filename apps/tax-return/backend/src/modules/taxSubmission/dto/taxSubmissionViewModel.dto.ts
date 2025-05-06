@@ -3,7 +3,7 @@ import { TaxSubmission } from "../taxSubmission.model";
 
 export class TaxSubmissionViewModel {
     constructor(taxSubmisison: TaxSubmission){
-        this.id = taxSubmisison.taxSubmissionId
+        this.id = taxSubmisison.id
         this.personId = taxSubmisison.personId
         this.taxYear = taxSubmisison.taxYear
         this.createdAt = taxSubmisison.createdAt

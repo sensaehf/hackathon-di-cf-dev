@@ -15,7 +15,7 @@ describe('TaxSubmissionService', () => {
 
   describe('getData', () => {
     it('should return "Hello API"', () => {
-      expect(service.getById(1, 1234)).toEqual({ message: 'Hello API' })
+      expect(service.getById(1234)).toEqual({ message: 'Hello API' })
     })
   })
 })

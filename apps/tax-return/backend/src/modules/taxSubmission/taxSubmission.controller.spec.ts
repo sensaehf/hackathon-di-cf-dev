@@ -16,7 +16,7 @@ describe('TaxSubmissionController', () => {
   describe('getData', () => {
     it('should return "Hello API"', () => {
       const appController = app.get<TaxSubmissionController>(TaxSubmissionController)
-      expect(appController.getById( 1,  2 )).toEqual({ message: 'Hello API' })
+      expect(appController.getById( 12 )).toEqual({ message: 'Hello API' })
     })
   })
 })
