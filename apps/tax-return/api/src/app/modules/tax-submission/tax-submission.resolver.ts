@@ -6,22 +6,23 @@ import { UpdateTaxSubmissionInput } from './dto/update-tax-submission.input'
 @Resolver(() => TaxSubmission)
 export class TaxSubmissionResolver {
   @Mutation(() => TaxSubmission, { nullable: true })
-  async createTaxSubmissionNew(
+  async createTaxSubmission(
     @Context('dataSources') { backendApi },
     @Args('createTaxSubmissionInput') input: CreateTaxSubmissionInput,
   ): Promise<TaxSubmission> {
+    console.log('createTaxSubmission', input)
     return await backendApi.createTaxSubmission(input)
   }
 
-  @Query(() => [TaxSubmission], { name: 'findAllTaxSubmissionsNew' })
-  async findAllTaxSubmissionsNew(
+  @Query(() => [TaxSubmission], { name: 'findAllTaxSubmissions' })
+  async findAllTaxSubmissions(
     @Context('dataSources') { backendApi },
   ): Promise<TaxSubmission[]> {
     return await backendApi.getAllTaxSubmissions()
   }
 
-  @Query(() => TaxSubmission, { name: 'findOneTaxSubmissionNew' })
-  async findOneTaxSubmissionNew(
+  @Query(() => TaxSubmission, { name: 'findOneTaxSubmission' })
+  async findOneTaxSubmission(
     @Context('dataSources') { backendApi },
     @Args('id', { type: () => Int }) id: number,
   ): Promise<TaxSubmission> {
@@ -29,7 +30,7 @@ export class TaxSubmissionResolver {
   }
 
   @Mutation(() => TaxSubmission, { nullable: true })
-  async updateTaxSubmissionNew(
+  async updateTaxSubmission(
     @Context('dataSources') { backendApi },
     @Args('updateTaxSubmissionInput') input: UpdateTaxSubmissionInput,
   ): Promise<TaxSubmission> {
@@ -37,7 +38,7 @@ export class TaxSubmissionResolver {
   }
 
   @Mutation(() => Boolean, { nullable: true })
-  async removeTaxSubmissionNew(
+  async removeTaxSubmission(
     @Context('dataSources') { backendApi },
     @Args('id', { type: () => Int }) id: number,
   ): Promise<boolean> {

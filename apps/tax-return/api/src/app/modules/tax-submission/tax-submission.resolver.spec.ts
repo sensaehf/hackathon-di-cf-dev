@@ -34,9 +34,9 @@ describe('TaxSubmissionResolver', () => {
     expect(resolver).toBeDefined()
   })
 
-  describe('createTaxSubmissionNew', () => {
+  describe('createTaxSubmission', () => {
     it('should create a new tax submission', async () => {
-      const input: CreateTaxSubmissionInput = { id: 1, personId: 1, taxYear: 2025 }
+      const input: CreateTaxSubmissionInput = { personId: 1, taxYear: 2025 }
       const result: TaxSubmission = {
         id: 1,
         personId: 1,
@@ -45,24 +45,24 @@ describe('TaxSubmissionResolver', () => {
       }
       backendApi.createTaxSubmission.mockResolvedValue(result)
 
-      expect(await resolver.createTaxSubmissionNew({ backendApi }, input)).toEqual(result)
+      expect(await resolver.createTaxSubmission({ backendApi }, input)).toEqual(result)
       expect(backendApi.createTaxSubmission).toHaveBeenCalledWith(input)
     })
   })
 
-  describe('findAllTaxSubmissionsNew', () => {
+  describe('findAllTaxSubmissions', () => {
     it('should return all tax submissions', async () => {
       const result: TaxSubmission[] = [
         { id: 1, personId: 1, taxYear: 2025, createdAt: new Date() },
       ]
       backendApi.getAllTaxSubmissions.mockResolvedValue(result)
 
-      expect(await resolver.findAllTaxSubmissionsNew({ backendApi })).toEqual(result)
+      expect(await resolver.findAllTaxSubmissions({ backendApi })).toEqual(result)
       expect(backendApi.getAllTaxSubmissions).toHaveBeenCalled()
     })
   })
 
-  describe('findOneTaxSubmissionNew', () => {
+  describe('findOneTaxSubmission', () => {
     it('should return a single tax submission by ID', async () => {
       const id = 1
       const result: TaxSubmission = {
@@ -73,12 +73,12 @@ describe('TaxSubmissionResolver', () => {
       }
       backendApi.getTaxSubmissionById.mockResolvedValue(result)
 
-      expect(await resolver.findOneTaxSubmissionNew({ backendApi }, id)).toEqual(result)
+      expect(await resolver.findOneTaxSubmission({ backendApi }, id)).toEqual(result)
       expect(backendApi.getTaxSubmissionById).toHaveBeenCalledWith(id)
     })
   })
 
-  describe('updateTaxSubmissionNew', () => {
+  describe('updateTaxSubmission', () => {
     it('should update a tax submission', async () => {
       const input: UpdateTaxSubmissionInput = { id: 1, personId: 1, taxYear: 2026 }
       const result: TaxSubmission = {
@@ -89,17 +89,17 @@ describe('TaxSubmissionResolver', () => {
       }
       backendApi.updateTaxSubmission.mockResolvedValue(result)
 
-      expect(await resolver.updateTaxSubmissionNew({ backendApi }, input)).toEqual(result)
+      expect(await resolver.updateTaxSubmission({ backendApi }, input)).toEqual(result)
       expect(backendApi.updateTaxSubmission).toHaveBeenCalledWith(input.id, input)
     })
   })
 
-  describe('removeTaxSubmissionNew', () => {
+  describe('removeTaxSubmission', () => {
     it('should remove a tax submission', async () => {
       const id = 1
       backendApi.deleteTaxSubmission.mockResolvedValue(undefined)
 
-      expect(await resolver.removeTaxSubmissionNew({ backendApi }, id)).toEqual(true)
+      expect(await resolver.removeTaxSubmission({ backendApi }, id)).toEqual(true)
       expect(backendApi.deleteTaxSubmission).toHaveBeenCalledWith(id)
     })
   })
