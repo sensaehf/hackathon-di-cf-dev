@@ -16,15 +16,18 @@ export class TaxSubmissionService
   ) {}
 
   async findByPersonId(personId: number): Promise<TaxSubmission[] | null> {
-    this.logger.debug(`Finding resource for nationalId - "${personId}"`)
-    return this.taxSubmission.findAll({
+    this.logger.debug(`Finding tax submissions for nationalId - "${personId}"`)
+   
+    const result = await this.taxSubmission.findAll({
       where: { person_id: personId },
     })
+
+    return result || []
   }
 
   async create(taxSubmission: TaxSubmissionViewModel): Promise<TaxSubmission> {
     this.logger.debug(
-      `Creating resource with person id - ${taxSubmission.personId}`,
+      `Creating tax submission with person id - ${taxSubmission.personId} and tax year ${taxSubmission.taxYear}`,
     )
     
     return this.taxSubmission.create({
