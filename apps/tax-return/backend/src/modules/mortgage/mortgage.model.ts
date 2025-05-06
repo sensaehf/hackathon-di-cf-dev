@@ -9,6 +9,7 @@ import {
   UpdatedAt,
 } from 'sequelize-typescript'
 import { Optional } from 'sequelize/types'
+import { TaxSubmission } from '../taxSubmission/taxSubmission.model'
 
 interface MortgageAttributes {
   id: string
@@ -42,7 +43,7 @@ export class Mortgage extends Model<
   id!: string
 
   @ApiProperty()
-  //@ForeignKey(() => TaxSubmission)
+  @ForeignKey(() => TaxSubmission)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
@@ -75,11 +76,11 @@ export class Mortgage extends Model<
 
   @ApiProperty()
   @Column({
-    type: DataType.STRING,
+    type: DataType.DATE,
     allowNull: false,
     unique: true,
   })
-  startDate!: string
+  startDate!: Date
 
   @ApiProperty()
   @Column({
@@ -94,7 +95,7 @@ export class Mortgage extends Model<
     type: DataType.NUMBER,
     allowNull: false,
   })
-  purchaseYear!: string
+  purchaseYear!: number
 
   @ApiProperty()
   @Column({
@@ -102,22 +103,14 @@ export class Mortgage extends Model<
     allowNull: false,
     unique: true,
   })
-  totalAnnualPayments!: string
+  totalAnnualPayments!: number
 
   @ApiProperty()
   @Column({
     type: DataType.NUMBER,
     allowNull: false,
   })
-  principalRepayment!: string
-
-  @ApiProperty()
-  @Column({
-    type: DataType.NUMBER,
-    allowNull: false,
-    unique: true,
-  })
-  interestAmount!: string
+  principalRepayment!: number
 
   @ApiProperty()
   @Column({
@@ -125,7 +118,15 @@ export class Mortgage extends Model<
     allowNull: false,
     unique: true,
   })
-  outstandingBalance!: string
+  interestAmount!: number
+
+  @ApiProperty()
+  @Column({
+    type: DataType.NUMBER,
+    allowNull: false,
+    unique: true,
+  })
+  outstandingBalance!: number
 
   @ApiProperty()
   @Column({
@@ -133,7 +134,7 @@ export class Mortgage extends Model<
     allowNull: false,
     unique: true,
   })
-  year!: string
+  year!: number
 
   @ApiProperty()
   @Column({

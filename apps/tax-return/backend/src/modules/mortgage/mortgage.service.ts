@@ -1,9 +1,21 @@
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { CreateMortgageDto } from './dto/create-mortgage.dto'
 import { UpdateMortgageDto } from './dto/update-mortgage.dto'
+import { Mortgage } from './mortgage.model'
+import type { Logger } from '@island.is/logging'
+import { LOGGER_PROVIDER } from '@island.is/logging'
+import { InjectModel } from '@nestjs/sequelize'
 
 @Injectable()
 export class MortgageService {
+
+  constructor(
+      @InjectModel(Mortgage)
+      private mortgage: typeof Mortgage,
+      @Inject(LOGGER_PROVIDER)
+      private logger: Logger,
+    ) {}
+
   create(createMortgageDto: CreateMortgageDto) {
     return 'This action adds a new mortgage'
   }
@@ -11,6 +23,13 @@ export class MortgageService {
   findAll() {
     return `This action returns all mortgage`
   }
+
+  async findAllBySubmissionId(submissionId: string): Promise<Mortgage[] | null> {
+      this.logger.debug(`Finding mortgages for submissionId - "${submissionId}"`)
+      return this.mortgage.findAll({
+        where: { id: submissionId },
+      })
+    }
 
   findOne(id: number) {
     return `This action returns a #${id} mortgage`

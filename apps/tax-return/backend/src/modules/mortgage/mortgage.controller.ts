@@ -10,6 +10,9 @@ import {
 import { MortgageService } from './mortgage.service'
 import { CreateMortgageDto } from './dto/create-mortgage.dto'
 import { UpdateMortgageDto } from './dto/update-mortgage.dto'
+import { Mortgage } from './mortgage.model'
+import { MortgageResponse } from './dto/mortgageResponse'
+import { MortgageViewModel } from './dto/mortgage.dto'
 
 @Controller('mortgage')
 export class MortgageController {
@@ -21,7 +24,15 @@ export class MortgageController {
   }
 
   @Get()
-  findAll() {
+  async findAll() {
+    let mortgages : Mortgage[] | null = [];
+    await this.mortgageService.findAllBySubmissionId('56783900123')
+    .then((e) =>
+    {
+      mortgages = e
+    })
+
+    return new MortgageResponse(mortgages?.map(o => new MortgageViewModel(o)) ?? []);
     return this.mortgageService.findAll()
   }
 
