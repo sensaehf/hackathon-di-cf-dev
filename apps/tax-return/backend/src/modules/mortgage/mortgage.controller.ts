@@ -21,8 +21,8 @@ export class MortgageController {
   constructor(private readonly mortgageService: MortgageService) {}
 
   @Post()
-  create(@Body() createMortgageDto: CreateMortgageDto) {
-    return this.mortgageService.create(createMortgageDto)
+  create(@Body() createMortgageDto: CreateMortgageDto, @Param('taxSubmissionId') taxSubmissionId: number) {
+    return this.mortgageService.create(createMortgageDto, taxSubmissionId)
   }
 
   @ApiOkResponse({type: MortgageResponse})

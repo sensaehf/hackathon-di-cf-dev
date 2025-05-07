@@ -57,7 +57,6 @@ export class RealEstate extends Model<
   @Column({
     type: DataType.STRING,
     allowNull: false,
-    unique: true,
   })
   address!: string
 
@@ -65,7 +64,6 @@ export class RealEstate extends Model<
   @Column({
     type: DataType.NUMBER,
     allowNull: false,
-    unique: true,
   })
   assessedValue!: number
 
@@ -73,7 +71,6 @@ export class RealEstate extends Model<
   @Column({
     type: DataType.STRING,
     allowNull: false,
-    unique: true,
   })
   currency!: string
 

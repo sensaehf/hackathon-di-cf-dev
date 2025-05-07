@@ -16,8 +16,22 @@ export class MortgageService {
       private logger: Logger,
     ) {}
 
-  create(createMortgageDto: CreateMortgageDto) {
-    return 'This action adds a new mortgage'
+  async create(createMortgageDto: CreateMortgageDto, taxSubmissionId: number): Promise<Mortgage>  {
+    this.logger.debug(
+      `Creating a mortgage with id - ${createMortgageDto.id}`,
+    )
+
+    try{
+      return await this.mortgage.create(
+        {
+          ...createMortgageDto,
+          taxSubmissionId: taxSubmissionId,
+        })
+    }
+    catch (error) {
+      this.logger.debug('Error creating a mortgage', error)
+      throw error;
+    }
   }
 
   findAll() {
