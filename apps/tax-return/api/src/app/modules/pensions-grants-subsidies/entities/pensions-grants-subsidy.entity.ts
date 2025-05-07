@@ -26,6 +26,4 @@ export class PensionsGrantsSubsidies {
   @Field()
   year?: number;
 
-  @Field()
-  modified?: string;
 }
