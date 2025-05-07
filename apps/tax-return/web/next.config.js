@@ -3,9 +3,9 @@ const { composePlugins, withNx } = require('@nx/next')
 const { createVanillaExtractPlugin } = require('@vanilla-extract/next-plugin')
 const withVanillaExtract = createVanillaExtractPlugin()
 
-const { INTERNAL_API_URL = 'localhost:3000/api' } = process.env
+const { INTERNAL_API_URL = 'localhost:3333' } = process.env
 
-const graphqlPath = '/graphql'
+const graphqlPath = 'api/graphql'
 
 /**
  * @type {import('@nx/next/plugins/with-nx').WithNxOptions}

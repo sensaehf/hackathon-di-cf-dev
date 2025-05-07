@@ -2,6 +2,7 @@ export type Type = 'filled' | 'outline'
 export type Icon =
   | 'archive'
   | 'accessibility'
+  | 'cash'
   | 'add'
   | 'airplane'
   | 'arrowForward'
@@ -104,6 +105,7 @@ export default {
   filled: {
     archive: 'Archive',
     accessibility: 'Accessibility',
+    cash: 'Cash',
     add: 'Add',
     airplane: 'Airplane',
     arrowForward: 'ArrowForward',
@@ -205,6 +207,7 @@ export default {
   outline: {
     archive: 'ArchiveOutline',
     accessibility: 'AccessibilityOutline',
+    cash: 'CashOutline',
     add: 'AddOutline',
     airplane: 'Airplane',
     arrowForward: 'ArrowForward',
