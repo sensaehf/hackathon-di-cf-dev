@@ -19,7 +19,7 @@ export class TaxSubmissionService
     this.logger.debug(`Finding tax submissions for nationalId - "${personId}"`)
    
     const result = await this.taxSubmission.findAll({
-      where: { person_id: personId },
+      where: { personId: personId },
     })
 
     return result || []
@@ -31,8 +31,8 @@ export class TaxSubmissionService
     )
     
     return this.taxSubmission.create({
-      person_id: taxSubmission.personId,
-      tax_year: taxSubmission.taxYear
+      personId: taxSubmission.personId,
+      taxYear: taxSubmission.taxYear
     })
   }
 }

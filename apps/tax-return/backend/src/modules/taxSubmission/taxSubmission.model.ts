@@ -1,5 +1,5 @@
-import { ApiProperty } from '@nestjs/swagger'
 import {
+  AutoIncrement,
   Column,
   CreatedAt,
   DataType,
@@ -11,14 +11,14 @@ import { Optional } from 'sequelize/types'
 
 interface TaxSubmissionAttributes {
   id: number
-  person_id: number
-  created_at: Date
-  tax_year: number
-  submitted_at: Date
+  personId: number
+  createdAt: Date
+  taxYear: number
+  submittedAt: Date
 }
 
 interface TaxSubmissionCreationAttributes
-  extends Optional<TaxSubmissionAttributes, 'id'| 'created_at' | 'submitted_at'> {}
+  extends Optional<TaxSubmissionAttributes, 'id'| 'createdAt' | 'submittedAt'> {}
 
 @Table({
   tableName: 'tax_submission',
@@ -32,18 +32,18 @@ export class TaxSubmission extends Model<
   TaxSubmissionAttributes,
   TaxSubmissionCreationAttributes
 > {
-  @ApiProperty()
+
   @PrimaryKey
+  @AutoIncrement
   @Column({
     type: DataType.INTEGER,
     primaryKey: true,
     allowNull: false,
-    defaultValue: DataType.INTEGER,
-    field: 'id'
+    field: 'id',
+    unique: true
   })
   id!: number
 
-  @ApiProperty()
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
@@ -52,20 +52,17 @@ export class TaxSubmission extends Model<
   })
   personId!: number
 
-  @ApiProperty()
   @CreatedAt
   @Column({
     field: 'created_at'
   })
   readonly createdAt!: Date
 
-  @ApiProperty()
   @Column({
     field: 'submitted_at'
   })
   readonly submittedAt!: Date
 
-  @ApiProperty()
   @Column({
     type: DataType.INTEGER,
     primaryKey: false,

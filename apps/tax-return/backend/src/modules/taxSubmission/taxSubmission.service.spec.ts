@@ -77,7 +77,7 @@ describe('TaxSubmissionService', () => {
       // Assertions
       expect(result).toEqual(mockSubmissions);
       expect(taxSubmissionMock.findAll).toHaveBeenCalledWith({
-        where: { person_id: personId },
+        where: { personId: personId },
       });
       expect(loggerMock.debug).toHaveBeenCalledWith(
         `Finding tax submissions for nationalId - "${personId}"`,
@@ -97,7 +97,7 @@ describe('TaxSubmissionService', () => {
       // Assertions
       expect(result).toEqual([]);
       expect(taxSubmissionMock.findAll).toHaveBeenCalledWith({
-        where: { person_id: personId },
+        where: { personId: personId },
       });
       expect(loggerMock.debug).toHaveBeenCalledWith(
         `Finding tax submissions for nationalId - "${personId}"`,
@@ -127,8 +127,8 @@ describe('TaxSubmissionService', () => {
       // Assertions
       expect(result).toEqual(mockCreatedSubmission);
       expect(taxSubmissionMock.create).toHaveBeenCalledWith({
-        person_id: mockTaxSubmissionViewModel.personId,
-        tax_year: mockTaxSubmissionViewModel.taxYear,
+        personId: mockTaxSubmissionViewModel.personId,
+        taxYear: mockTaxSubmissionViewModel.taxYear,
       });
       expect(loggerMock.debug).toHaveBeenCalledWith(
         `Creating tax submission with person id - ${mockTaxSubmissionViewModel.personId} and tax year ${mockTaxSubmissionViewModel.taxYear}`,
