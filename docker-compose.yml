@@ -1,0 +1,62 @@
+services:
+  national-registry-api:
+    build:
+      context: .
+      dockerfile: apps/services/national-registry-api/Dockerfile
+    ports:
+      - '3000:3000'
+    depends_on: []
+    environment:
+      - NODE_ENV=production
+
+  tax-return-api:
+    build:
+      context: .
+      dockerfile: apps/tax-return/api/Dockerfile
+    ports:
+      - '3001:3000'
+    depends_on: []
+    environment:
+      - NODE_ENV=production
+
+  tax-return-backend:
+    build:
+      context: .
+      dockerfile: apps/tax-return/backend/Dockerfile
+    ports:
+      - '3002:3000'
+    depends_on: []
+    environment:
+      - NODE_ENV=production
+  
+  db_tax_returns:  
+    image: public.ecr.aws/docker/library/postgres:15.3-alpine
+    container_name: db_tax_returns
+    networks:
+      - local
+    environment:
+      - POSTGRES_DB=dev_db
+      - POSTGRES_USER=dev_db
+      - POSTGRES_PASSWORD=dev_db
+    ports:
+      - 5432:5432
+    volumes:
+      - ./apps/tax-return-backend/db:/docker-entrypoint-initdb.d
+
+  db_national_reg:
+    image: public.ecr.aws/docker/library/postgres:15.3-alpine
+    container_name: db_national_reg
+    networks:
+      - local
+    environment:
+      - POSTGRES_DB=national_reg
+      - POSTGRES_USER=dev_db
+      - POSTGRES_PASSWORD=dev_db
+    ports:
+      - 5435:5432
+    volumes:
+      - ./apps/services/national-registry-api/db:/docker-entrypoint-initdb.d
+    
+
+networks:
+  local:
