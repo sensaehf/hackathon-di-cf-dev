@@ -74,4 +74,6 @@ describe('SalaryController', () => {
     expect(result).toEqual( { salaries: []}); // Should return an empty array
     expect(service.findByTaxSubmissionId).toHaveBeenCalledWith(taxSubmissionId);
   });
+
+  
 });

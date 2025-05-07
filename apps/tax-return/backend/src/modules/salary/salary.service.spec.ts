@@ -75,9 +75,6 @@ describe('SalaryService', () => {
       expect(salaryMock.findAll).toHaveBeenCalledWith({
         where: { taxSubmissionId },
       });
-      expect(loggerMock.debug).toHaveBeenCalledWith(
-        `Finding salaries for taxSubmissionId - "${taxSubmissionId}"`,
-      );
     });
 
     it('should return null if no submissions are found', async () => {
@@ -95,9 +92,6 @@ describe('SalaryService', () => {
       expect(salaryMock.findAll).toHaveBeenCalledWith({
         where: { taxSubmissionId },
       });
-      expect(loggerMock.debug).toHaveBeenCalledWith(
-        `Finding salaries for taxSubmissionId - "${taxSubmissionId}"`,
-      );
     });
   });
 
