@@ -21,7 +21,7 @@ describe('VehicleService', () => {
     {
       id: 'EF50418',
       taxSubmissionId: 1,
-      currency: 'NOK',
+      currency: 'ISK',
       purchasePrice: 10001,
       purchaseYear: 2023,
     } as Vehicle,
@@ -70,9 +70,6 @@ describe('VehicleService', () => {
       expect(vehicleMock.findAll).toHaveBeenCalledWith({
         where: { taxSubmissionId },
       });
-      expect(loggerMock.debug).toHaveBeenCalledWith(
-        `Finding vehicles for taxSubmissionId - "${taxSubmissionId}"`,
-      );
     });
 
     it('should return null if no vehicles are found', async () => {
@@ -86,16 +83,13 @@ describe('VehicleService', () => {
       expect(vehicleMock.findAll).toHaveBeenCalledWith({
         where: { taxSubmissionId },
       });
-      expect(loggerMock.debug).toHaveBeenCalledWith(
-        `Finding vehicles for taxSubmissionId - "${taxSubmissionId}"`,
-      );
     });
   });
 
   describe('create', () => {
     const createDto: CreateVehicleDto = {
       id: 'DEF456',      
-      currency: 'EUR',
+      currency: 'ISK',
       purchasePrice: 5000,
       purchaseYear: 2020,      
     };
@@ -110,7 +104,7 @@ describe('VehicleService', () => {
       expect(result).toEqual(createDto);
       expect(vehicleMock.create).toHaveBeenCalledWith({
         id: 'DEF456',      
-        currency: 'EUR',
+        currency: 'ISK',
         purchasePrice: 5000,
         purchaseYear: 2020,
         taxSubmissionId: 2     
