@@ -12,6 +12,8 @@ import { PerDiemAndPerksModule } from './modules/per-diem-and-perks/per-diem-and
 import { RealEstateModule } from './modules/real-estate/real-estate.module'
 import { SalaryWorkPaymentsModule } from './modules/salary-work-payments/salary-work-payments.module'
 import { VehicleModule } from './modules/vehicle/vehicle.module'
+import { PersonModule } from './modules/person/person.module'
+import { NationalRegistryApi } from '../services/nationalRegistry'
 
 const debug = process.env.NODE_ENV === 'development'
 const playground = debug || process.env.GQL_PLAYGROUND_ENABLED === 'true'
@@ -28,7 +30,10 @@ const autoSchemaFile = environment.production
       autoSchemaFile,
       path: '/api/graphql',
       context: ({ req }) => ({ req }),
-      dataSources: () => ({ backendApi: new BackendAPI() }),
+      dataSources: () => ({ 
+        backendApi: new BackendAPI(), 
+        nationalRegistryApi: new NationalRegistryApi()
+      }),
       driver: ApolloDriver,
     }),
     TaxSubmissionModule,
@@ -39,6 +44,7 @@ const autoSchemaFile = environment.production
     RealEstateModule,
     SalaryWorkPaymentsModule,
     VehicleModule,
+    PersonModule,
   ],
 })
 export class AppModule {}
