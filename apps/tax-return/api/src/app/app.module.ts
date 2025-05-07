@@ -27,7 +27,7 @@ const autoSchemaFile = environment.production
       playground,
       autoSchemaFile,
       path: '/api/graphql',
-      context: ({ req }) => ({ req }),
+      context: ({ req }: { req: Request }) => ({ req }),
       dataSources: () => ({ backendApi: new BackendAPI() }),
       driver: ApolloDriver,
     }),

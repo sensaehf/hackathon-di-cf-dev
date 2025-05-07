@@ -13,6 +13,11 @@ import { SalaryWorkPayments } from '../app/modules/salary-work-payments/entities
 import { logger } from '@island.is/logging';
 import { CreateOtherReliabilityInput } from '../app/modules/other-reliabilities/dto/create-other-reliability.input';
 import { CreateMortgageInterestInput } from '../app/modules/mortgage-interest/dto/create-mortgage-interest.input';
+import { CreatePensionsGrantsSubsidyInput } from '../app/modules/pensions-grants-subsidies/dto/create-pensions-grants-subsidy.input';
+import { CreatePerDiemAndPerkInput } from '../app/modules/per-diem-and-perks/dto/create-per-diem-and-perk.input';
+import { CreateRealEstateInput } from '../app/modules/real-estate/dto/create-real-estate.input';
+import { CreateSalaryWorkPaymentInput } from '../app/modules/salary-work-payments/dto/create-salary-work-payment.input';
+import { CreateVehicleInput } from '../app/modules/vehicle/dto/create-vehicle.input';
 
 @Injectable()
 export class BackendAPI extends RESTDataSource {
@@ -24,18 +29,6 @@ export class BackendAPI extends RESTDataSource {
   baseURL = `${environment.backendUrl}/v1`
 
   // -------------- Tax Submission ----------------
-
-  createTaxSubmission(body: Record<string, unknown>): Promise<TaxSubmission> {
-    // Temp Mock data
-    return Promise.resolve({
-      id: 1,
-      personId: body.personId as number,
-      taxYear: body.taxYear as number,
-      createdAt: new Date(),
-    } as unknown as TaxSubmission)
-
-    // return this.post('tax-submissions', body)
-  }
 
   async getAllTaxSubmissionsForUser(personId: number): Promise<TaxSubmission[]> {
     const response = await this.get<{ submissions: TaxSubmission[] }>('tax-submissions', undefined, {
@@ -92,6 +85,14 @@ export class BackendAPI extends RESTDataSource {
     );
     return response.subsidies;
   }
+
+  async createPensionsGrantsSubsidy(body: CreatePensionsGrantsSubsidyInput): Promise<PensionsGrantsSubsidies> {
+    const response = await this.post<PensionsGrantsSubsidies>(
+      `tax-submissions/${body.taxSubmissionId}/subsidies`,
+      body,
+    );
+    return response;
+  }
   
   // -------------- Per Diem and Perks ----------------
 
@@ -100,6 +101,14 @@ export class BackendAPI extends RESTDataSource {
       `tax-submissions/${taxSubmissionId}/perks`
     );
     return response.perks;
+  }
+
+  async createPerDiemAndPerk(body: CreatePerDiemAndPerkInput): Promise<PerDiemAndPerks> {
+    const response = await this.post<PerDiemAndPerks>(
+      `tax-submissions/${body.taxSubmissionId}/perks`,
+      body,
+    );
+    return response;
   }
 
   // -------------- Real Estate ----------------
@@ -111,6 +120,14 @@ export class BackendAPI extends RESTDataSource {
     return response.realEstates;
   }
 
+  async createRealEstate(body: CreateRealEstateInput): Promise<RealEstate> {
+    const response = await this.post<RealEstate>(
+      `tax-submissions/${body.taxSubmissionId}/real-estates`,
+      body,
+    );
+    return response;
+  }
+
   // -------------- Salary Work Payments ----------------
   
   async getAllSalaryWorkPaymentsByTaxSubmission(taxSubmissionId: number): Promise<SalaryWorkPayments[]> {
@@ -120,6 +137,14 @@ export class BackendAPI extends RESTDataSource {
     return response.salaries;
   }
 
+  async createSalaryWorkPayment(body: CreateSalaryWorkPaymentInput): Promise<SalaryWorkPayments> {
+    const response = await this.post<SalaryWorkPayments>(
+      `tax-submissions/${body.taxSubmissionId}/salary-work-payments`,
+      body,
+    );
+    return response;
+  }
+
   // -------------- Vehicles ----------------
   
   async getAllVehiclesByTaxSubmission(taxSubmissionId: number): Promise<Vehicle[]> {
@@ -127,6 +152,14 @@ export class BackendAPI extends RESTDataSource {
       `tax-submissions/${taxSubmissionId}/vehicles`
     );
     return response.vehicles;
+  }
+
+  async createVehicle(body: CreateVehicleInput): Promise<Vehicle> {
+    const response = await this.post<Vehicle>(
+      `tax-submissions/${body.taxSubmissionId}/vehicles`,
+      body,
+    );
+    return response;
   }
 
 

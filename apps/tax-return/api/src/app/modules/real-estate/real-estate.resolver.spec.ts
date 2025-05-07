@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { RealEstateResolver } from './real-estate.resolver';
 import { BackendAPI } from '../../../services/backend';
+import { CreateRealEstateInput } from './dto/create-real-estate.input';
 
 describe('RealEstateResolver', () => {
   let resolver: RealEstateResolver;
@@ -14,6 +15,7 @@ describe('RealEstateResolver', () => {
           provide: BackendAPI,
           useValue: {
             getAllRealEstatesByTaxSubmission: jest.fn(),
+            createRealEstate: jest.fn(),
           },
         },
       ],
@@ -44,4 +46,26 @@ describe('RealEstateResolver', () => {
       taxSubmissionId,
     );
   });
+
+  it('should call createRealEstate with correct input', async () => {
+    const createInput: CreateRealEstateInput = {
+      taxSubmissionId: 1,
+      address: '123 Main St',
+      assessedValue: 500000,
+      currency: 'ISK',
+      year: 2023,
+    };
+  
+    const mockResponse = { id: '1', ...createInput };
+    jest.spyOn(backendApi, 'createRealEstate').mockResolvedValue(mockResponse);
+  
+    const result = await resolver.createRealEstate(
+      { backendApi },
+      createInput,
+    );
+  
+    expect(result).toEqual(mockResponse);
+    expect(backendApi.createRealEstate).toHaveBeenCalledWith(createInput);
+  });
+  
 });

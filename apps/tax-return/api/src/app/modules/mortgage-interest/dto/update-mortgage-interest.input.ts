@@ -6,5 +6,5 @@ export class UpdateMortgageInterestInput extends PartialType(
   CreateMortgageInterestInput,
 ) {
   @Field(() => Int)
-  id: number
+  id!: number
 }

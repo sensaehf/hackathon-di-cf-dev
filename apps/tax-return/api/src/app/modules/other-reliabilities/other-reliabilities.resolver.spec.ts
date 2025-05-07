@@ -54,7 +54,7 @@ describe('OtherReliabilitiesResolver', () => {
       interestAmount: 100.0,
       balance: 500.0,
       year: 2023,
-      currency: 'USD',
+      currency: 'ISK',
     };
 
     const mockResponse = { id: 1, ...createInput };

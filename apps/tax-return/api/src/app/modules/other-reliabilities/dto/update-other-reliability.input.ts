@@ -6,5 +6,5 @@ export class UpdateOtherReliabilityInput extends PartialType(
   CreateOtherReliabilityInput,
 ) {
   @Field(() => Int)
-  id: number
+  id!: number
 }
