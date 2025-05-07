@@ -3,19 +3,22 @@ import { RealEstateController } from './realEstate.controller'
 import { RealEstateService } from './realEstate.service'
 import { RealEstateViewModel } from './dto/realEstate.dto';
 import { RealEstate } from './realEstate.model';
+import { CreateRealEstateDto } from './dto/create-realEstate.dto';
 
-describe('RealEstateController', () =>  {
+describe('RealEstateController', () => {
   let controller: RealEstateController;
   let service: RealEstateService;
+  let module: TestingModule;
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
+  beforeAll(async () => {
+    module = await Test.createTestingModule({
       controllers: [RealEstateController],
       providers: [
         {
           provide: RealEstateService,
           useValue: {
-            findAllByTaxSubmissionId: jest.fn(), // Mock the RealEstateService method
+            findAllByTaxSubmissionId: jest.fn(),
+            create: jest.fn(),
           },
         },
       ],
@@ -25,55 +28,82 @@ describe('RealEstateController', () =>  {
     service = module.get<RealEstateService>(RealEstateService);
   });
 
+  afterAll(async () => {
+    await module.close();
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
 
   it('should return real estates mapped to view models', async () => {
-    // Mock data
     const taxSubmissionId = 12345;
     const mockRealEstates: RealEstate[] = [
-      {
-        id: "1",
-        taxSubmissionId: 12345,
-        address: "Gámagata 42",
-        assessedValue: 10,
-        currency: "ISK",
-      } as RealEstate,
-      {
-        id: "2",
-        taxSubmissionId: 12345,
-        address: "Gámagata 42",
-        assessedValue: 10,
-        currency: "ISK",
-      } as RealEstate,
+      { id: '1', taxSubmissionId, address: 'Gámagata 42', assessedValue: 10, currency: 'ISK' } as RealEstate,
+      { id: '2', taxSubmissionId, address: 'Gámagata 42', assessedValue: 10, currency: 'ISK' } as RealEstate,
     ];
 
-    // Mock the service behavior
     jest.spyOn(service, 'findAllByTaxSubmissionId').mockResolvedValue(mockRealEstates);
 
-    // Call the controller method
     const result = await controller.getByTaxSubmissionId(taxSubmissionId);
 
-    // Assert that the result matches expectations
     expect(result).toEqual({
-     "realEstates": mockRealEstates.map((RealEstate) => new RealEstateViewModel(RealEstate)),
+      realEstates: mockRealEstates.map((re) => new RealEstateViewModel(re)),
     });
-    expect(service.findAllByTaxSubmissionId).toHaveBeenCalledWith(taxSubmissionId); // Ensure the service method is called correctly
+    expect(service.findAllByTaxSubmissionId).toHaveBeenCalledWith(taxSubmissionId);
   });
 
   it('should handle an empty result gracefully', async () => {
-    // Mock data
     const taxSubmissionId = 54321;
-
-    // Mock the service to return null
     jest.spyOn(service, 'findAllByTaxSubmissionId').mockResolvedValue(null);
 
-    // Call the controller method
     const result = await controller.getByTaxSubmissionId(taxSubmissionId);
 
-    // Assert the empty mapping
-    expect(result).toEqual( { realEstates: []}); // Should return an empty array
+    expect(result).toEqual({ realEstates: [] });
     expect(service.findAllByTaxSubmissionId).toHaveBeenCalledWith(taxSubmissionId);
   });
-})
+
+  it('should create a new real estate', async () => {
+    const taxSubmissionId = 999;
+    const createDto: CreateRealEstateDto = {
+      id: '3',
+      address: 'Laugavegur 50',
+      assessedValue: 250,
+      currency: 'ISK',
+    };
+    const mockCreated: RealEstate = {
+      id: '3',
+      taxSubmissionId,
+      address: 'Laugavegur 50',
+      assessedValue: 250,
+      currency: 'ISK',
+    } as RealEstate;
+
+    jest.spyOn(service, 'create').mockResolvedValue(mockCreated);
+
+    const result = await controller.create(createDto, taxSubmissionId);
+
+    expect(result).toBe(mockCreated);
+    expect(service.create).toHaveBeenCalledWith(createDto, taxSubmissionId);
+  });
+
+  it('should propagate errors from service.create', async () => {
+    const taxSubmissionId = 888;
+    const createDto: CreateRealEstateDto = {
+      id: '4',
+      address: 'Skólavörðustígur 20',
+      assessedValue: 500,
+      currency: 'ISK',
+    };
+    const error = new Error('Creation failed');
+
+    jest.spyOn(service, 'create').mockRejectedValue(error);
+
+    await expect(controller.create(createDto, taxSubmissionId)).rejects.toThrow('Creation failed');
+    expect(service.create).toHaveBeenCalledWith(createDto, taxSubmissionId);
+  });
+});
