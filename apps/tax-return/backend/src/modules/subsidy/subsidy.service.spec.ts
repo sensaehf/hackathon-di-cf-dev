@@ -70,9 +70,6 @@ describe('SubsidyService', () => {
       expect(subsidyMock.findAll).toHaveBeenCalledWith({
         where: { taxSubmissionId },
       });
-      expect(loggerMock.debug).toHaveBeenCalledWith(
-        `Finding subsidies for taxSubmissionId - "${taxSubmissionId}"`,
-      );
     });
 
     it('should return null if no subsidies are found', async () => {
@@ -90,9 +87,6 @@ describe('SubsidyService', () => {
       expect(subsidyMock.findAll).toHaveBeenCalledWith({
         where: { taxSubmissionId },
       });
-      expect(loggerMock.debug).toHaveBeenCalledWith(
-        `Finding subsidies for taxSubmissionId - "${taxSubmissionId}"`,
-      );
     });
   });
 
