@@ -28,9 +28,9 @@ export class SubsidyService {
     return await this.subsidy.create({ ...dto, taxSubmissionId });
   }
 
-  async update(dto: UpdateSubsidyDto, taxSubmissionId: number) {
-    await this.subsidy.update({ ...dto, taxSubmissionId }, { where: { id: dto.id } });
-    return await this.subsidy.findByPk(dto.id);
+  async update(dto: UpdateSubsidyDto, id: number) {
+    await this.subsidy.update({ ...dto, id }, { where: { id: id } });
+    return await this.subsidy.findByPk(id);
   }
 
   async findOne(id: number): Promise<Subsidy | null> {

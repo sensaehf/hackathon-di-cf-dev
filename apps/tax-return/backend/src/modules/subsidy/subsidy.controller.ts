@@ -36,12 +36,12 @@ export class SubsidyController {
   }
 
   @ApiOkResponse({ type: SubsidyViewModel })
-  @Put()
+  @Put(':id')
   async update(
     @Body() dto: UpdateSubsidyDto,
-    @Param('taxSubmissionId', ParseIntPipe) taxSubmissionId: number,
+    @Param('id', ParseIntPipe) id: number,
   ) {
-    const result = await this.subsidyService.update(dto, taxSubmissionId);
+    const result = await this.subsidyService.update(dto, id);
 
     if (result !== null) return new SubsidyViewModel(result);
 
