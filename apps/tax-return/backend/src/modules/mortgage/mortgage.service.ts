@@ -49,7 +49,7 @@ export class MortgageService {
     return await this.mortgage.findByPk(id)
   }
 
-  async update(id: number, updateMortgageDto: UpdateMortgageDto) {
+  async update(id: string, updateMortgageDto: UpdateMortgageDto) {
     await this.mortgage.update(updateMortgageDto, {where: {id}})    
     return await this.mortgage.findByPk(updateMortgageDto.id)
   }

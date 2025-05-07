@@ -48,7 +48,7 @@ export class MortgageController {
     @Param('id') id: string,
     @Body() updateMortgageDto: UpdateMortgageDto,
   ) {
-    return this.mortgageService.update(+id, updateMortgageDto)
+    return this.mortgageService.update(id, updateMortgageDto)
   }
 
   @Delete(':id')
