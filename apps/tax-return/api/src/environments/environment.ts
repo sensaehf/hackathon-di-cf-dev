@@ -22,6 +22,7 @@ const devConfig = {
   },
   idsTokenCookieName: 'next-auth.session-token',
   backendUrl: 'http://localhost:3000',
+  nationalRegistryApiUrl: 'http://localhost:3210',
 }
 
 const prodConfig = {
@@ -40,6 +41,7 @@ const prodConfig = {
   },
   idsTokenCookieName: '__Secure-next-auth.session-token',
   backendUrl: process.env.BACKEND_URL ?? 'http://localhost:3000',
+  nationalRegistryApiUrl: process.env.NATIONAL_REGISTRY_API_URL ?? 'http://localhost:3210',
 }
 
 export default isProd ? prodConfig : devConfig
