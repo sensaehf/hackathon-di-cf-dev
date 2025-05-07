@@ -1,0 +1,52 @@
+{
+  "name": "national-registry-api",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/services/national-registry-api/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/services/national-registry-api",
+        "main": "apps/services/national-registry-api/src/main.ts",
+        "tsConfig": "apps/services/national-registry-api/tsconfig.app.json",
+        "assets": ["apps/services/national-registry-api/src/assets"],
+        "webpackConfig": "apps/services/national-registry-api/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "national-registry-api:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "national-registry-api:build:development"
+        },
+        "production": {
+          "buildTarget": "national-registry-api:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/services/national-registry-api/jest.config.ts"
+      }
+    }
+  }
+}
