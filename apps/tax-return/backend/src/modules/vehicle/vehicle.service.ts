@@ -26,7 +26,7 @@ export class VehicleService
     return result || []
   }
 
-  async create(vehicleDto: CreateVehicleDto): Promise<Vehicle | null >{
+  async create(vehicleDto: CreateVehicleDto): Promise<Vehicle>{
     try{
       return await this.vehicle.create(vehicleDto)
     }
