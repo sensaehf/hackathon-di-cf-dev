@@ -16,10 +16,10 @@ To initialize the application, the database and seed it, run these commands:
 ```
 
 ## Local Development:
-The application can be accessed locally via localhost:3210. there's a Swagger endpoint at http://localhost:3210/api/swagger
+The application can be accessed locally via localhost:3210. There's a Swagger endpoint at http://localhost:3210/api/swagger
 
 
-This application seems to be part of a larger system, with dependencies on other services and applications within the workspace.
+This application is a part of a larger system, with dependencies on other services and applications within the workspace.
 
 ## Key features
 

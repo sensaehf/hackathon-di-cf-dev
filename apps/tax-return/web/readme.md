@@ -21,7 +21,7 @@ The web frontend requires the API, the backend, and the National Registry API al
 
 1. Navigate to the `web` project directory:
    ```bash
-   cd apps/web
+   cd apps/tax-return/web
    ```
 
 2. Install dependencies:
@@ -44,11 +44,3 @@ npm test tax-return-web
 ## Deployment
 
 The application is designed to be deployed as part of the larger system. Ensure all dependencies and configurations are properly set up before deployment.
-
-## Contributing
-
-Contributions are welcome! Please follow the guidelines outlined in the main repository.
-
-## License
-
-This project is licensed under the terms of the [LICENSE](../../LICENSE) file.
