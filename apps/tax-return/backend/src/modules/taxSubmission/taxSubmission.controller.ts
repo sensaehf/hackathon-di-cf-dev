@@ -31,6 +31,7 @@ export class TaxSubmissionController {
   @ApiCreatedResponse({type: TaxSubmissionViewModel})
   @Post()
   async create(@Body() createTaxSubmissionDto : CreateTaxSubmissionDto){
-    return this.taxSubmissionService.create(createTaxSubmissionDto)
+    const taxSubmission = await this.taxSubmissionService.create(createTaxSubmissionDto);
+    return new TaxSubmissionViewModel(taxSubmission);
   }
 }
