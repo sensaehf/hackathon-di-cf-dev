@@ -14,7 +14,7 @@ export class PersonController {
   findOne(@Headers('x-query-national-id') id: string) {
 
     
-    if(id === null)
+    if (id == null)
       throw new BadRequestException('National Id is missing')
 
     return this.personService.findOne(+id)
