@@ -5,10 +5,6 @@ export class CreateVehicleDto {
     @ApiProperty()
     @IsString()
     id!: string
-
-    @ApiProperty()
-    @IsNumber()
-    taxSubmissionId!: number
     
     @ApiProperty()
     @IsString()

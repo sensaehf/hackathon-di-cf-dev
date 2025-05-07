@@ -3,8 +3,6 @@ import { getModelToken } from '@nestjs/sequelize';
 import { VehicleService } from './vehicle.service';
 import { Vehicle } from './vehicle.model';
 import { LOGGER_PROVIDER } from '@island.is/logging';
-import { ConflictException } from '@nestjs/common';
-import { UniqueConstraintError, ValidationErrorItem } from 'sequelize';
 import { CreateVehicleDto } from './dto/create-vehicle.dto';
 
 describe('VehicleService', () => {
@@ -96,33 +94,27 @@ describe('VehicleService', () => {
 
   describe('create', () => {
     const createDto: CreateVehicleDto = {
-      id: 'DEF456',
-      taxSubmissionId: 2,
+      id: 'DEF456',      
       currency: 'EUR',
       purchasePrice: 5000,
-      purchaseYear: 2020,
+      purchaseYear: 2020,      
     };
+
+    const taxSubmissionId = 2
 
     it('should create a vehicle successfully', async () => {
       (vehicleMock.create as jest.Mock).mockResolvedValue(createDto);
 
-      const result = await service.create(createDto);
+      const result = await service.create(createDto, taxSubmissionId);
 
       expect(result).toEqual(createDto);
-      expect(vehicleMock.create).toHaveBeenCalledWith(createDto);
+      expect(vehicleMock.create).toHaveBeenCalledWith({
+        id: 'DEF456',      
+        currency: 'EUR',
+        purchasePrice: 5000,
+        purchaseYear: 2020,
+        taxSubmissionId: 2     
+      });
     });
-
-    // it('should throw ConflictException on unique constraint violation', async () => {
-    //   // Create a mock error that matches the class but doesn't call Sequelize internals
-    //   class FakeUniqueConstraintError extends Error {}
-    //   Object.setPrototypeOf(FakeUniqueConstraintError.prototype, UniqueConstraintError.prototype);
-    
-    //   const error = new FakeUniqueConstraintError('Simulated unique constraint error');
-    //   Object.setPrototypeOf(error, UniqueConstraintError.prototype); // for instanceof check
-    
-    //   (vehicleMock.create as jest.Mock).mockRejectedValue(error);
-    
-    //   await expect(service.create(createDto)).rejects.toThrow(ConflictException);
-    // });
   });
 });

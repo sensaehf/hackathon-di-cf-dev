@@ -26,9 +26,9 @@ export class VehicleService
     return result || []
   }
 
-  async create(vehicleDto: CreateVehicleDto): Promise<Vehicle>{
+  async create(vehicleDto: CreateVehicleDto, taxSubmissionId: number): Promise<Vehicle>{
     try{
-      return await this.vehicle.create(vehicleDto)
+      return await this.vehicle.create({...vehicleDto, taxSubmissionId})
     }
     catch(error){
       this.logger.debug('Error creating vehicle', error)
