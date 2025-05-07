@@ -17,7 +17,7 @@ import { CreatePerDiemAndPerkInput } from '../app/modules/per-diem-and-perks/dto
 import { CreateRealEstateInput } from '../app/modules/real-estate/dto/create-real-estate.input';
 import { CreateSalaryWorkPaymentInput } from '../app/modules/salary-work-payments/dto/create-salary-work-payment.input';
 import { CreateVehicleInput } from '../app/modules/vehicle/dto/create-vehicle.input';
-import { logger } from '@island.is/logging';
+import { UpdateMortgageInterestInput } from '../app/modules/mortgage-interest/dto/update-mortgage-interest.input';
 
 @Injectable()
 export class BackendAPI extends RESTDataSource {
@@ -54,6 +54,22 @@ export class BackendAPI extends RESTDataSource {
     const response = await this.post<MortgageInterest>(
       `tax-submissions/${body.taxSubmissionId}/mortgages`,
       body,
+    );
+    return response;
+  }
+
+  async updateMortgageInterest(body: UpdateMortgageInterestInput): Promise<MortgageInterest> {
+    const { taxSubmissionId, ...rest } = body;
+    const response = await this.put<MortgageInterest>(
+      `tax-submissions/${body.taxSubmissionId}/mortgages/${body.id}`,
+      rest,
+    );
+    return response;
+  }
+  
+  async deleteMortgageInterest(id: string, taxSubmissionId: number): Promise<number> {
+    const response = await this.delete<number>(
+      `tax-submissions/${taxSubmissionId}/mortgages/${id}`,
     );
     return response;
   }
@@ -166,38 +182,6 @@ export class BackendAPI extends RESTDataSource {
       rest,
     );
     return response;
-  }
-
-
-  getTaxSubmissionById(id: number): Promise<TaxSubmission> {
-    // Temp Mock data
-    return Promise.resolve({
-      id: id,
-      personId: 123,
-      taxYear: 2025,
-      createdAt: new Date(),
-    } as unknown as TaxSubmission)
-
-    // return this.get(`tax-submissions/${id}`)
-  }
-
-  updateTaxSubmission(id: number, body: Record<string, unknown>): Promise<TaxSubmission> {
-    // Temp Mock data
-    return Promise.resolve({
-      id: id,
-      personId: body.personId as number,
-      taxYear: body.taxYear as number,
-      createdAt: new Date(),
-    } as unknown as TaxSubmission)
-
-    // return this.put(`tax-submissions/${id}`, body)
-  }
-
-  deleteTaxSubmission(id: number): Promise<void> {
-    // Temp Mock data
-    return Promise.resolve()
-
-    // return this.delete(`tax-submissions/${id}`)
   }
 }
 

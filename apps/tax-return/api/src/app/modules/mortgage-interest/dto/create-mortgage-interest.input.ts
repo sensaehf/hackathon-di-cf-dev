@@ -44,10 +44,6 @@ export class CreateMortgageInterestInput {
   @IsNumber()
   outstandingBalance!: number;
 
-  @Field(() => Int)
-  @IsNumber()
-  year!: number;
-
   @Field(() => String)
   @IsString()
   currency!: string;
