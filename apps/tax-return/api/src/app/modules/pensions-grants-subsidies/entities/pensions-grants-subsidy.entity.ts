@@ -11,11 +11,11 @@ export class PensionsGrantsSubsidies {
   @IsNumber()
   taxSubmissionId?: number;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   @IsString()
   sourceName?: string;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   @IsString()
   grantType?: string;
 
@@ -23,11 +23,11 @@ export class PensionsGrantsSubsidies {
   @IsNumber()
   amount?: number;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   @IsString()
   currency?: string;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   @IsString()
   description?: string;
 

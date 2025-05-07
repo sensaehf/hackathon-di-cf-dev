@@ -19,6 +19,7 @@ import { CreateSalaryWorkPaymentInput } from '../app/modules/salary-work-payment
 import { CreateVehicleInput } from '../app/modules/vehicle/dto/create-vehicle.input';
 import { UpdateMortgageInterestInput } from '../app/modules/mortgage-interest/dto/update-mortgage-interest.input';
 import { UpdateOtherReliabilityInput } from '../app/modules/other-reliabilities/dto/update-other-reliability.input';
+import { UpdatePensionsGrantsSubsidyInput } from '../app/modules/pensions-grants-subsidies/dto/update-pensions-grants-subsidy.input';
 
 @Injectable()
 export class BackendAPI extends RESTDataSource {
@@ -127,6 +128,22 @@ export class BackendAPI extends RESTDataSource {
     );
     return response;
   }
+
+async updatePensionsGrantsSubsidy(body: UpdatePensionsGrantsSubsidyInput): Promise<PensionsGrantsSubsidies> {
+  const { taxSubmissionId, id, ...rest } = body;
+  const response = await this.put<PensionsGrantsSubsidies>(
+    `tax-submissions/${body.taxSubmissionId}/subsidies/${body.id}`,
+    rest
+  );
+  return response;
+}
+
+async deletePensionsGrantsSubsidy(id: number, taxSubmissionId: number): Promise<string> {
+  const response = await this.delete<string>(
+    `tax-submissions/${taxSubmissionId}/subsidies/${id}`,
+  );
+  return response;
+}
   
   // -------------- Per Diem and Perks ----------------
 
