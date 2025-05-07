@@ -15,8 +15,6 @@ import { VehicleResponse } from './dto/vehicleResponse';
 import { VehicleViewModel } from './dto/vehicleViewModel.dto';
 import { CreateVehicleDto } from './dto/create-vehicle.dto';
 import { UpdateVehicleDto } from './dto/update-vehicle.dto';
-import { logger } from '@island.is/logging';
-import { log } from 'console';
 
 @ApiTags('Vehicle')
 @Controller('v1/tax-submissions/:taxSubmissionId/vehicles')

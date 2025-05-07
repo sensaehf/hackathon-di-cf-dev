@@ -8,5 +8,5 @@ export class UpdateSalaryWorkPaymentInput extends PartialType(
 ) {
   @Field(() => String)
   @IsString()
-  id!: number
+  id!: string
 }
