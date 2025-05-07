@@ -8,15 +8,15 @@ export class TaxSubmission {
   @Field()
   personId!: number
 
-  @Field()
+  @Field({ nullable: true })
   taxYear?: number
 
-  @Field()
+  @Field(() => String, { nullable: true })
   createdAt?: string
 
-  @Field()
+  @Field(() => String, { nullable: true })
   submittedAt?: string
 
-  @Field()
+  @Field(() => String, { nullable: true })
   modified?: string
 }

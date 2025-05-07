@@ -5,15 +5,15 @@ export class Vehicle {
   @Field(() => ID)
   id!: string;
 
-  @Field()
+  @Field({ nullable: true })
   taxSubmissionId?: number;
 
-  @Field()
+  @Field({ nullable: true })
   purchaseYear?: number;
 
-  @Field()
+  @Field({ nullable: true })
   purchasePrice?: number;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   currency?: string;
 }

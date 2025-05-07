@@ -7,15 +7,15 @@ export class RealEstate {
   @IsString()
   id!: string;
 
-  @Field()
+  @Field({ nullable: true })
   taxSubmissionId?: number;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   address?: string;
 
-  @Field()
+  @Field({ nullable: true })
   assessedValue?: number;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   currency?: string;
 }

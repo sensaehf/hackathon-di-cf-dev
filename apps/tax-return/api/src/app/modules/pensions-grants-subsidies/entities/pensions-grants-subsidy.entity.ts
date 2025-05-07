@@ -7,7 +7,7 @@ export class PensionsGrantsSubsidies {
   @IsNumber()
   id!: number;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNumber()
   taxSubmissionId?: number;
 
@@ -19,7 +19,7 @@ export class PensionsGrantsSubsidies {
   @IsString()
   grantType?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNumber()
   amount?: number;
 
@@ -31,7 +31,7 @@ export class PensionsGrantsSubsidies {
   @IsString()
   description?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNumber()
   year?: number;
 

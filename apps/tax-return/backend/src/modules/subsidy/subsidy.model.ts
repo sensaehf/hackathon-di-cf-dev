@@ -59,12 +59,14 @@ export class Subsidy extends Model<
   amount!: number
 
   @Column({
-    type: DataType.CHAR(3)
+    type: DataType.CHAR(3),
+    allowNull: true
   })
   currency!: string
 
   @Column({
-    type: DataType.STRING(255)
+    type: DataType.STRING(255),
+    allowNull: true
   })
   description!: string
 
@@ -75,13 +77,15 @@ export class Subsidy extends Model<
 
   @Column({
     field: 'source_name',
-    type: DataType.STRING(255)
+    type: DataType.STRING(255),
+    allowNull: true
   })
   sourceName!: string
 
   @Column({
     field: 'grant_type',
-    type: DataType.STRING(100)
+    type: DataType.STRING(100),
+    allowNull: true
   })
   grantType!: string
   

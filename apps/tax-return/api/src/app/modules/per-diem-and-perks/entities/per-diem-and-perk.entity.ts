@@ -5,18 +5,18 @@ export class PerDiemAndPerks {
   @Field(() => ID)
   id!: number;
 
-  @Field()
+  @Field({ nullable: true })
   taxSubmissionId?: number;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   type?: string;
 
-  @Field()
+  @Field({ nullable: true })
   amount?: number;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   currency?: string;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   description?: string;
 }

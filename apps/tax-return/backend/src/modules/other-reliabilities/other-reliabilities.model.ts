@@ -52,6 +52,7 @@ export class OtherReliabilities extends Model<
 
   @Column({
     type: DataType.STRING(255),
+    allowNull: true
   })
   description!: string;
 
@@ -72,6 +73,7 @@ export class OtherReliabilities extends Model<
 
   @Column({
     type: DataType.CHAR(3),
+    allowNull: true
   })
   currency!: string;
 }
