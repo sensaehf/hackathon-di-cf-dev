@@ -6,5 +6,5 @@ export class UpdatePensionsGrantsSubsidyInput extends PartialType(
   CreatePensionsGrantsSubsidyInput,
 ) {
   @Field(() => Int)
-  id: number
+  id!: number
 }
