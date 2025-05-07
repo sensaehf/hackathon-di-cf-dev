@@ -39,8 +39,7 @@ export class TaxSubmission extends Model<
     type: DataType.INTEGER,
     primaryKey: true,
     allowNull: false,
-    field: 'id',
-    unique: true
+    field: 'id'
   })
   id!: number
 
