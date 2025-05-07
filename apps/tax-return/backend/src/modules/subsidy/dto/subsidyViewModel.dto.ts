@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Subsidy } from "../subsidy.model";
+import { IsNumber, IsString } from "class-validator";
 
 export class SubsidyViewModel {
     constructor(sub : Subsidy){
@@ -18,8 +19,10 @@ export class SubsidyViewModel {
     @ApiProperty()
     taxSubmissionId: number;
     @ApiProperty()
+    @IsNumber()
     amount: number;
     @ApiProperty()
+    @IsString()
     currency: string;
     @ApiProperty()
     description: string;

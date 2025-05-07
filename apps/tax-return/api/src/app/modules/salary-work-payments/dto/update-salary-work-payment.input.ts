@@ -6,5 +6,5 @@ export class UpdateSalaryWorkPaymentInput extends PartialType(
   CreateSalaryWorkPaymentInput,
 ) {
   @Field(() => Int)
-  id: number
+  id!: number
 }

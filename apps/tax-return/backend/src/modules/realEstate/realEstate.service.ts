@@ -4,6 +4,7 @@ import type { Logger } from '@island.is/logging'
 import { LOGGER_PROVIDER } from '@island.is/logging'
 import { InjectModel } from '@nestjs/sequelize'
 import { RealEstateViewModel } from './dto/realEstate.dto'
+import { CreateRealEstateDto } from './dto/create-realEstate.dto'
 
 @Injectable()
 export class RealEstateService {
@@ -15,8 +16,25 @@ export class RealEstateService {
       private logger: Logger,
     ) {}
 
-  create(createRealEstateDto: RealEstateViewModel) {
-    return 'This action adds a new RealEstate'
+  create(createRealEstateDto: CreateRealEstateDto, taxSubmissionId: number): Promise<RealEstate> {
+    this.logger.debug(
+      `Creating real estate with id - ${createRealEstateDto.id}`,
+    )
+
+    try{
+      return this.realEstate.create(
+        {
+          id: createRealEstateDto.id,
+          taxSubmissionId: taxSubmissionId,
+          address: createRealEstateDto.address,
+          assessedValue: createRealEstateDto.assessedValue,
+          currency : createRealEstateDto.currency
+        })
+    }
+    catch (error) {
+      this.logger.debug('Error creating real estate property', error)
+      throw error;
+    }
   }
 
   findAll() {

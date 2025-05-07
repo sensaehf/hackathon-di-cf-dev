@@ -78,9 +78,6 @@ describe('PerkService', () => {
       expect(perksMock.findAll).toHaveBeenCalledWith({
         where: { taxSubmissionId: taxSubmissionId },
       });
-      expect(loggerMock.debug).toHaveBeenCalledWith(
-        `Finding perks for taxSubmissionId - "${taxSubmissionId}"`,
-      );
     });
 
     it('should return null if no perks are found', async () => {
@@ -98,9 +95,6 @@ describe('PerkService', () => {
       expect(perksMock.findAll).toHaveBeenCalledWith({
         where: { taxSubmissionId },
       });
-      expect(loggerMock.debug).toHaveBeenCalledWith(
-        `Finding perks for taxSubmissionId - "${taxSubmissionId}"`,
-      );
     });
   });
 

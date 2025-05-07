@@ -6,5 +6,5 @@ export class UpdatePerDiemAndPerkInput extends PartialType(
   CreatePerDiemAndPerkInput,
 ) {
   @Field(() => Int)
-  id: number
+  id!: number
 }

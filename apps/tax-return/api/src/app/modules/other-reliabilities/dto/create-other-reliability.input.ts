@@ -1,7 +1,29 @@
-import { InputType, Int, Field } from '@nestjs/graphql'
+import { Field, InputType, Int, Float } from '@nestjs/graphql';
+import { IsNumber, IsString } from 'class-validator'
 
 @InputType()
 export class CreateOtherReliabilityInput {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number
+  @Field((_) => Int)
+  @IsNumber()
+  taxSubmissionId!: number;
+
+  @Field((_) => String)
+  @IsString()
+  description!: string;
+
+  @Field((_) => Float)
+  @IsNumber()
+  interestAmount!: number;
+
+  @Field((_) => Float)
+  @IsNumber()
+  balance!: number;
+
+  @Field((_) => Int)
+  @IsNumber()
+  year!: number;
+
+  @Field((_) => String)
+  @IsString()
+  currency!: string;
 }
