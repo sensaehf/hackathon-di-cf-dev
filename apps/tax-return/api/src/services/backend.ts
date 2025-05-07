@@ -11,6 +11,7 @@ import { PensionsGrantsSubsidies } from '../app/modules/pensions-grants-subsidie
 import { PerDiemAndPerks } from '../app/modules/per-diem-and-perks/entities/per-diem-and-perk.entity';
 import { SalaryWorkPayments } from '../app/modules/salary-work-payments/entities/salary-work-payment.entity';
 import { logger } from '@island.is/logging';
+import { CreateOtherReliabilityInput } from '../app/modules/other-reliabilities/dto/create-other-reliability.input';
 
 @Injectable()
 export class BackendAPI extends RESTDataSource {
@@ -55,7 +56,17 @@ export class BackendAPI extends RESTDataSource {
     const response = await this.get<{ otherReliabilities: OtherReliabilities[] }>(
       `tax-submissions/${taxSubmissionId}/other-reliabilities`
     );
+    
     return response.otherReliabilities;
+  }
+
+  async createOtherReliability(body: CreateOtherReliabilityInput): Promise<OtherReliabilities> {
+    const response = await this.post<OtherReliabilities>(
+      `tax-submissions/${body.taxSubmissionId}/other-reliabilities`,
+      body,
+    );
+    
+    return response;
   }
   
   async getAllPensionsGrantsSubsidiesByTaxSubmission(taxSubmissionId: number): Promise<PensionsGrantsSubsidies[]> {
