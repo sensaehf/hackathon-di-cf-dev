@@ -45,15 +45,18 @@ export class MortgageService {
       })
     }
 
-  findOne(id: number) {
-    return `This action returns a #${id} mortgage`
+  async findOne(id: string) {
+    return await this.mortgage.findByPk(id)
   }
 
-  update(id: number, updateMortgageDto: UpdateMortgageDto) {
-    return `This action updates a #${id} mortgage`
+  async update(id: number, updateMortgageDto: UpdateMortgageDto) {
+    await this.mortgage.update(updateMortgageDto, {where: {id}})    
+    return await this.mortgage.findByPk(updateMortgageDto.id)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} mortgage`
+  async remove(id: string) {
+    return await this.mortgage.destroy({
+      where: { id },
+    });
   }
 }

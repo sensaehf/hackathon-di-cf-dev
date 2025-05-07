@@ -3,9 +3,9 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
+  Put,
 } from '@nestjs/common'
 import { MortgageService } from './mortgage.service'
 import { CreateMortgageDto } from './dto/create-mortgage.dto'
@@ -40,10 +40,10 @@ export class MortgageController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.mortgageService.findOne(+id)
+    return this.mortgageService.findOne(id)
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(
     @Param('id') id: string,
     @Body() updateMortgageDto: UpdateMortgageDto,
@@ -53,6 +53,6 @@ export class MortgageController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.mortgageService.remove(+id)
+    return this.mortgageService.remove(id)
   }
 }
