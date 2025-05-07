@@ -1,5 +1,5 @@
-import { ApiProperty } from '@nestjs/swagger';
 import {
+  AutoIncrement,
   Column,
   DataType,
   Model,
@@ -33,17 +33,16 @@ export class OtherReliabilities extends Model<
   OtherReliabilitiesAttributes,
   OtherReliabilitiesCreationAttributes
 > {
-  @ApiProperty()
+
   @PrimaryKey
+  @AutoIncrement
   @Column({
     type: DataType.INTEGER,
-    primaryKey: true,
     allowNull: false,
-    field: 'id',
+    unique: true,
   })
   id!: number;
 
-  @ApiProperty()
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
@@ -51,31 +50,26 @@ export class OtherReliabilities extends Model<
   })
   taxSubmissionId!: number;
 
-  @ApiProperty()
   @Column({
     type: DataType.STRING(255),
   })
   description!: string;
 
-  @ApiProperty()
   @Column({
     type: DataType.DECIMAL,
   })
   interestAmount!: number;
 
-  @ApiProperty()
   @Column({
     type: DataType.DECIMAL,
   })
   balance!: number;
 
-  @ApiProperty()
   @Column({
     type: DataType.INTEGER,
   })
   year!: number;
 
-  @ApiProperty()
   @Column({
     type: DataType.CHAR(3),
   })
