@@ -10,7 +10,6 @@ import { OtherReliabilities } from '../app/modules/other-reliabilities/entities/
 import { PensionsGrantsSubsidies } from '../app/modules/pensions-grants-subsidies/entities/pensions-grants-subsidy.entity';
 import { PerDiemAndPerks } from '../app/modules/per-diem-and-perks/entities/per-diem-and-perk.entity';
 import { SalaryWorkPayments } from '../app/modules/salary-work-payments/entities/salary-work-payment.entity';
-import { logger } from '@island.is/logging';
 import { CreateOtherReliabilityInput } from '../app/modules/other-reliabilities/dto/create-other-reliability.input';
 import { CreateMortgageInterestInput } from '../app/modules/mortgage-interest/dto/create-mortgage-interest.input';
 import { CreatePensionsGrantsSubsidyInput } from '../app/modules/pensions-grants-subsidies/dto/create-pensions-grants-subsidy.input';
