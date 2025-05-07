@@ -1,8 +1,10 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { IsString } from 'class-validator';
 
 @ObjectType()
 export class RealEstate {
   @Field(() => ID)
+  @IsString()
   id!: string;
 
   @Field()
@@ -16,7 +18,4 @@ export class RealEstate {
 
   @Field()
   currency?: string;
-
-  @Field()
-  year?: number;
 }

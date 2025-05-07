@@ -17,6 +17,7 @@ import { CreatePerDiemAndPerkInput } from '../app/modules/per-diem-and-perks/dto
 import { CreateRealEstateInput } from '../app/modules/real-estate/dto/create-real-estate.input';
 import { CreateSalaryWorkPaymentInput } from '../app/modules/salary-work-payments/dto/create-salary-work-payment.input';
 import { CreateVehicleInput } from '../app/modules/vehicle/dto/create-vehicle.input';
+import { logger } from '@island.is/logging';
 
 @Injectable()
 export class BackendAPI extends RESTDataSource {
@@ -86,9 +87,10 @@ export class BackendAPI extends RESTDataSource {
   }
 
   async createPensionsGrantsSubsidy(body: CreatePensionsGrantsSubsidyInput): Promise<PensionsGrantsSubsidies> {
+    const { taxSubmissionId, ...rest } = body;
     const response = await this.post<PensionsGrantsSubsidies>(
       `tax-submissions/${body.taxSubmissionId}/subsidies`,
-      body,
+      rest,
     );
     return response;
   }
@@ -96,6 +98,7 @@ export class BackendAPI extends RESTDataSource {
   // -------------- Per Diem and Perks ----------------
 
   async getAllPerDiemAndPerksByTaxSubmission(taxSubmissionId: number): Promise<PerDiemAndPerks[]> {
+    
     const response = await this.get<{ perks: PerDiemAndPerks[] }>(
       `tax-submissions/${taxSubmissionId}/perks`
     );
@@ -103,9 +106,10 @@ export class BackendAPI extends RESTDataSource {
   }
 
   async createPerDiemAndPerk(body: CreatePerDiemAndPerkInput): Promise<PerDiemAndPerks> {
+    const { taxSubmissionId, ...rest } = body;
     const response = await this.post<PerDiemAndPerks>(
       `tax-submissions/${body.taxSubmissionId}/perks`,
-      body,
+      rest,
     );
     return response;
   }
@@ -116,13 +120,15 @@ export class BackendAPI extends RESTDataSource {
     const response = await this.get<{ realEstates: RealEstate[] }>(
       `tax-submissions/${taxSubmissionId}/real-estates`
     );
+
     return response.realEstates;
   }
 
   async createRealEstate(body: CreateRealEstateInput): Promise<RealEstate> {
+    const { taxSubmissionId, ...rest } = body;
     const response = await this.post<RealEstate>(
       `tax-submissions/${body.taxSubmissionId}/real-estates`,
-      body,
+      rest,
     );
     return response;
   }
@@ -138,7 +144,7 @@ export class BackendAPI extends RESTDataSource {
 
   async createSalaryWorkPayment(body: CreateSalaryWorkPaymentInput): Promise<SalaryWorkPayments> {
     const response = await this.post<SalaryWorkPayments>(
-      `tax-submissions/${body.taxSubmissionId}/salary-work-payments`,
+      `tax-submissions/${body.taxSubmissionId}/salaries`,
       body,
     );
     return response;
@@ -154,9 +160,10 @@ export class BackendAPI extends RESTDataSource {
   }
 
   async createVehicle(body: CreateVehicleInput): Promise<Vehicle> {
+    const { taxSubmissionId, ...rest } = body;
     const response = await this.post<Vehicle>(
       `tax-submissions/${body.taxSubmissionId}/vehicles`,
-      body,
+      rest,
     );
     return response;
   }

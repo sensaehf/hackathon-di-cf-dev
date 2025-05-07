@@ -16,7 +16,4 @@ export class Vehicle {
 
   @Field()
   currency?: string;
-
-  @Field()
-  year?: number;
 }

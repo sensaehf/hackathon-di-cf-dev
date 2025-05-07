@@ -3,6 +3,10 @@ import { IsNumber, IsString } from 'class-validator';
 
 @InputType()
 export class CreateVehicleInput {
+  @Field(() => String)
+  @IsString()
+  id!: string;
+
   @Field(() => Int)
   @IsNumber()
   taxSubmissionId!: number;
@@ -19,7 +23,4 @@ export class CreateVehicleInput {
   @IsString()
   currency!: string;
 
-  @Field(() => Int)
-  @IsNumber()
-  year!: number;
 }

@@ -3,6 +3,11 @@ import { IsNumber, IsString } from 'class-validator';
 
 @InputType()
 export class CreateRealEstateInput {
+  
+  @Field(() => String)
+  @IsString()
+  id!: string;
+
   @Field(() => Int)
   @IsNumber()
   taxSubmissionId!: number;
@@ -18,8 +23,4 @@ export class CreateRealEstateInput {
   @Field(() => String)
   @IsString()
   currency!: string;
-
-  @Field(() => Int)
-  @IsNumber()
-  year!: number;
 }

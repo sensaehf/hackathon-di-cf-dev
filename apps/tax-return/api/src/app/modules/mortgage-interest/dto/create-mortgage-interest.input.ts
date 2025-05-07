@@ -3,6 +3,7 @@ import { IsNumber, IsString } from 'class-validator';
 
 @InputType()
 export class CreateMortgageInterestInput {
+  
   @Field(() => Int)
   @IsNumber()
   taxSubmissionId!: number;
