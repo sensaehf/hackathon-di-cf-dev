@@ -10,10 +10,11 @@ import { useRouter } from 'next/router'
 
 import en from '../public/locales/en/common.json'
 import is from '../public/locales/is/common.json'
+import mockUser from '../mock/mockUser.json'
 
 const translations: any = { en, is }
 
-export const MainLayout = ({ children }: { children: React.ReactNode }) => {
+export const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const { locale = 'en', push, pathname, query, asPath } = useRouter()
 
   const t = translations[locale] || translations.en
@@ -21,21 +22,8 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const thisLocale = locale === 'en' ? 'IS' : 'EN'
   const headerItems = () => (
     <>
-      <Button variant="utility" icon={'person'}>
-        {t.myPages}
-      </Button>
-      <Button
-        variant="utility"
-        onClick={() =>
-          push({ pathname, query }, asPath, {
-            locale: `${locale.toLowerCase() === 'en' ? 'is' : 'en'}`,
-          })
-        }
-      >
-        {thisLocale}
-      </Button>
-      <Button variant="utility" icon={'menu'}>
-        {t.menu}
+      <Button variant="utility" icon={'chevronDown'}>
+        {mockUser.firstName} {mockUser.lastName}
       </Button>
     </>
   )
@@ -48,7 +36,13 @@ export const MainLayout = ({ children }: { children: React.ReactNode }) => {
       <>
         <header>
           <GridContainer>
-            <Header headerItems={headerItems()} />
+            <Header
+              info={{
+                title: 'Skatturinn',
+                description: 'View and amend your tax return',
+              }}
+              headerItems={headerItems()}
+            />
           </GridContainer>
         </header>
         {children}

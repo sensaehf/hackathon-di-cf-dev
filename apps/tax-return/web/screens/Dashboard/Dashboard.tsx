@@ -36,7 +36,7 @@ export const Dashboard = () => {
 
   const mockNavRoots: mockNavRoot[] = [
     {
-      path: '#',
+      path: 'application-system',
       name: t.applications['name'],
       description: t.applications['description'],
       icon: 'fileTrayFull',
@@ -76,7 +76,7 @@ export const Dashboard = () => {
                 autoStack
                 hyphenate
                 truncateHeading
-                to={navRoot.path}
+                href={navRoot.path}
                 headingVariant="h4"
                 headingAs="h2"
                 heading={navRoot.name}

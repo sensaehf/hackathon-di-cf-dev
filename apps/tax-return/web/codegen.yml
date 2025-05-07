@@ -1,0 +1,20 @@
+generates:
+  ./apps/tax-return/web/graphql/schema.tsx:
+    schema: 
+    - ./apps/tax-return/api/src/api.graphql
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      withHooks: true
+      withHOC: false
+      withComponent: false
+      avoidOptionals:
+        object: true
+      namingConvention:
+        enumValues: keep
+hooks:
+  afterAllFileWrite:
+    - prettier --write
+ 
