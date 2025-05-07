@@ -1,6 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { IsNumber, IsString } from 'class-validator'
 import {
   Column,
+  CreatedAt,
   DataType,
   Model,
   PrimaryKey,
@@ -25,6 +27,11 @@ interface VehicleCreationAttributes
     {
       fields: ['id', 'tax_submission_id'],
     },
+    {
+      unique: true,
+      fields: ['id', 'tax_submission_id'],
+      name: 'unique_id_tax_submission_id'
+    }
   ],
 })
 export class Vehicle extends Model<
@@ -33,16 +40,17 @@ export class Vehicle extends Model<
 > {
   @ApiProperty()
   @PrimaryKey
+  @IsString()
   @Column({
     type: DataType.STRING(20),
     primaryKey: true,
     allowNull: false,
-    defaultValue: DataType.STRING(20),
     field: 'id'
   })
   id!: string
 
   @ApiProperty()
+  @IsNumber()
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
@@ -52,22 +60,29 @@ export class Vehicle extends Model<
   taxSubmissionId!: number
 
   @ApiProperty()
+  @IsString()
   @Column({
     type: DataType.CHAR(3)
   })
   currency!: string
 
+  @IsNumber()
   @Column({
       field: 'purchase_price',
       type: DataType.DECIMAL
   })
   purchasePrice!: number
 
+  @IsNumber()
   @Column({
     field: 'purchase_year',
     type: DataType.INTEGER
   })
   purchaseYear!: number
+
+  @CreatedAt
+  @Column
+  created!: Date
 
   @Column
   modified!: Date

@@ -1,10 +1,11 @@
-import { Controller, Get, Param } from '@nestjs/common'
+import { Body, Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common'
 
 import { VehicleService } from './vehicle.service'
-import { ApiOkResponse, ApiTags } from '@nestjs/swagger'
+import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger'
 import { Vehicle } from './vehicle.model'
 import { VehicleResponse } from './dto/vehicleResponse';
 import { VehicleViewModel } from './dto/vehicleViewModel.dto';
+import { CreateVehicleDto } from './dto/create-vehicle.dto';
 
 
 @ApiTags('Vehicle')
@@ -22,7 +23,14 @@ export class VehicleController {
       vehicles = e
     })
     
-    return new VehicleResponse(vehicles?.map(o => new VehicleViewModel(o)) ?? []);
-    
+    return new VehicleResponse(vehicles?.map(o => new VehicleViewModel(o)) ?? []);    
+  }
+
+  @ApiCreatedResponse({type: VehicleViewModel})
+  @Post()
+  async create(@Body() dto : CreateVehicleDto, @Param('taxSubmissionId', ParseIntPipe) taxSubmissionId: number) {
+    const result = await this.vehicleService.create(dto, taxSubmissionId)
+
+    return new VehicleViewModel(result)
   }
 }
