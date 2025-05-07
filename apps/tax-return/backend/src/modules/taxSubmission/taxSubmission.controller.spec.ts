@@ -3,6 +3,7 @@ import { TaxSubmissionController } from './taxSubmission.controller';
 import { TaxSubmissionService } from './taxSubmission.service';
 import { TaxSubmissionViewModel } from './dto/taxSubmissionViewModel.dto';
 import { TaxSubmission } from './taxSubmission.model';
+import { CreateTaxSubmissionDto } from './dto/create-taxSubmission.dto';
 
 describe('TaxSubmissionController', () => {
   let controller: TaxSubmissionController;
@@ -16,6 +17,7 @@ describe('TaxSubmissionController', () => {
           provide: TaxSubmissionService,
           useValue: {
             findByPersonId: jest.fn(), // Mock the TaxSubmissionService method
+            create: jest.fn()
           },
         },
       ],
@@ -71,5 +73,29 @@ describe('TaxSubmissionController', () => {
     // Assert the empty mapping
     expect(result).toEqual( { submissions: []}); // Should return an empty array
     expect(service.findByPersonId).toHaveBeenCalledWith(personId);
+  });
+
+  it('should create a new submission on post', async () => {
+    // Mock data
+    const mockTaxSubmission: TaxSubmission = 
+      {
+        id: 1,
+        personId: 12345,
+        taxYear: 2021,
+      } as TaxSubmission;
+    
+    const dto = new CreateTaxSubmissionDto();
+    dto.personId = 12345;
+    dto.taxYear = 2024;
+
+    // Mock the service to return null
+    jest.spyOn(service, 'create').mockResolvedValue(mockTaxSubmission);
+
+    // Call the controller method
+    const result = await controller.create(dto);
+
+    // Assert the empty mapping
+    expect(result).not.toBeUndefined();
+    expect(service.create).toHaveBeenCalledWith(dto);
   });
 });

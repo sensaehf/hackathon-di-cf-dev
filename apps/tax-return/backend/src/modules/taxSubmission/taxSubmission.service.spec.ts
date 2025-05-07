@@ -3,6 +3,7 @@ import { getModelToken } from '@nestjs/sequelize'
 import { TaxSubmissionService } from './taxSubmission.service';
 import { TaxSubmission } from './taxSubmission.model';
 import { LOGGER_PROVIDER } from '@island.is/logging';
+import { CreateTaxSubmissionDto } from './dto/create-taxSubmission.dto'
 
 describe('TaxSubmissionService', () => {
   let service: TaxSubmissionService;
@@ -76,7 +77,7 @@ describe('TaxSubmissionService', () => {
       // Assertions
       expect(result).toEqual(mockSubmissions);
       expect(taxSubmissionMock.findAll).toHaveBeenCalledWith({
-        where: { person_id: personId },
+        where: { personId: personId },
       });
       expect(loggerMock.debug).toHaveBeenCalledWith(
         `Finding tax submissions for nationalId - "${personId}"`,
@@ -96,7 +97,7 @@ describe('TaxSubmissionService', () => {
       // Assertions
       expect(result).toEqual([]);
       expect(taxSubmissionMock.findAll).toHaveBeenCalledWith({
-        where: { person_id: personId },
+        where: { personId: personId },
       });
       expect(loggerMock.debug).toHaveBeenCalledWith(
         `Finding tax submissions for nationalId - "${personId}"`,
@@ -104,34 +105,34 @@ describe('TaxSubmissionService', () => {
     });
   });
 
-  // describe('create', () => {
-  //   it('should create a new tax submission and log debug message', async () => {
-  //     // Mock data
-  //     const mockTaxSubmissionViewModel: TaxSubmissionViewModel = {
-  //       personId: 12345,
-  //       taxYear: 2022,
-  //     };
+  describe('create', () => {
+    it('should create a new tax submission and log debug message', async () => {
+      // Mock data
+      const mockTaxSubmissionViewModel: CreateTaxSubmissionDto = {
+        personId: 12345,
+        taxYear: 2022,
+      };
 
-  //     const mockCreatedSubmission: TaxSubmission = new TaxSubmission({
-  //       person_id: mockTaxSubmissionViewModel.personId,
-  //       tax_year: mockTaxSubmissionViewModel.taxYear,
-  //     });
+      const mockCreatedSubmission: TaxSubmission = {
+        personId: mockTaxSubmissionViewModel.personId,
+        taxYear: mockTaxSubmissionViewModel.taxYear,
+      } as TaxSubmission;
 
-  //     // Set up mocks
-  //     (taxSubmissionMock.create as jest.Mock).mockResolvedValue(mockCreatedSubmission);
+      // Set up mocks
+      (taxSubmissionMock.create as jest.Mock).mockResolvedValue(mockCreatedSubmission);
 
-  //     // Call service method
-  //     const result = await service.create(mockTaxSubmissionViewModel);
+      // Call service method
+      const result = await service.create(mockTaxSubmissionViewModel);
 
-  //     // Assertions
-  //     expect(result).toEqual(mockCreatedSubmission);
-  //     expect(taxSubmissionMock.create).toHaveBeenCalledWith({
-  //       person_id: mockTaxSubmissionViewModel.personId,
-  //       tax_year: mockTaxSubmissionViewModel.taxYear,
-  //     });
-  //     expect(loggerMock.debug).toHaveBeenCalledWith(
-  //       `Creating tax submission with person id - ${mockTaxSubmissionViewModel.personId} and tax year ${mockTaxSubmissionViewModel.taxYear}`,
-  //     );
-  //   });
-  // });
+      // Assertions
+      expect(result).toEqual(mockCreatedSubmission);
+      expect(taxSubmissionMock.create).toHaveBeenCalledWith({
+        personId: mockTaxSubmissionViewModel.personId,
+        taxYear: mockTaxSubmissionViewModel.taxYear,
+      });
+      expect(loggerMock.debug).toHaveBeenCalledWith(
+        `Creating tax submission with person id - ${mockTaxSubmissionViewModel.personId} and tax year ${mockTaxSubmissionViewModel.taxYear}`,
+      );
+    });
+  });
 });
