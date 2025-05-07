@@ -20,6 +20,7 @@ import { CreateVehicleInput } from '../app/modules/vehicle/dto/create-vehicle.in
 import { UpdateMortgageInterestInput } from '../app/modules/mortgage-interest/dto/update-mortgage-interest.input';
 import { UpdateOtherReliabilityInput } from '../app/modules/other-reliabilities/dto/update-other-reliability.input';
 import { UpdatePensionsGrantsSubsidyInput } from '../app/modules/pensions-grants-subsidies/dto/update-pensions-grants-subsidy.input';
+import { UpdatePerDiemAndPerkInput } from '../app/modules/per-diem-and-perks/dto/update-per-diem-and-perk.input';
 
 @Injectable()
 export class BackendAPI extends RESTDataSource {
@@ -160,6 +161,22 @@ async deletePensionsGrantsSubsidy(id: number, taxSubmissionId: number): Promise<
     const response = await this.post<PerDiemAndPerks>(
       `tax-submissions/${body.taxSubmissionId}/perks`,
       rest,
+    );
+    return response;
+  }
+
+  async updatePerDiemAndPerk(body: UpdatePerDiemAndPerkInput): Promise<PerDiemAndPerks> {
+    const { taxSubmissionId, id, ...rest } = body;
+    const response = await this.put<PerDiemAndPerks>(
+      `tax-submissions/${taxSubmissionId}/perks/${id}`,
+      rest
+    );
+    return response;
+  }
+
+  async deletePerDiemAndPerk(id: string, taxSubmissionId: number): Promise<number> {
+    const response = await this.delete<number>(
+      `tax-submissions/${taxSubmissionId}/perks/${id}`
     );
     return response;
   }
