@@ -5,21 +5,21 @@ export class OtherReliabilities {
   @Field(() => ID)
   id!: number;
 
-  @Field()
+  @Field({ nullable: true })
   taxSubmissionId?: number;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   description?: string;
 
-  @Field()
+  @Field({ nullable: true })
   interestAmount?: number;
 
-  @Field()
+  @Field({ nullable: true })
   balance?: number;
 
-  @Field()
+  @Field({ nullable: true })
   year?: number;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   currency?: string;
 }

@@ -31,14 +31,14 @@ describe('VehicleResolver', () => {
 
   it('should call createVehicle with correct input', async () => {
     const createInput: CreateVehicleInput = {
+      id: 'FMH71',
       taxSubmissionId: 1,
       purchaseYear: 2023,
       purchasePrice: 25000.0,
       currency: 'ISK',
-      year: 2023,
     };
   
-    const mockResponse = { id: '1', ...createInput };
+    const mockResponse = createInput;
     jest.spyOn(backendApi, 'createVehicle').mockResolvedValue(mockResponse);
   
     const result = await resolver.createVehicle(
@@ -49,4 +49,6 @@ describe('VehicleResolver', () => {
     expect(result).toEqual(mockResponse);
     expect(backendApi.createVehicle).toHaveBeenCalledWith(createInput);
   });
+
+  
 })

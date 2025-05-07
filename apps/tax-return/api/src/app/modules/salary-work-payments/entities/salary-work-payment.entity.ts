@@ -5,21 +5,21 @@ export class SalaryWorkPayments {
   @Field(() => ID)
   id!: number;
 
-  @Field()
+  @Field({ nullable: true })
   taxSubmissionId?: number;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   employerName?: string;
 
-  @Field()
+  @Field({ nullable: true })
   amount?: number;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   currency?: string;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   description?: string;
 
-  @Field()
+  @Field({ nullable: true })
   year?: number;
 }

@@ -7,51 +7,51 @@ export class MortgageInterest {
   @IsString()
   id!: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNumber()
   taxSubmissionId?: number;
 
   @IsString()
-  @Field()
+  @Field(() => String, { nullable: true })
   lenderName?: string;
 
   @IsString()
-  @Field()
+  @Field(() => String, { nullable: true })
   type?: string;
 
   @IsString()
-  @Field()
+  @Field(() => String, { nullable: true })
   startDate?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNumber()
   termYears?: number;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNumber()
   purchaseYear?: number;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNumber()
   totalAnnualPayments?: number;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNumber()
   principalRepayment?: number;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNumber()
   interestAmount?: number;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNumber()
   outstandingBalance?: number;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNumber()
   year?: number;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   @IsString()
   currency?: string;
 }

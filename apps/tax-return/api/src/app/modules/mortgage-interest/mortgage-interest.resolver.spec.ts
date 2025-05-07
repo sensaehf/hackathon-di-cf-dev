@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { MortgageInterestResolver } from './mortgage-interest.resolver';
 import { BackendAPI } from '../../../services/backend';
 import { CreateMortgageInterestInput } from './dto/create-mortgage-interest.input';
+import { validate } from 'class-validator';
 
 describe('MortgageInterestResolver', () => {
   let resolver: MortgageInterestResolver;
@@ -59,7 +60,6 @@ describe('MortgageInterestResolver', () => {
       principalRepayment: 5000,
       interestAmount: 7000,
       outstandingBalance: 200000,
-      year: 2023,
       currency: 'ISK',
     };
 
@@ -73,6 +73,5 @@ describe('MortgageInterestResolver', () => {
 
     expect(result).toEqual(mockResponse);
     expect(backendApi.createMortgageInterest).toHaveBeenCalledWith(createInput);
-  });
-  
+  });  
 });

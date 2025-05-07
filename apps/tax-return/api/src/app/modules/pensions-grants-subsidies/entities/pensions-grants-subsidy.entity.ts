@@ -7,31 +7,31 @@ export class PensionsGrantsSubsidies {
   @IsNumber()
   id!: number;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNumber()
   taxSubmissionId?: number;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   @IsString()
   sourceName?: string;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   @IsString()
   grantType?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNumber()
   amount?: number;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   @IsString()
   currency?: string;
 
-  @Field()
+  @Field(() => String, { nullable: true })
   @IsString()
   description?: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsNumber()
   year?: number;
 
