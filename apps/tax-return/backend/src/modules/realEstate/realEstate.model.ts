@@ -13,7 +13,7 @@ import { TaxSubmission } from '../taxSubmission/taxSubmission.model'
 
 interface RealEstateAttributes {
   id: string
-  taxSubmissionId: string
+  taxSubmissionId: number
   address: string
   assessedValue: number
   currency: string
@@ -38,10 +38,10 @@ export class RealEstate extends Model<
 > {
   @ApiProperty()
   @Column({
-    type: DataType.UUID,
+    type: DataType.STRING(50),
     primaryKey: true,
     allowNull: false,
-    defaultValue: DataType.UUIDV4,
+    defaultValue: DataType.STRING(50),
   })
   id!: string
 
