@@ -10,7 +10,7 @@ willSendRequest(req: RequestOptions) {
     req.headers.set('cookie', this.context.req.headers.cookie)
   }
 
-  baseURL = `${environment.nationalRegistryApiUrl}/api`
+  baseURL = `${environment.nationalRegistryApiUrl}/v1`
 
   async getPerson(nationalId: string): Promise<Person> {
     console.log(nationalId)

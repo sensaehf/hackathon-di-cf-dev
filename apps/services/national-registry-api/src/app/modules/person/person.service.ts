@@ -1,17 +1,25 @@
-import { Injectable } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 import { Person } from './entities/person.entity'
+import { Logger, LOGGER_PROVIDER } from '@island.is/logging'
+import { InjectModel } from '@nestjs/sequelize'
 
 @Injectable()
 export class PersonService {
+
+  constructor(
+    @InjectModel(Person)
+    private person: typeof Person,
+    @Inject(LOGGER_PROVIDER)
+    private logger: Logger,
+  ) {}
   
-  findOne(id: number) {
-    const person = new Person()
-    person.name = 'Jökull Þórðarson'
-    person.nationalId = '120389-4569'
-    person.address =	'Bláfjallagata 12, 105 Reykjavík'
-    person.email = 'jokull.thordarson@email.is'
-    person.phoneNumber = '772-8391' 
+  async findOne(id: string) {
+    this.logger.debug(`Getting person with national id ${id}`)
+
+    const person = await this.person.findByPk(id)
+
     return person
+
   }
  
 }
