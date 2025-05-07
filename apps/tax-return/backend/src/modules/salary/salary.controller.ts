@@ -45,6 +45,7 @@ export class SalaryController {
     return this.salaryService.findOne(+id);
   }
 
+  @ApiOkResponse({ type: SalaryViewModel })
   @Put(':id')
   update(
     @Param('id') id: string,
