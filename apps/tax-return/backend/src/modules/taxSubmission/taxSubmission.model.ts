@@ -26,6 +26,11 @@ interface TaxSubmissionCreationAttributes
     {
       fields: ['id', 'person_id'],
     },
+    {
+      unique: true,                // ✅ Make it a unique constraint
+      fields: ['tax_year', 'person_id'],
+      name: 'unique_tax_year_person_id', // optional, for better DB readability
+    },
   ],
 })
 export class TaxSubmission extends Model<
