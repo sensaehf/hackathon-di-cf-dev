@@ -2,7 +2,6 @@ import { Resolver, Query, Args, Int, Context, Mutation } from '@nestjs/graphql';
 import { OtherReliabilities } from './entities/other-reliability.entity';
 import { CreateOtherReliabilityInput } from './dto/create-other-reliability.input';
 import { BackendAPI } from '../../../services';
-import { logger } from '@island.is/logging';
 
 @Resolver(() => OtherReliabilities)
 export class OtherReliabilitiesResolver {

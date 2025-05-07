@@ -12,6 +12,7 @@ import { PerDiemAndPerks } from '../app/modules/per-diem-and-perks/entities/per-
 import { SalaryWorkPayments } from '../app/modules/salary-work-payments/entities/salary-work-payment.entity';
 import { logger } from '@island.is/logging';
 import { CreateOtherReliabilityInput } from '../app/modules/other-reliabilities/dto/create-other-reliability.input';
+import { CreateMortgageInterestInput } from '../app/modules/mortgage-interest/dto/create-mortgage-interest.input';
 
 @Injectable()
 export class BackendAPI extends RESTDataSource {
@@ -21,6 +22,8 @@ export class BackendAPI extends RESTDataSource {
   }
 
   baseURL = `${environment.backendUrl}/v1`
+
+  // -------------- Tax Submission ----------------
 
   createTaxSubmission(body: Record<string, unknown>): Promise<TaxSubmission> {
     // Temp Mock data
@@ -44,6 +47,8 @@ export class BackendAPI extends RESTDataSource {
     return response.submissions
   }
 
+  // -------------- Mortgage Interest ----------------
+
   async getAllMortgageInterestsByTaxSubmission(taxSubmissionId: number): Promise<MortgageInterest[]> {
     const response = await this.get<{ mortgages: MortgageInterest[] }>(
       `tax-submissions/${taxSubmissionId}/mortgages`
@@ -51,7 +56,17 @@ export class BackendAPI extends RESTDataSource {
 
     return response.mortgages;
   }
+
+  async createMortgageInterest(body: CreateMortgageInterestInput): Promise<MortgageInterest> {
+    const response = await this.post<MortgageInterest>(
+      `tax-submissions/${body.taxSubmissionId}/mortgages`,
+      body,
+    );
+    return response;
+  }
   
+  // -------------- Other Reliabilities ----------------
+
   async getAllOtherReliabilitiesByTaxSubmission(taxSubmissionId: number): Promise<OtherReliabilities[]> {
     const response = await this.get<{ otherReliabilities: OtherReliabilities[] }>(
       `tax-submissions/${taxSubmissionId}/other-reliabilities`
@@ -65,9 +80,11 @@ export class BackendAPI extends RESTDataSource {
       `tax-submissions/${body.taxSubmissionId}/other-reliabilities`,
       body,
     );
-    
+
     return response;
   }
+
+  // -------------- Pensions, Grants and Subsidies ----------------
   
   async getAllPensionsGrantsSubsidiesByTaxSubmission(taxSubmissionId: number): Promise<PensionsGrantsSubsidies[]> {
     const response = await this.get<{ subsidies: PensionsGrantsSubsidies[] }>(
@@ -76,12 +93,16 @@ export class BackendAPI extends RESTDataSource {
     return response.subsidies;
   }
   
+  // -------------- Per Diem and Perks ----------------
+
   async getAllPerDiemAndPerksByTaxSubmission(taxSubmissionId: number): Promise<PerDiemAndPerks[]> {
     const response = await this.get<{ perks: PerDiemAndPerks[] }>(
       `tax-submissions/${taxSubmissionId}/perks`
     );
     return response.perks;
   }
+
+  // -------------- Real Estate ----------------
   
   async getAllRealEstatesByTaxSubmission(taxSubmissionId: number): Promise<RealEstate[]> {
     const response = await this.get<{ realEstates: RealEstate[] }>(
@@ -89,6 +110,8 @@ export class BackendAPI extends RESTDataSource {
     );
     return response.realEstates;
   }
+
+  // -------------- Salary Work Payments ----------------
   
   async getAllSalaryWorkPaymentsByTaxSubmission(taxSubmissionId: number): Promise<SalaryWorkPayments[]> {
     const response = await this.get<{ salaries: SalaryWorkPayments[] }>(
@@ -96,6 +119,8 @@ export class BackendAPI extends RESTDataSource {
     );
     return response.salaries;
   }
+
+  // -------------- Vehicles ----------------
   
   async getAllVehiclesByTaxSubmission(taxSubmissionId: number): Promise<Vehicle[]> {
     const response = await this.get<{ vehicles: Vehicle[] }>(
@@ -103,6 +128,7 @@ export class BackendAPI extends RESTDataSource {
     );
     return response.vehicles;
   }
+
 
   getTaxSubmissionById(id: number): Promise<TaxSubmission> {
     // Temp Mock data
