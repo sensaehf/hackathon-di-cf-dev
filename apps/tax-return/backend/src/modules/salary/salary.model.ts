@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 import {
+  AutoIncrement,
   Column,
   DataType,
   Model,
@@ -35,11 +36,11 @@ export class Salary extends Model<
 > {
   @ApiProperty()
   @PrimaryKey
+  @AutoIncrement
   @Column({
     type: DataType.INTEGER,
     primaryKey: true,
     allowNull: false,
-    defaultValue: DataType.INTEGER,
     field: 'id'
   })
   id!: number
