@@ -17,9 +17,6 @@ export class RealEstateService {
     ) {}
 
   create(createRealEstateDto: CreateRealEstateDto, taxSubmissionId: number): Promise<RealEstate> {
-    this.logger.debug(
-      `Creating real estate with id - ${createRealEstateDto.id}`,
-    )
 
     try{
       return this.realEstate.create(

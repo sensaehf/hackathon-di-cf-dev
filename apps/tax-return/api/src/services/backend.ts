@@ -17,6 +17,8 @@ import { CreatePerDiemAndPerkInput } from '../app/modules/per-diem-and-perks/dto
 import { CreateRealEstateInput } from '../app/modules/real-estate/dto/create-real-estate.input';
 import { CreateSalaryWorkPaymentInput } from '../app/modules/salary-work-payments/dto/create-salary-work-payment.input';
 import { CreateVehicleInput } from '../app/modules/vehicle/dto/create-vehicle.input';
+import { UpdateMortgageInterestInput } from '../app/modules/mortgage-interest/dto/update-mortgage-interest.input';
+import { UpdateOtherReliabilityInput } from '../app/modules/other-reliabilities/dto/update-other-reliability.input';
 
 @Injectable()
 export class BackendAPI extends RESTDataSource {
@@ -56,6 +58,22 @@ export class BackendAPI extends RESTDataSource {
     );
     return response;
   }
+
+  async updateMortgageInterest(body: UpdateMortgageInterestInput): Promise<MortgageInterest> {
+    const { taxSubmissionId, ...rest } = body;
+    const response = await this.put<MortgageInterest>(
+      `tax-submissions/${body.taxSubmissionId}/mortgages/${body.id}`,
+      rest,
+    );
+    return response;
+  }
+  
+  async deleteMortgageInterest(id: string, taxSubmissionId: number): Promise<number> {
+    const response = await this.delete<number>(
+      `tax-submissions/${taxSubmissionId}/mortgages/${id}`,
+    );
+    return response;
+  }
   
   // -------------- Other Reliabilities ----------------
 
@@ -76,6 +94,22 @@ export class BackendAPI extends RESTDataSource {
     return response;
   }
 
+  async updateOtherReliability(body: UpdateOtherReliabilityInput): Promise<OtherReliabilities> {
+    const { taxSubmissionId, id, ...rest } = body;
+    const response = await this.put<OtherReliabilities>(
+      `tax-submissions/${body.taxSubmissionId}/other-reliabilities/${body.id}`,
+      rest,
+    );
+    return response;
+  }
+  
+  async deleteOtherReliability(id: number, taxSubmissionId: number): Promise<boolean> {
+    const response = await this.delete<boolean>(
+      `tax-submissions/${taxSubmissionId}/other-reliabilities/${id}`,
+    );
+    return response;
+  }
+
   // -------------- Pensions, Grants and Subsidies ----------------
   
   async getAllPensionsGrantsSubsidiesByTaxSubmission(taxSubmissionId: number): Promise<PensionsGrantsSubsidies[]> {
@@ -86,9 +120,10 @@ export class BackendAPI extends RESTDataSource {
   }
 
   async createPensionsGrantsSubsidy(body: CreatePensionsGrantsSubsidyInput): Promise<PensionsGrantsSubsidies> {
+    const { taxSubmissionId, ...rest } = body;
     const response = await this.post<PensionsGrantsSubsidies>(
       `tax-submissions/${body.taxSubmissionId}/subsidies`,
-      body,
+      rest,
     );
     return response;
   }
@@ -96,6 +131,7 @@ export class BackendAPI extends RESTDataSource {
   // -------------- Per Diem and Perks ----------------
 
   async getAllPerDiemAndPerksByTaxSubmission(taxSubmissionId: number): Promise<PerDiemAndPerks[]> {
+    
     const response = await this.get<{ perks: PerDiemAndPerks[] }>(
       `tax-submissions/${taxSubmissionId}/perks`
     );
@@ -103,9 +139,10 @@ export class BackendAPI extends RESTDataSource {
   }
 
   async createPerDiemAndPerk(body: CreatePerDiemAndPerkInput): Promise<PerDiemAndPerks> {
+    const { taxSubmissionId, ...rest } = body;
     const response = await this.post<PerDiemAndPerks>(
       `tax-submissions/${body.taxSubmissionId}/perks`,
-      body,
+      rest,
     );
     return response;
   }
@@ -116,13 +153,15 @@ export class BackendAPI extends RESTDataSource {
     const response = await this.get<{ realEstates: RealEstate[] }>(
       `tax-submissions/${taxSubmissionId}/real-estates`
     );
+
     return response.realEstates;
   }
 
   async createRealEstate(body: CreateRealEstateInput): Promise<RealEstate> {
+    const { taxSubmissionId, ...rest } = body;
     const response = await this.post<RealEstate>(
       `tax-submissions/${body.taxSubmissionId}/real-estates`,
-      body,
+      rest,
     );
     return response;
   }
@@ -138,7 +177,7 @@ export class BackendAPI extends RESTDataSource {
 
   async createSalaryWorkPayment(body: CreateSalaryWorkPaymentInput): Promise<SalaryWorkPayments> {
     const response = await this.post<SalaryWorkPayments>(
-      `tax-submissions/${body.taxSubmissionId}/salary-work-payments`,
+      `tax-submissions/${body.taxSubmissionId}/salaries`,
       body,
     );
     return response;
@@ -154,43 +193,12 @@ export class BackendAPI extends RESTDataSource {
   }
 
   async createVehicle(body: CreateVehicleInput): Promise<Vehicle> {
+    const { taxSubmissionId, ...rest } = body;
     const response = await this.post<Vehicle>(
       `tax-submissions/${body.taxSubmissionId}/vehicles`,
-      body,
+      rest,
     );
     return response;
-  }
-
-
-  getTaxSubmissionById(id: number): Promise<TaxSubmission> {
-    // Temp Mock data
-    return Promise.resolve({
-      id: id,
-      personId: 123,
-      taxYear: 2025,
-      createdAt: new Date(),
-    } as unknown as TaxSubmission)
-
-    // return this.get(`tax-submissions/${id}`)
-  }
-
-  updateTaxSubmission(id: number, body: Record<string, unknown>): Promise<TaxSubmission> {
-    // Temp Mock data
-    return Promise.resolve({
-      id: id,
-      personId: body.personId as number,
-      taxYear: body.taxYear as number,
-      createdAt: new Date(),
-    } as unknown as TaxSubmission)
-
-    // return this.put(`tax-submissions/${id}`, body)
-  }
-
-  deleteTaxSubmission(id: number): Promise<void> {
-    // Temp Mock data
-    return Promise.resolve()
-
-    // return this.delete(`tax-submissions/${id}`)
   }
 }
 

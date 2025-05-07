@@ -1,3 +1,4 @@
+import { IsString } from 'class-validator'
 import { CreateMortgageInterestInput } from './create-mortgage-interest.input'
 import { InputType, Field, Int, PartialType } from '@nestjs/graphql'
 
@@ -5,6 +6,7 @@ import { InputType, Field, Int, PartialType } from '@nestjs/graphql'
 export class UpdateMortgageInterestInput extends PartialType(
   CreateMortgageInterestInput,
 ) {
-  @Field(() => Int)
-  id!: number
+  @Field(() => String)
+  @IsString()
+  id!: string
 }
