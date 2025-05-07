@@ -7,6 +7,7 @@ import { SequelizeConfigService } from './sequelizeConfig.service'
 import { SalaryModule } from '../modules/salary/salary.module'
 import { PerkModule } from '../modules/perks/perk.module'
 import { SubsidyModule } from '../modules/subsidy/subsidy.module'
+import { RealEstateModule } from '../modules/realEstate/realEstate.module'
 import { OtherReliabilitiesModule } from '../modules/other-reliabilities/other-reliabilities.module'
 import { VehicleModule } from '../modules/vehicle/vehicle.module'
 
@@ -20,6 +21,8 @@ import { VehicleModule } from '../modules/vehicle/vehicle.module'
     PerkModule,
     SalaryModule,
     SubsidyModule,
+    PerkModule,
+    RealEstateModule,
     OtherReliabilitiesModule,
     VehicleModule
   ]  
