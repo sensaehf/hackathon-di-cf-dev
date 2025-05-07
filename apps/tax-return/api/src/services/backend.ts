@@ -18,6 +18,7 @@ import { CreateRealEstateInput } from '../app/modules/real-estate/dto/create-rea
 import { CreateSalaryWorkPaymentInput } from '../app/modules/salary-work-payments/dto/create-salary-work-payment.input';
 import { CreateVehicleInput } from '../app/modules/vehicle/dto/create-vehicle.input';
 import { UpdateMortgageInterestInput } from '../app/modules/mortgage-interest/dto/update-mortgage-interest.input';
+import { UpdateOtherReliabilityInput } from '../app/modules/other-reliabilities/dto/update-other-reliability.input';
 
 @Injectable()
 export class BackendAPI extends RESTDataSource {
@@ -90,6 +91,22 @@ export class BackendAPI extends RESTDataSource {
       body,
     );
 
+    return response;
+  }
+
+  async updateOtherReliability(body: UpdateOtherReliabilityInput): Promise<OtherReliabilities> {
+    const { taxSubmissionId, id, ...rest } = body;
+    const response = await this.put<OtherReliabilities>(
+      `tax-submissions/${body.taxSubmissionId}/other-reliabilities/${body.id}`,
+      rest,
+    );
+    return response;
+  }
+  
+  async deleteOtherReliability(id: number, taxSubmissionId: number): Promise<boolean> {
+    const response = await this.delete<boolean>(
+      `tax-submissions/${taxSubmissionId}/other-reliabilities/${id}`,
+    );
     return response;
   }
 

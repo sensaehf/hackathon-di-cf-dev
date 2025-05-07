@@ -3,9 +3,9 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
+  Put,
 } from '@nestjs/common';
 import { OtherReliabilitiesService } from './other-reliabilities.service';
 import { CreateReliabilityDto } from './dto/create-reliability.dto';
@@ -43,20 +43,20 @@ export class OtherReliabilitiesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.otherReliabilitiesService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body() updateReliabilityDto: UpdateReliabilityDto,
   ) {
     return this.otherReliabilitiesService.update(+id, updateReliabilityDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.otherReliabilitiesService.remove(+id);
   }
 }

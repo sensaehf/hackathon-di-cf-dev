@@ -37,9 +37,10 @@ export class OtherReliabilitiesService {
   }
 
   update(id: number, updateReliabilityDto: UpdateReliabilityDto) {
-    return this.otherReliabilities.update(updateReliabilityDto, {
+    this.otherReliabilities.update(updateReliabilityDto, {
       where: { id },
     });
+    return this.otherReliabilities.findByPk(id)
   }
 
   remove(id: number) {
