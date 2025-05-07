@@ -14,6 +14,7 @@ import { OtherReliabilities } from './other-reliabilities.model';
 import { OtherReliabilitiesResponse } from './dto/reliabilityResponse';
 import { OtherReliabilitiesViewModel } from './dto/reliability.dto';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { logger } from '@island.is/logging';
 
 @ApiTags('Other Reliabilities')
 @Controller('v1/tax-submissions/:taxSubmissionId/other-reliabilities')
