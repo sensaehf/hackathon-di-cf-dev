@@ -31,7 +31,7 @@ export class VehicleService
       return await this.vehicle.create(vehicleDto)
     }
     catch(error){
-      this.logger.debug('Error creating tax submission', error)
+      this.logger.debug('Error creating vehicle', error)
       if (error instanceof UniqueConstraintError) {
         throw new ConflictException('An entry for this plate number already exists.');
       }
