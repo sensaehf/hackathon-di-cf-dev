@@ -4,14 +4,15 @@ import { RealEstateService } from './realEstate.service'
 import { RealEstateViewModel } from './dto/realEstate.dto';
 import { RealEstate } from './realEstate.model';
 import { CreateRealEstateDto } from './dto/create-realEstate.dto';
+import { UpdateRealEstateDto } from './dto/update-realEstate.dto';
 
 describe('RealEstateController', () => {
   let controller: RealEstateController;
   let service: RealEstateService;
-  let module: TestingModule;
+  let moduleRef: TestingModule;
 
   beforeAll(async () => {
-    module = await Test.createTestingModule({
+    moduleRef = await Test.createTestingModule({
       controllers: [RealEstateController],
       providers: [
         {
@@ -19,17 +20,20 @@ describe('RealEstateController', () => {
           useValue: {
             findAllByTaxSubmissionId: jest.fn(),
             create: jest.fn(),
+            findOne: jest.fn(),
+            update: jest.fn(),
+            remove: jest.fn(),
           },
         },
       ],
     }).compile();
 
-    controller = module.get<RealEstateController>(RealEstateController);
-    service = module.get<RealEstateService>(RealEstateService);
+    controller = moduleRef.get<RealEstateController>(RealEstateController);
+    service = moduleRef.get<RealEstateService>(RealEstateService);
   });
 
   afterAll(async () => {
-    await module.close();
+    await moduleRef.close();
   });
 
   afterEach(() => {
@@ -105,5 +109,84 @@ describe('RealEstateController', () => {
 
     await expect(controller.create(createDto, taxSubmissionId)).rejects.toThrow('Creation failed');
     expect(service.create).toHaveBeenCalledWith(createDto, taxSubmissionId);
+  });
+
+  describe('findOne', () => {
+    it('should return a real estate by ID', async () => {
+      const id = '1';
+      const mockRealEstate: RealEstate = {
+        id: '1',
+        taxSubmissionId: 12345,
+        address: 'Gámagata 42',
+        assessedValue: 10,
+        currency: 'ISK',
+      } as RealEstate;
+
+      jest.spyOn(service, 'findOne').mockResolvedValue(mockRealEstate);
+
+      const result = await controller.findOne(id);
+
+      expect(service.findOne).toHaveBeenCalledWith(id);
+      expect(result).toEqual(mockRealEstate);
+    });
+
+    it('should handle errors from service.findOne', async () => {
+      const id = '2';
+      const error = new Error('Not found');
+
+      jest.spyOn(service, 'findOne').mockRejectedValue(error);
+
+      await expect(controller.findOne(id)).rejects.toThrow('Not found');
+      expect(service.findOne).toHaveBeenCalledWith(id);
+    });
+  });
+
+  describe('update', () => {
+    it('should update a real estate and return a success message', async () => {
+      const id = '1';
+      const updateDto = { address: 'Updated Address' } as UpdateRealEstateDto;
+      const mockUpdatedRealEstate = { id, ...updateDto } as RealEstate;
+
+      jest.spyOn(service, 'update').mockResolvedValue(mockUpdatedRealEstate);
+
+      const result = await controller.update(id, updateDto);
+
+      expect(service.update).toHaveBeenCalledWith(id, updateDto);
+      expect(result).toEqual(mockUpdatedRealEstate);
+    });
+
+    it('should handle errors from service.update', async () => {
+      const id = '2';
+      const updateDto = { address: 'Updated Address' } as UpdateRealEstateDto;
+      const error = new Error('Update failed');
+
+      jest.spyOn(service, 'update').mockRejectedValue(error);
+
+      await expect(controller.update(id, updateDto)).rejects.toThrow('Update failed');
+      expect(service.update).toHaveBeenCalledWith(id, updateDto);
+    });
+  });
+
+  describe('remove', () => {
+    it('should delete a real estate by ID', async () => {
+      const id = '1';
+
+      jest.spyOn(service, 'remove').mockResolvedValue(1);
+
+      const result = await controller.remove(id);
+
+      expect(service.remove).toHaveBeenCalledWith(id);
+      expect(result).toEqual(1);
+    });
+
+    it('should handle errors from service.remove', async () => {
+      const id = '2';
+      const error = new Error('Delete failed');
+
+      jest.spyOn(service, 'remove').mockRejectedValue(error);
+
+      await expect(controller.remove(id)).rejects.toThrow('Delete failed');
+      expect(service.remove).toHaveBeenCalledWith(id);
+    });
   });
 });
