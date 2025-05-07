@@ -8,38 +8,55 @@ import { InjectModel } from '@nestjs/sequelize'
 
 @Injectable()
 export class MortgageService {
-
   constructor(
-      @InjectModel(Mortgage)
-      private mortgage: typeof Mortgage,
-      @Inject(LOGGER_PROVIDER)
-      private logger: Logger,
-    ) {}
+    @InjectModel(Mortgage)
+    private mortgage: typeof Mortgage,
+    @Inject(LOGGER_PROVIDER)
+    private logger: Logger,
+  ) {}
 
-  create(createMortgageDto: CreateMortgageDto) {
-    return 'This action adds a new mortgage'
+  async create(
+    createMortgageDto: CreateMortgageDto,
+    taxSubmissionId: number,
+  ): Promise<Mortgage> {
+    this.logger.debug(`Creating a mortgage with id - ${createMortgageDto.id}`)
+
+    try {
+      return await this.mortgage.create({
+        ...createMortgageDto,
+        taxSubmissionId: taxSubmissionId,
+      })
+    } catch (error) {
+      this.logger.debug('Error creating a mortgage', error)
+      throw error
+    }
   }
 
   findAll() {
     return `This action returns all mortgage`
   }
 
-  async findAllBySubmissionId(submissionId: number): Promise<Mortgage[] | null> {
-      this.logger.debug(`Finding mortgages for submissionId - "${submissionId}"`)
-      return this.mortgage.findAll({
-        where: { taxSubmissionId: submissionId },
-      })
-    }
-
-  findOne(id: number) {
-    return `This action returns a #${id} mortgage`
+  async findAllBySubmissionId(
+    submissionId: number,
+  ): Promise<Mortgage[] | null> {
+    this.logger.debug(`Finding mortgages for submissionId - "${submissionId}"`)
+    return this.mortgage.findAll({
+      where: { taxSubmissionId: submissionId },
+    })
   }
 
-  update(id: number, updateMortgageDto: UpdateMortgageDto) {
-    return `This action updates a #${id} mortgage`
+  async findOne(id: string) {
+    return await this.mortgage.findByPk(id)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} mortgage`
+  async update(id: string, updateMortgageDto: UpdateMortgageDto) {
+    await this.mortgage.update(updateMortgageDto, { where: { id } })
+    return await this.mortgage.findByPk(updateMortgageDto.id)
+  }
+
+  async remove(id: string) {
+    return await this.mortgage.destroy({
+      where: { id },
+    })
   }
 }

@@ -13,7 +13,18 @@ import { TaxSubmission } from '../taxSubmission/taxSubmission.model'
 
 interface MortgageAttributes {
   id: string
-  taxSubmissionId: string
+  taxSubmissionId: number
+  lenderName: string
+  type: string
+  description: string
+  startDate: Date
+  termYears: number
+  purchaseYear: number
+  totalAnnualPayments: number
+  principalRepayment: number
+  interestAmount: number
+  outstandingBalance: number
+  currency: string
   created: Date
   modified: Date
 }
@@ -35,10 +46,10 @@ export class Mortgage extends Model<
 > {
   @ApiProperty()
   @Column({
-    type: DataType.UUID,
+    type: DataType.STRING(50),
     primaryKey: true,
     allowNull: false,
-    defaultValue: DataType.UUIDV4,
+    defaultValue: DataType.STRING(50),
   })
   id!: string
 
@@ -47,7 +58,6 @@ export class Mortgage extends Model<
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
-    unique: true,
   })
   taxSubmissionId!: number
 
@@ -55,7 +65,6 @@ export class Mortgage extends Model<
   @Column({
     type: DataType.STRING,
     allowNull: false,
-    unique: true,
   })
   lenderName!: string
 
@@ -70,7 +79,6 @@ export class Mortgage extends Model<
   @Column({
     type: DataType.STRING,
     allowNull: false,
-    unique: true,
   })
   description!: string
 
@@ -78,7 +86,6 @@ export class Mortgage extends Model<
   @Column({
     type: DataType.DATE,
     allowNull: false,
-    unique: true,
   })
   startDate!: Date
 
@@ -86,7 +93,6 @@ export class Mortgage extends Model<
   @Column({
     type: DataType.NUMBER,
     allowNull: false,
-    unique: true,
   })
   termYears!: number
 
@@ -101,7 +107,6 @@ export class Mortgage extends Model<
   @Column({
     type: DataType.NUMBER,
     allowNull: false,
-    unique: true,
   })
   totalAnnualPayments!: number
 
@@ -116,7 +121,6 @@ export class Mortgage extends Model<
   @Column({
     type: DataType.NUMBER,
     allowNull: false,
-    unique: true,
   })
   interestAmount!: number
 
@@ -124,15 +128,13 @@ export class Mortgage extends Model<
   @Column({
     type: DataType.NUMBER,
     allowNull: false,
-    unique: true,
   })
   outstandingBalance!: number
 
   @ApiProperty()
   @Column({
     type: DataType.INTEGER,
-    allowNull: false,
-    unique: true,
+    allowNull: true,
   })
   year!: number
 
@@ -140,7 +142,6 @@ export class Mortgage extends Model<
   @Column({
     type: DataType.STRING,
     allowNull: false,
-    unique: true,
   })
   currency!: string
 
