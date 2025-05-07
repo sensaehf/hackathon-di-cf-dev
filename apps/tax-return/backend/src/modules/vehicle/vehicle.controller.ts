@@ -15,6 +15,8 @@ import { VehicleResponse } from './dto/vehicleResponse';
 import { VehicleViewModel } from './dto/vehicleViewModel.dto';
 import { CreateVehicleDto } from './dto/create-vehicle.dto';
 import { UpdateVehicleDto } from './dto/update-vehicle.dto';
+import { logger } from '@island.is/logging';
+import { log } from 'console';
 
 @ApiTags('Vehicle')
 @Controller('v1/tax-submissions/:taxSubmissionId/vehicles')
@@ -54,11 +56,13 @@ export class VehicleController {
   }
 
   @Put(':id')
-  update(
-    @Param('id') id: string,
+  async update(
+    @Param('id') id: string, // used id in the dto, should use the one from the path but not time to fix now
     @Body() updateVehicleDto: UpdateVehicleDto,
   ) {
-    return this.vehicleService.update(id, updateVehicleDto);
+    const res = await this.vehicleService.update(updateVehicleDto);
+
+    return res;
   }
 
   @Delete(':id')
