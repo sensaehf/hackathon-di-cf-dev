@@ -1,70 +1,118 @@
 import {
+  ActionCard,
   Box,
+  BreadCrumbItem,
   Button,
   Divider,
-  FormStepper,
   FormStepperSection,
   FormStepperV2,
   GridColumn,
   GridContainer,
   GridRow,
+  Hidden,
   Icon,
   Link,
+  Navigation,
+  NavigationItem,
   Section,
   Text,
 } from '@island.is/island-ui/core'
+import { useRouter } from 'next/router'
 import { ReactElement, useState } from 'react'
-import { StepBox } from '../../components/Stepper/StepBox'
-import { StepIntro } from '../../components/Stepper/StepIntro'
-import { StepIncome } from '../../components/Stepper/StepIncome'
 
-interface StepProps {
-  nextStep: (step: number) => void
-  previousStep: (step: number) => void
-  children?: React.ReactNode
-}
+import en from '../../public/locales/en/landing.json'
+import is from '../../public/locales/is/landing.json'
 
-const ApplicationSystem: React.FC<StepProps> = ({
-  nextStep,
-  previousStep,
-  children,
-}) => {
-  const stepperNavItems: ReactElement[] = [
-    <Section
-      section={'Tax returns 2024'}
-      isActive={true}
-      sectionIndex={0}
-      subSections={[
-        <Text variant="medium" key="sub0">
-          Income
-        </Text>,
-        <Text variant="medium" key="sub0">
-          Assets
-        </Text>,
-        <Text variant="medium" key="sub0">
-          Debts and Interest Payment
-        </Text>,
-      ]}
-    />,
-    <Section section={'Summary'} sectionIndex={1} />,
-    <Section section={'Receipt'} sectionIndex={2} />,
+const translations: any = { en, is }
+
+const ApplicationSystem = () => {
+  const { locale = 'en', push } = useRouter()
+
+  const t = translations[locale] || translations.en
+
+  const navigationItems: NavigationItem[] = [
+    {
+      title: t.headings[0],
+      href: '#',
+    },
+    {
+      title: t.headings[1],
+      href: '#',
+    },
+    {
+      title: t.headings[2],
+      href: '#',
+    },
   ]
 
-  const stepperSections: ReactElement[] = [<StepIntro />, <StepIncome />]
-
   return (
-    <Box background={'purple100'} height={'full'} style={{ height: '100vh' }}>
-      <GridContainer>
-        <GridRow>
-          <GridColumn span={'9/12'}></GridColumn>
-          <GridColumn span={'3/12'}>
-            <Box marginTop={20}>
-              <FormStepperV2 sections={stepperNavItems} />
-            </Box>
-          </GridColumn>
-        </GridRow>
-      </GridContainer>
-    </Box>
+    <>
+      <main>
+        <GridContainer>
+          <GridRow marginBottom={20}>
+            <GridColumn span={['12/12', '4/12']}>
+              <Button variant="text" size="small">
+                <Box display="flex" alignItems={'center'} marginY={2}>
+                  <Icon icon="arrowBack" size="small" />
+                  Back to dashboard
+                </Box>
+              </Button>
+              <Box background={'blue100'} borderRadius={'large'}>
+                <Hidden above={'xs'}>
+                  <Navigation
+                    title={t.tableOfContentsTitle}
+                    items={navigationItems}
+                    baseId={''}
+                    isMenuDialog={true}
+                  ></Navigation>
+                </Hidden>
+                <Hidden below={'sm'}>
+                  <Navigation
+                    title={t.tableOfContentsTitle}
+                    items={navigationItems}
+                    baseId={''}
+                    isMenuDialog={false}
+                  ></Navigation>
+                </Hidden>
+              </Box>
+            </GridColumn>
+            <GridColumn span={['12/12', '8/12']}>
+              <Text
+                variant="h1"
+                marginY={2}
+                as={'h1'}
+                id="main-content"
+                marginTop={6}
+              >
+                My tax returns
+              </Text>
+              <Text variant="medium" marginBottom={2}>
+                Here you’ll find everything related to your tax returns in one
+                place.
+              </Text>
+              <Text variant="medium" marginBottom={5}>
+                You can view the status of your current tax return, check
+                previous submissions, and continue where you left off.
+              </Text>{' '}
+              <ActionCard
+                cta={{
+                  label: 'Continue Tax Return',
+                  variant: 'primary',
+                  icon: 'open',
+                  iconType: 'outline',
+                  onClick: () => {
+                    push('/application-system/intro')
+                  },
+                }}
+                heading={'Tax Return 2024'}
+                headingVariant="h3"
+                text="View, edit and submit your Tax Return"
+              ></ActionCard>
+            </GridColumn>
+          </GridRow>
+        </GridContainer>
+      </main>
+    </>
   )
 }
 

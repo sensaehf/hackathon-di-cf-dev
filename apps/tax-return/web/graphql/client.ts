@@ -25,7 +25,7 @@ if (!isBrowser) {
 function create(initialState?: any) {
   const { graphqlEndpoint: graphqlServerEndpoint } = serverRuntimeConfig
   const { graphqlEndpoint: graphqlClientEndpoint } = publicRuntimeConfig
-  const graphqlEndpoint = graphqlServerEndpoint || graphqlClientEndpoint
+  const graphqlEndpoint = 'http://localhost:3333/api/graphql'
   const httpLink = new HttpLink({
     uri: graphqlEndpoint,
     fetch,

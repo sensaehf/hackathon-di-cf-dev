@@ -94,6 +94,7 @@ export type Icon =
   | 'swapVertical'
   | 'thumbsUp'
   | 'thumbsDown'
+  | 'trending'
   | 'leaf'
   | 'card'
   | 'bank'
@@ -187,6 +188,7 @@ export default {
     remove: 'Remove',
     time: 'Time',
     timer: 'Timer',
+    trending: 'Trending',
     save: 'Save',
     bookmark: 'Bookmark',
     share: 'Share',
@@ -205,6 +207,7 @@ export default {
     hammer: 'HammerOutline',
   },
   outline: {
+    trending: 'TrendingOutline',
     archive: 'ArchiveOutline',
     accessibility: 'AccessibilityOutline',
     cash: 'CashOutline',

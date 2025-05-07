@@ -10,67 +10,119 @@ import { TaxReturnBox } from '../TaxReturnBox/TaxReturnBox'
 import { Icon as IconType } from 'libs/island-ui/core/src/lib/IconRC/iconMap'
 import { TaxReturnModal } from '../TaxReturnBox/TaxReturnModal'
 import { useState } from 'react'
+import { gql, useQuery } from '@apollo/client'
+import {
+  TaxReturnBoxProps,
+  SubCategory,
+  Values,
+} from '../../types/TaxReturnBoxProps'
+import { label } from 'libs/island-ui/core/src/lib/Input/Input.mixins'
+import { RealEstate, Vehicle } from '../../graphql/schema'
 
-interface TaxReturnBoxProps {
-  title: string
-  icon: IconType
-  subCategories: SubCategory[]
-}
+// Real estate
+const GET_REAL_ESTATE = gql`
+  query GetAllRealEstatesByTaxSubmission($taxSubmissionId: Int!) {
+    findAllRealEstatesByTaxSubmission(taxSubmissionId: $taxSubmissionId) {
+      id
+      taxSubmissionId
+      address
+      assessedValue
+      currency
+    }
+  }
+`
 
-interface SubCategory {
-  title?: string
-  values: Values[]
-}
-
-interface Values {
-  label: string
-  value: string
-}
+// Vehicles
+const GET_VEHICLES = gql`
+  query FindAllVehiclesByTaxSubmission($taxSubmissionId: Int!) {
+    findAllVehiclesByTaxSubmission(taxSubmissionId: $taxSubmissionId) {
+      id
+      taxSubmissionId
+      purchaseYear
+      purchasePrice
+      currency
+    }
+  }
+`
 
 export const StepAssets = () => {
   const [show, setShow] = useState(false)
+  const [showIndex, setShowIndex] = useState(0)
+
+  const handleShow = (index: number) => {
+    setShow(true)
+    setShowIndex(index)
+  }
+
+  const vehiclesData = useQuery(GET_VEHICLES, {
+    variables: { taxSubmissionId: 1 },
+  })
+
+  const realEstateData = useQuery(GET_REAL_ESTATE, {
+    variables: { taxSubmissionId: 1 },
+  })
+
+  if (vehiclesData.loading || realEstateData.loading) {
+    return null
+  }
+
+  const vehicles: Vehicle[] = vehiclesData.data.findAllVehiclesByTaxSubmission
+  const realEstate: RealEstate[] =
+    realEstateData.data.findAllRealEstatesByTaxSubmission
+
   const incomes: TaxReturnBoxProps[] = [
     {
-      title: 'Salary and Work-Related Payments',
-      icon: 'card',
-      subCategories: [
-        {
-          title: 'Salary',
-          values: [
-            { label: 'Employer', value: 'Company A' },
-            { label: 'Amount', value: '1.000.000 kr.' },
-          ],
-        },
-        {
-          title: 'Work-Related Payments',
-          values: [
-            { label: 'Employer', value: 'Company B' },
-            { label: 'Amount', value: '500.000 kr.' },
-          ],
-        },
-      ],
+      title: 'Domestic Real Estate',
+      description:
+        'If the number shown doesn’t match your payslips or income statements, you can adjust it. Make sure to enter the correct total before tax, based on what you earned during the year.',
+      icon: 'home',
+      subCategories: realEstate
+        ? realEstate.map((item: any) => ({
+            title: item.address,
+            values: [
+              {
+                label: 'Real estate assesement value',
+                value: item.assessedValue,
+              },
+            ],
+          }))
+        : [],
+      total:
+        realEstate.length > 1
+          ? realEstate.reduce((total: number, item: RealEstate) => {
+              return total + item.assessedValue
+            }, 0)
+          : realEstate[0].assessedValue,
     },
     {
-      title: 'Allowances and benefits',
-      icon: 'cash',
-      subCategories: [
-        {
-          title: 'Child Allowance',
-          values: [
-            { label: 'Amount', value: '100.000 kr.' },
-            { label: 'Taxable', value: 'Yes' },
-          ],
-        },
-        {
-          title: 'Unemployment Benefits',
-          values: [
-            { label: 'Amount', value: '200.000 kr.' },
-            { label: 'Taxable', value: 'No' },
-          ],
-        },
-      ],
+      title: 'Vehicles',
+      description:
+        'If the number shown doesn’t match your payslips or income statements, you can adjust it. Make sure to enter the correct total before tax, based on what you earned during the year.',
+      icon: 'car',
+      subCategories: vehicles
+        ? vehicles.map((item: any) => ({
+            title: item.id,
+            values: [
+              {
+                label: 'Purchase year:',
+                value: item.purchaseYear,
+              },
+              {
+                label: 'Purchase price:',
+                value: item.purchasePrice,
+              },
+            ],
+          }))
+        : [],
+      total:
+        vehicles.length > 1
+          ? vehicles.reduce((total: number, item: Vehicle) => {
+              return total + item.purchasePrice
+            }, 0)
+          : vehicles[0].purchasePrice,
     },
   ]
+
   return (
     <>
       {' '}
@@ -87,13 +139,16 @@ export const StepAssets = () => {
           title={income.title}
           icon={income.icon}
           subCategories={income.subCategories}
-          totalAmount="1.500.000 kr."
-          setShow={() => setShow(true)}
+          totalAmount={income.total}
+          setShow={() => handleShow(index)}
         />
       ))}
       <TaxReturnModal
         isVisible={show}
         onClose={() => setShow(false)}
+        data={incomes[showIndex].subCategories}
+        title={incomes[showIndex].title}
+        description={incomes[showIndex].description}
       ></TaxReturnModal>
     </>
   )
