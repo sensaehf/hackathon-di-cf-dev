@@ -3,8 +3,8 @@ import { RealEstate } from './realEstate.model'
 import type { Logger } from '@island.is/logging'
 import { LOGGER_PROVIDER } from '@island.is/logging'
 import { InjectModel } from '@nestjs/sequelize'
-import { RealEstateViewModel } from './dto/realEstate.dto'
 import { CreateRealEstateDto } from './dto/create-realEstate.dto'
+import { UpdateRealEstateDto } from './dto/update-realEstate.dto'
 
 @Injectable()
 export class RealEstateService {
@@ -35,25 +35,30 @@ export class RealEstateService {
   }
 
   findAll() {
-    return `This action returns all RealEstate`
+    return this.realEstate.findAll()
   }
 
   async findAllByTaxSubmissionId(submissionId: number): Promise<RealEstate[] | null> {
       this.logger.debug(`Finding real estates for taxSubmissionId - "${submissionId}"`)
-      return this.realEstate.findAll({
+      return await this.realEstate.findAll({
         where: { taxSubmissionId: submissionId },
       })
     }
 
-  findOne(id: number) {
-    return `This action returns a #${id} RealEstate`
+  findOne(id: string) {
+    return this.realEstate.findByPk(id)
   }
 
-  update(id: number, updateRealEstateDto: RealEstateViewModel) {
-    return `This action updates a #${id} RealEstate`
+  update(id: string, updateRealEstateDto: UpdateRealEstateDto) {
+    this.realEstate.update(updateRealEstateDto, {
+      where: { id },
+    })
+    return this.realEstate.findByPk(id)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} RealEstate`
+  remove(id: string) {
+    return this.realEstate.destroy({
+      where: { id },
+    })
   }
 }

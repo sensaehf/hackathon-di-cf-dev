@@ -3,7 +3,7 @@ import {
   Get,
   Post,
   Body,
-  Patch,
+  Put,
   Param,
   Delete,
 } from '@nestjs/common'
@@ -13,6 +13,7 @@ import { RealEstateResponse } from './dto/realEstateResponse'
 import { RealEstateViewModel } from './dto/realEstate.dto'
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger'
 import { CreateRealEstateDto } from './dto/create-realEstate.dto'
+import { UpdateRealEstateDto } from './dto/update-realEstate.dto'
 
 @ApiTags('Real Estate')
 @Controller('v1/tax-submissions/:taxSubmissionId/real-estates')
@@ -39,19 +40,19 @@ export class RealEstateController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.realEstateService.findOne(+id)
+    return this.realEstateService.findOne(id)
   }
 
-  @Patch(':id')
+  @Put(':id')
   update(
     @Param('id') id: string,
-    @Body() updateRealEstateDto: RealEstateViewModel,
+    @Body() updateRealEstateDto: UpdateRealEstateDto,
   ) {
-    return this.realEstateService.update(+id, updateRealEstateDto)
+    return this.realEstateService.update(id, updateRealEstateDto)
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.realEstateService.remove(+id)
+    return this.realEstateService.remove(id)
   }
 }
