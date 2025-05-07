@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  Delete,
-  Put,
-} from '@nestjs/common'
+import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common'
 import { MortgageService } from './mortgage.service'
 import { CreateMortgageDto } from './dto/create-mortgage.dto'
 import { UpdateMortgageDto } from './dto/update-mortgage.dto'
@@ -21,21 +13,26 @@ export class MortgageController {
   constructor(private readonly mortgageService: MortgageService) {}
 
   @Post()
-  create(@Body() createMortgageDto: CreateMortgageDto, @Param('taxSubmissionId') taxSubmissionId: number) {
+  create(
+    @Body() createMortgageDto: CreateMortgageDto,
+    @Param('taxSubmissionId') taxSubmissionId: number,
+  ) {
     return this.mortgageService.create(createMortgageDto, taxSubmissionId)
   }
 
-  @ApiOkResponse({type: MortgageResponse})
+  @ApiOkResponse({ type: MortgageResponse })
   @Get()
   async findAll(@Param('taxSubmissionId') taxSubmissionId: number) {
-    let mortgages : Mortgage[] | null = [];
-    await this.mortgageService.findAllBySubmissionId(taxSubmissionId)
-    .then((e) =>
-    {
-      mortgages = e
-    })
+    let mortgages: Mortgage[] | null = []
+    await this.mortgageService
+      .findAllBySubmissionId(taxSubmissionId)
+      .then((e) => {
+        mortgages = e
+      })
 
-    return new MortgageResponse(mortgages?.map(o => new MortgageViewModel(o)) ?? []);
+    return new MortgageResponse(
+      mortgages?.map((o) => new MortgageViewModel(o)) ?? [],
+    )
   }
 
   @Get(':id')
