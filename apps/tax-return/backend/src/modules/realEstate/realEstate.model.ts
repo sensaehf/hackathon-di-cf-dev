@@ -50,7 +50,6 @@ export class RealEstate extends Model<
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
-    unique: true,
   })
   taxSubmissionId!: number
 
