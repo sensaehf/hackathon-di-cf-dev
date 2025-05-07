@@ -10,8 +10,6 @@ import { SequelizeConfigService } from './sequelizeConfig.service'
       useClass: SequelizeConfigService,
     }),
     PersonModule
-  ],
-  controllers: [],
-  providers: [],
+  ]  
 })
 export class AppModule {}

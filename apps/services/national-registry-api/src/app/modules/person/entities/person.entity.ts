@@ -4,11 +4,21 @@ import {
     Model,
     DataType,
     PrimaryKey,
+    CreatedAt,
   } from 'sequelize-typescript'
   import { ApiProperty } from '@nestjs/swagger'
+
+  interface PersonAttributes {
+    nationalId: string
+    name: string
+    address: string
+    email: string
+    phoneNumber: string
+  }
   
   @Table({ tableName: 'person' })
-  export class Person extends Model {
+  export class Person extends Model<PersonAttributes>
+   {
     @ApiProperty()
     @PrimaryKey
     @Column({
@@ -47,5 +57,12 @@ import {
       field: 'phone_number',
     })
     phoneNumber!: string
+
+    @CreatedAt
+    @Column({
+        type: DataType.DATE
+    })
+    created!: Date
+
   }
   

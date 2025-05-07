@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common'
 import { PersonService } from './person.service'
 
-@Controller('persons')
+@Controller('v1/persons')
 export class PersonController {
   constructor(private readonly personService: PersonService) {}
 
@@ -17,7 +17,7 @@ export class PersonController {
     if (id == null)
       throw new BadRequestException('National Id is missing')
 
-    return this.personService.findOne(+id)
+    return this.personService.findOne(id)
   }
 
  

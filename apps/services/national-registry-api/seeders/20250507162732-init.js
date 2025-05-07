@@ -7,8 +7,8 @@ module.exports = {
         address: 'Bláfjallagata 12, 105 Reykjavík',
         email: 'jokull.thordarson@email.is',
         phone_number: '772-8391',
-        created_at: new Date(),
-        updated_at: new Date(),
+        created: new Date(),
+        modified: new Date(),
       },
     ])
   

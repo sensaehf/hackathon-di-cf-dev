@@ -7,6 +7,7 @@ interface SequelizeConfig {
   host: string
   dialect: Dialect
   seederLocation: string
+  port: number
 }
 
 declare namespace SequelizeConfig {
