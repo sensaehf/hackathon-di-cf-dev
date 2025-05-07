@@ -1,10 +1,12 @@
+import { IsString } from 'class-validator'
 import { CreatePerDiemAndPerkInput } from './create-per-diem-and-perk.input'
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql'
+import { InputType, Field, PartialType } from '@nestjs/graphql'
 
 @InputType()
 export class UpdatePerDiemAndPerkInput extends PartialType(
   CreatePerDiemAndPerkInput,
 ) {
-  @Field(() => Int)
-  id!: number
+  @Field(() => String)
+  @IsString()
+  id!: string
 }

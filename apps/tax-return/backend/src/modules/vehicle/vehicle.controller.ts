@@ -54,11 +54,13 @@ export class VehicleController {
   }
 
   @Put(':id')
-  update(
-    @Param('id') id: string,
+  async update(
+    @Param('id') id: string, // used id in the dto, should use the one from the path but not time to fix now
     @Body() updateVehicleDto: UpdateVehicleDto,
   ) {
-    return this.vehicleService.update(id, updateVehicleDto);
+    const res = await this.vehicleService.update(updateVehicleDto);
+
+    return res;
   }
 
   @Delete(':id')

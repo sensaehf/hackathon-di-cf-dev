@@ -44,10 +44,11 @@ export class SalaryService {
     return this.salary.findByPk(id);
   }
 
-  update(id: number, updateSalaryDto: UpdateSalaryDto) {
-    return this.salary.update(updateSalaryDto, {
+  async update(id: number, updateSalaryDto: UpdateSalaryDto) {
+    this.salary.update(updateSalaryDto, {
       where: { id },
     });
+    return await this.salary.findByPk(id);
   }
 
   remove(id: number) {

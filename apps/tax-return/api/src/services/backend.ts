@@ -19,6 +19,10 @@ import { CreateSalaryWorkPaymentInput } from '../app/modules/salary-work-payment
 import { CreateVehicleInput } from '../app/modules/vehicle/dto/create-vehicle.input';
 import { UpdateMortgageInterestInput } from '../app/modules/mortgage-interest/dto/update-mortgage-interest.input';
 import { UpdateOtherReliabilityInput } from '../app/modules/other-reliabilities/dto/update-other-reliability.input';
+import { UpdatePensionsGrantsSubsidyInput } from '../app/modules/pensions-grants-subsidies/dto/update-pensions-grants-subsidy.input';
+import { UpdatePerDiemAndPerkInput } from '../app/modules/per-diem-and-perks/dto/update-per-diem-and-perk.input';
+import { UpdateSalaryWorkPaymentInput } from '../app/modules/salary-work-payments/dto/update-salary-work-payment.input';
+import { UpdateVehicleInput } from '../app/modules/vehicle/dto/update-vehicle.input';
 
 @Injectable()
 export class BackendAPI extends RESTDataSource {
@@ -127,6 +131,22 @@ export class BackendAPI extends RESTDataSource {
     );
     return response;
   }
+
+async updatePensionsGrantsSubsidy(body: UpdatePensionsGrantsSubsidyInput): Promise<PensionsGrantsSubsidies> {
+  const { taxSubmissionId, id, ...rest } = body;
+  const response = await this.put<PensionsGrantsSubsidies>(
+    `tax-submissions/${body.taxSubmissionId}/subsidies/${body.id}`,
+    rest
+  );
+  return response;
+}
+
+async deletePensionsGrantsSubsidy(id: number, taxSubmissionId: number): Promise<string> {
+  const response = await this.delete<string>(
+    `tax-submissions/${taxSubmissionId}/subsidies/${id}`,
+  );
+  return response;
+}
   
   // -------------- Per Diem and Perks ----------------
 
@@ -143,6 +163,22 @@ export class BackendAPI extends RESTDataSource {
     const response = await this.post<PerDiemAndPerks>(
       `tax-submissions/${body.taxSubmissionId}/perks`,
       rest,
+    );
+    return response;
+  }
+
+  async updatePerDiemAndPerk(body: UpdatePerDiemAndPerkInput): Promise<PerDiemAndPerks> {
+    const { taxSubmissionId, id, ...rest } = body;
+    const response = await this.put<PerDiemAndPerks>(
+      `tax-submissions/${taxSubmissionId}/perks/${id}`,
+      rest
+    );
+    return response;
+  }
+
+  async deletePerDiemAndPerk(id: string, taxSubmissionId: number): Promise<number> {
+    const response = await this.delete<number>(
+      `tax-submissions/${taxSubmissionId}/perks/${id}`
     );
     return response;
   }
@@ -183,6 +219,24 @@ export class BackendAPI extends RESTDataSource {
     return response;
   }
 
+
+async updateSalaryWorkPayment(body: UpdateSalaryWorkPaymentInput): Promise<SalaryWorkPayments> {
+  const { taxSubmissionId, id, ...rest } = body;
+  const response = await this.put<SalaryWorkPayments>(
+    `tax-submissions/${taxSubmissionId}/salaries/${id}`,
+    rest
+  );
+  return response;
+}
+
+
+async deleteSalaryWorkPayment(id: string, taxSubmissionId: number): Promise<boolean> {
+  const response = await this.delete<boolean>(
+    `tax-submissions/${taxSubmissionId}/salaries/${id}`
+  );
+  return response;
+}
+
   // -------------- Vehicles ----------------
   
   async getAllVehiclesByTaxSubmission(taxSubmissionId: number): Promise<Vehicle[]> {
@@ -200,6 +254,24 @@ export class BackendAPI extends RESTDataSource {
     );
     return response;
   }
+
+  // Update Vehicle
+async updateVehicle(body: UpdateVehicleInput): Promise<Vehicle> {
+  const { taxSubmissionId, ...rest } = body;
+  const response = await this.put<Vehicle>(
+    `tax-submissions/${taxSubmissionId}/vehicles/${rest.id}`,
+    rest
+  );
+  return response;
+}
+
+// Delete Vehicle
+async deleteVehicle(id: string, taxSubmissionId: number): Promise<number> {
+  const response = await this.delete<number>(
+    `tax-submissions/${taxSubmissionId}/vehicles/${id}`
+  );
+  return response;
+}
 }
 
 export default BackendAPI

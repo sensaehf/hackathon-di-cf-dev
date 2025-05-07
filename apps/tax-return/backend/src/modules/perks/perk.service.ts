@@ -44,9 +44,10 @@ export class PerkService {
   }
 
   update(id: number, updatePerkDto: UpdatePerkDto) {
-    return this.perk.update(updatePerkDto, {
+    this.perk.update(updatePerkDto, {
       where: { id },
     });
+    return this.perk.findByPk(id);
   }
 
   remove(id: number) {

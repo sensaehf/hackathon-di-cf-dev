@@ -2,6 +2,7 @@ import { Resolver, Query, Args, Int, Context, Mutation } from '@nestjs/graphql';
 import { Vehicle } from './entities/vehicle.entity';
 import { CreateVehicleInput } from './dto/create-vehicle.input';
 import { BackendAPI } from '../../../services';
+import { UpdateVehicleInput } from './dto/update-vehicle.input';
 
 @Resolver(() => Vehicle)
 export class VehicleResolver {
@@ -19,5 +20,22 @@ export class VehicleResolver {
     @Args('createVehicleInput') createVehicleInput: CreateVehicleInput,
   ): Promise<Vehicle> {
     return await backendApi.createVehicle(createVehicleInput);
+  }
+
+  @Mutation(() => Vehicle, { name: 'updateVehicle' })
+  async updateVehicle(
+    @Context('dataSources') { backendApi }: { backendApi: BackendAPI },
+    @Args('updateVehicleInput') updateVehicleInput: UpdateVehicleInput,
+  ): Promise<Vehicle> {
+    return await backendApi.updateVehicle(updateVehicleInput);
+  }
+
+  @Mutation(() => Int, { name: 'deleteVehicle' })
+  async deleteVehicle(
+    @Context('dataSources') { backendApi }: { backendApi: BackendAPI },
+    @Args('id', { type: () => String }) id: string,
+    @Args('taxSubmissionId', { type: () => Int }) taxSubmissionId: number,
+  ): Promise<number> {
+    return await backendApi.deleteVehicle(id, taxSubmissionId);
   }
 }

@@ -45,10 +45,12 @@ export class VehicleService {
     return this.vehicle.findByPk(id);
   }
 
-  update(id: string, updateVehicleDto: UpdateVehicleDto) {
-    return this.vehicle.update(updateVehicleDto, {
-      where: { id },
+  async update(updateVehicleDto: UpdateVehicleDto) {
+    const { id, ...rest } = updateVehicleDto;
+    this.vehicle.update(rest, {
+      where: { id: updateVehicleDto.id },
     });
+    return await this.vehicle.findByPk(id);
   }
   
   remove(id: string) {
