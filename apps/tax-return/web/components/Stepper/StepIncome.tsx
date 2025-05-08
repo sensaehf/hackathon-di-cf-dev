@@ -103,7 +103,7 @@ export const StepIncome = () => {
   const grants: PensionsGrantsSubsidies[] =
     grantsData.data.findAllPensionsGrantsSubsidiesByTaxSubmission
 
-  console.log(perDiems)
+  console.log(salaries)
 
   const incomes: TaxReturnBoxProps[] = [
     {
@@ -117,6 +117,7 @@ export const StepIncome = () => {
               {
                 label: item.employerName,
                 value: item.amount,
+                id: item.id,
               },
             ],
           }))
@@ -140,6 +141,7 @@ export const StepIncome = () => {
               {
                 label: item.type,
                 value: item.amount,
+                id: item.id,
               },
             ],
           }))
@@ -164,6 +166,7 @@ export const StepIncome = () => {
               {
                 label: item.sourceName,
                 value: item.amount,
+                id: item.id,
               },
             ],
           }))
