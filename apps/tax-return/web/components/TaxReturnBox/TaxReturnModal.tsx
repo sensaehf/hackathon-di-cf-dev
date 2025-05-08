@@ -12,13 +12,15 @@ import { Icon as IconType } from 'libs/island-ui/core/src/lib/IconRC/iconMap'
 import { values } from 'lodash'
 import { useEffect, useState } from 'react'
 import { IncomeType } from '../../types/TaxReturnBoxProps'
+import { gql, useMutation } from '@apollo/client'
 
 interface Modal {
   isVisible: boolean
   onClose: () => void
   data: SubCategory[]
   title: string
-  description: string
+  description: string,
+  type: IncomeType,
 }
 
 
@@ -30,8 +32,35 @@ interface SubCategory {
 interface Values {
   label: string
   value: number
-  new?: boolean
+  new?: boolean,
+  id: string
 }
+
+const UpdateSalaryWorkPayment = gql`
+mutation UpdateSalaryWorkPayment($updateSalaryWorkPaymentInput: UpdateSalaryWorkPaymentInput!) {
+  updateSalaryWorkPayment(updateSalaryWorkPaymentInput: $updateSalaryWorkPaymentInput) {
+    employerName
+    amount
+    currency
+    description
+    year
+  }
+}
+`
+
+const CreateSalaryWorkPayment = gql`
+  mutation CreateSalaryWorkPayment($createSalaryWorkPaymentInput: CreateSalaryWorkPaymentInput!) {
+    createSalaryWorkPayment(createSalaryWorkPaymentInput: $createSalaryWorkPaymentInput) {
+      id
+      taxSubmissionId
+      employerName
+      amount
+      currency
+      description
+      year
+    }
+  }
+`
 
 export const TaxReturnModal: React.FC<Modal> = ({
   isVisible,
@@ -53,6 +82,66 @@ export const TaxReturnModal: React.FC<Modal> = ({
     const updatedData = [...localData]
     updatedData[categoryIdx].values[itemIdx].label = e.target.value
     setLocalData(updatedData)
+  }
+
+  const [createSalaryWorkPayment] = useMutation(CreateSalaryWorkPayment)
+  const [updateSalaryWorkPayment] = useMutation(UpdateSalaryWorkPayment)
+  
+  const onConfirm = async () => {
+    console.log("1")
+
+    const inputs = localData.flatMap((category) =>
+      category.values.map((item) => ({
+        employerName: item.label,
+        amount: item.value,
+        currency: 'ISK',
+        taxSubmissionId: 1,
+        description: `Payment for ${item.label}`,
+        year: 2025,
+        new: item.new,
+      })),
+    )
+  
+    try {
+      for (const input of inputs) {
+        console.log(input)
+        if (input.new) {
+          // Run the create mutation
+          const createVariables = {
+            createSalaryWorkPaymentInput: {
+              employerName: input.employerName,
+              amount: input.amount,
+              currency: input.currency,
+              taxSubmissionId: input.taxSubmissionId,
+              description: input.description,
+              year: input.year,
+            },
+          }
+  
+          const createResponse = await createSalaryWorkPayment({ variables: createVariables })
+          console.log('Create mutation response for:', input.employerName, createResponse)
+        } else {
+          // Run the update mutation
+          const updateVariables = {
+            updateSalaryWorkPaymentInput: {
+              id: input.id,
+              employerName: input.employerName,
+              amount: input.amount,
+              currency: input.currency,
+              description: input.description,
+              year: input.year,
+            },
+          }
+
+          console.log('Update variables:', updateVariables)
+  
+          const updateResponse = await updateSalaryWorkPayment({ variables: updateVariables })
+          console.log('Update mutation response for:', input.employerName, updateResponse)
+        }
+      }
+    } catch (error) {
+      console.error('Error executing mutation:', error)
+    }
   }
 
   useEffect(() => {
@@ -190,7 +279,9 @@ export const TaxReturnModal: React.FC<Modal> = ({
               <Button variant="ghost" onClick={onClose}>
                 Cancel
               </Button>
-              <Button variant="primary">Confirm</Button>
+              <Button variant="primary" onClick={onConfirm}>
+                Confirm
+              </Button>
             </Box>
           </Box>
         </Box>
