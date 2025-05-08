@@ -18,6 +18,9 @@ const StepPage = () => {
   const router = useRouter()
   const { step } = router.query
 
+  if (!router.isReady) {
+    return null
+  }
   // Find the current step based on the URL
   const currentStepIndex = steps.findIndex((s) => s.id === step)
 
@@ -106,6 +109,7 @@ const StepPage = () => {
                     ? steps[currentStepIndex + 1].title
                     : ''
                 }
+                goBackToDashboard={() => router.push('/dashboard')}
                 previousStep={handlePrevious}
                 nextStep={handleNext}
                 step={currentStepIndex}

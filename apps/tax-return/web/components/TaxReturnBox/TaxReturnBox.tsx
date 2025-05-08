@@ -16,7 +16,8 @@ interface TaxReturnBoxProps {
   title: string
   icon: IconType
   subCategories: SubCategory[]
-  totalAmount: string
+  totalAmount?: number
+  totals?: number[]
   setShow: () => void
   tooltip?: string
 }
@@ -27,8 +28,9 @@ interface SubCategory {
 }
 
 interface Values {
+  important?: boolean
   label: string
-  value: string
+  value: number
 }
 
 export const TaxReturnBox: React.FC<TaxReturnBoxProps> = (props) => {
@@ -39,9 +41,14 @@ export const TaxReturnBox: React.FC<TaxReturnBoxProps> = (props) => {
           <GridRow>
             <GridColumn span={'8/12'}>
               <Box padding={3}>
-                <Box display="flex" columnGap={2} marginBottom={3}>
-                  <Icon icon={props.icon} size="large"></Icon>
-                  <Text variant="h3" as={'h2'} marginBottom={1}>
+                <Box
+                  display="flex"
+                  columnGap={2}
+                  marginBottom={3}
+                  alignItems={'center'}
+                >
+                  <Icon icon={props.icon} size="large" type="outline"></Icon>
+                  <Text variant="h3" as={'h2'}>
                     {props.title}{' '}
                     <Tooltip text={props.tooltip} color="blue400" />
                   </Text>
@@ -50,7 +57,7 @@ export const TaxReturnBox: React.FC<TaxReturnBoxProps> = (props) => {
                   <>
                     {subCategory.title && (
                       <Box marginTop={2} paddingX={1}>
-                        <Text variant="h3" as={'h4'}>
+                        <Text variant="h4" as={'h3'}>
                           {subCategory.title}
                         </Text>
                       </Box>
@@ -61,24 +68,50 @@ export const TaxReturnBox: React.FC<TaxReturnBoxProps> = (props) => {
                           display="flex"
                           justifyContent={'spaceBetween'}
                           paddingX={1}
+                          background={value.important ? 'blue200' : undefined}
+                          marginY={value.important ? 1 : 0}
                         >
                           <Text>{value.label}</Text>
-                          <Text>{value.value}</Text>
+                          <Text>{value.value.toLocaleString()}</Text>
                         </Box>
                       </>
                     ))}
                   </>
                 ))}
-                <Box
-                  display="flex"
-                  justifyContent={'spaceBetween'}
-                  marginTop={3}
-                  background="blue200"
-                  paddingX={1}
-                >
-                  <Text>Amount we use in the tax calculation</Text>
-                  <Text>{props.totalAmount}</Text>
-                </Box>
+                {props.totalAmount && (
+                  <Box
+                    display="flex"
+                    justifyContent={'spaceBetween'}
+                    marginTop={3}
+                    background="blue200"
+                    paddingX={1}
+                  >
+                    <>
+                      <Text>Amount we use in the tax calculation</Text>
+                      <Text>{props.totalAmount.toLocaleString()}</Text>
+                    </>
+                  </Box>
+                )}
+                {props.totals && (
+                  <>
+                    {props.totals.map((total, index) => (
+                      <Box
+                        display="flex"
+                        justifyContent={'spaceBetween'}
+                        marginTop={1}
+                        background="blue200"
+                        paddingX={1}
+                      >
+                        <>
+                          <Text>
+                            {index === 0 ? 'Interest' : 'Outstanding Balance'}
+                          </Text>
+                          <Text>{total.toLocaleString()}</Text>
+                        </>
+                      </Box>
+                    ))}
+                  </>
+                )}
               </Box>
             </GridColumn>
             <GridColumn span={'4/12'}>

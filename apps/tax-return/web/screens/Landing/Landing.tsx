@@ -21,6 +21,7 @@ import {
   Navigation,
   NavigationItem,
   Hidden,
+  Icon,
 } from '@island.is/island-ui/core'
 
 import en from '../../public/locales/en/landing.json'
@@ -69,7 +70,13 @@ const Landing = () => {
         <GridContainer>
           <GridRow marginBottom={20}>
             <GridColumn span={['12/12', '4/12']}>
-              <Box background={'blue100'} borderRadius={'large'} marginTop={5}>
+              <Button variant="text" size="small">
+                <Box display="flex" alignItems={'center'} marginY={2}>
+                  <Icon icon="arrowBack" size="small" />
+                  Back to dashboard
+                </Box>
+              </Button>
+              <Box background={'blue100'} borderRadius={'large'} marginTop={2}>
                 <Hidden above={'xs'}>
                   <Navigation
                     title={t.tableOfContentsTitle}
@@ -89,7 +96,9 @@ const Landing = () => {
               </Box>
             </GridColumn>
             <GridColumn span={['12/12', '8/12']}>
-              <Breadcrumbs items={breadcrumbs} />
+              <Box marginTop={1}>
+                <Breadcrumbs items={breadcrumbs} />
+              </Box>
               <Text variant="h1" marginY={2} as={'h1'} id="main-content">
                 {t.pageTitle}
               </Text>
@@ -134,8 +143,8 @@ const Landing = () => {
             </GridColumn>
           </GridRow>
         </GridContainer>
-        <Footer />
       </main>
+      <Footer />
     </>
   )
 }

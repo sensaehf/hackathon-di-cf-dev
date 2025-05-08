@@ -13,7 +13,29 @@ import {
 } from '@island.is/island-ui/core'
 import { Icon as IconType } from 'libs/island-ui/core/src/lib/IconRC/iconMap'
 
+import { TaxSubmission } from '../../graphql/schema'
+
+import { useQuery, gql } from '@apollo/client'
+
+// GraphQL Query
+const FindAllTaxSubmissionsForUser = gql`
+  query FindAllTaxSubmissionsForUser {
+    findAllTaxSubmissionsForUser(personId: 1) {
+      id
+      personId
+      taxYear
+      createdAt
+    }
+  }
+`
+
 export const SummaryBox: React.FC = (props) => {
+  const { data, loading, error } = useQuery<TaxSubmission[]>(
+    FindAllTaxSubmissionsForUser,
+  )
+
+  console.log(data)
+
   return (
     <>
       <Box background={'blue100'} borderColor="blue200" marginY={3}>
