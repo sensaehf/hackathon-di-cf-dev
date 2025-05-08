@@ -49,11 +49,11 @@ export class RealEstateService {
     return this.realEstate.findByPk(id)
   }
 
-  update(id: string, updateRealEstateDto: UpdateRealEstateDto) {
-    this.realEstate.update(updateRealEstateDto, {
+  async update(id: string, updateRealEstateDto: UpdateRealEstateDto) {
+    await this.realEstate.update(updateRealEstateDto, {
       where: { id },
     })
-    return this.realEstate.findByPk(id)
+    return await this.realEstate.findByPk(id)
   }
 
   remove(id: string) {

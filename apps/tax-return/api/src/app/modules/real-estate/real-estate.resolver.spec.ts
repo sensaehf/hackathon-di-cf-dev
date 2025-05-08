@@ -53,10 +53,10 @@ describe('RealEstateResolver', () => {
       address: '123 Main St',
       assessedValue: 500000,
       currency: 'ISK',
-      year: 2023,
+      id: '1'
     };
   
-    const mockResponse = { id: '1', ...createInput };
+    const mockResponse = { ...createInput };
     jest.spyOn(backendApi, 'createRealEstate').mockResolvedValue(mockResponse);
   
     const result = await resolver.createRealEstate(

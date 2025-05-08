@@ -44,11 +44,11 @@ export class RealEstateController {
   }
 
   @Put(':id')
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateRealEstateDto: UpdateRealEstateDto,
   ) {
-    return this.realEstateService.update(id, updateRealEstateDto)
+    return await this.realEstateService.update(id, updateRealEstateDto)
   }
 
   @Delete(':id')
