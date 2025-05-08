@@ -291,6 +291,7 @@ export const TaxReturnModal: React.FC<Modal> = ({
                               type="text"
                               onChange={(e) => handleLabelChange(e, index, i)}
                               required={true}
+                              errorMessage='Make sure the field contains a string value'
                             />
                             <Box marginTop={2} />
 
@@ -301,7 +302,8 @@ export const TaxReturnModal: React.FC<Modal> = ({
                               type="number"
                               onChange={(e) => handleValueChange(e, index, i)}
                               required={true}
-                            />
+                              errorMessage='Make sure the field contains a numeric value'
+                              />
                           </Box>
 
                         </>
