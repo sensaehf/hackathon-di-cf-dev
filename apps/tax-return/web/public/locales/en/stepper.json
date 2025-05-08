@@ -1,0 +1,76 @@
+{
+    "headings": {
+      "taxReturn": "Tax return 2024",
+      "income": "Income for 2024",
+      "assets": "Assets in 2024",
+      "debts": "Debts and Interest Expenses in 2024",
+      "summary": "Summary"
+    },
+    "descriptions": {
+      "overviewIncomeAssetsLiabilities": "Here you’ll find an overview of your income, assets and liabilities from last year.",
+      "reviewDetails": "Most of the information has already been filled in for you. Your task is to review the details and make any necessary changes before submitting.",
+      "saveProgress": "You can save your progress and return later. Your information is stored securely, and nothing is sent until you choose to submit.",
+      "incomeDescription": "This section shows the income you received last year — for example, wages, pensions or other taxable payments.",
+      "assetsDescription": "In this step, you are asked to review and confirm your assets for the year 2024. This includes property, vehicles, bank accounts, securities, and other valuables you owned as of December 31.",
+      "debtsDescription": "Here you can review the loans and debts you had in 2024, including mortgages, student loans, and other credit.",
+      "summaryDescription": "This page shows the information that has been pre-filled by the Tax Administration, along with any updates you've made.",
+      "pleaseReviewDescription": "Please review the details before you submit your return."
+    },
+    "buttons": {
+      "learnMore": "Learn more here",
+      "taxErrors": "Check my Tax Return for errors",
+      "change": "Change",
+      "back": "Back",
+      "submitTaxReturn": "Submit Tax Return",
+      "downloadPDF": "Download PDF",
+      "continueTo": "Continue to",
+      "continueLater": "Continue later"
+    },
+    "stepperTitles": {
+        "salary": "Salary and Work-Related Payments",
+        "perDiems": "Allowances and benefits",
+        "grants": "Grants and Subsidies",
+        "realEstate": "Domestic Real Estate",
+        "vehicles": "Vehicles",
+        "mortgage": "Mortgage Interest - Residential Use"
+    },
+    "valueLabels": {
+        "realEstateAssessment": "Real estate assesement value",
+        "vehiclesPurchaseYear": "Purchase year:",
+        "vehiclesPurchasePrice": "Purchase price:",
+        "totalAnnualPayments": "Total Annual Payments",
+        "principalRepayments": "Principal Repayments",
+        "interest": "Interest",
+        "outstandingBalance": "Outstanding Balance",
+        "amountWeUse": "Amount we use in the tax calculation"
+    },
+    "stepperDescription": {
+        "salary": "Salary and work-related payments are automatically filled in from the tax authority. You can add or edit information if needed.",
+        "assets": "Assets and liabilities are automatically filled in from the tax authority. You can add or edit information if needed.",
+        "vehicles": "If the vehicle no longer belongs to you, or if anything is incorrect, you can make changes here.",
+        "realEstate": "If the real estate no longer belongs to you, or if anything is incorrect, you can make changes here.",
+        "mortgage": "If the numbers shown don’t match your loan statements, you can adjust them. Make sure to enter the correct totals for payments, interest, principal, and the outstanding balance at the end of the year.",
+        "debts": "Here you can review the loans and debts you had in 2024, including mortgages, student loans, and other credit."
+    },
+    "summary": {
+        "estimated": "Estimated tax for 2024",
+        "provisionally": "Provisionally calculated tax and duties",
+        "wealthAfterDebt": "Wealth after debt",
+        "netWealth": "Net Wealth",
+        "total": "TOTAL",
+        "debtsAndInterestExpenses": "Debts and Interest Expenses"
+    },
+    "receipt": {
+        "title": "Your tax return has been submitted",
+        "description": "Thank you. Your tax return has been received and will be reviewed by theTax Administration.You will receive a tax assessment once your return has been processed.",
+        "copyDescription": "A copy of your submitted return is available under My Pages. If you need to make changes, you can reopen your return until the submission deadline."
+    },
+    "timeline": {
+        "intro": "Introduction",
+        "income": "Income",
+        "assets": "Assets",
+        "debts": "Debts and Interest",
+        "summary": "Summary",
+        "receipt": "Receipt"
+    }
+  }

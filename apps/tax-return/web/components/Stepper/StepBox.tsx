@@ -8,6 +8,12 @@ import {
   DialogPrompt,
 } from '@island.is/island-ui/core'
 
+import { useRouter } from 'next/router'
+import en from '../../public/locales/en/stepper.json'
+import is from '../../public/locales/is/stepper.json'
+
+const translations: any = { en, is }
+
 interface StepProps {
   nextStep: () => void
   previousStep: () => void
@@ -24,6 +30,9 @@ export const StepBox: React.FC<StepProps> = ({
   title,
   step,
 }) => {
+  const { locale = 'en' } = useRouter()
+
+  const t = translations[locale] || translations.en
   return (
     <>
       <Box background={'white'} marginX={2} marginY={5}>
@@ -33,12 +42,12 @@ export const StepBox: React.FC<StepProps> = ({
           {step > 0 && (
             <Box>
               <Button variant="ghost" onClick={previousStep}>
-                Back
+                {t.buttons['back']}
               </Button>
             </Box>
           )}
           <Box display={'flex'} columnGap={1} marginLeft={'auto'}>
-            <Button variant="ghost">Continue later</Button>
+            <Button variant="ghost">{t.buttons['continueLater']}</Button>
             {step === 4 && (
               <Button
                 variant="primary"
@@ -46,7 +55,7 @@ export const StepBox: React.FC<StepProps> = ({
                 icon="mail"
                 iconType="outline"
               >
-                Submit tax return
+                {t.buttons['submitTaxReturn']}
               </Button>
             )}
             {step === 5 && (
@@ -56,12 +65,12 @@ export const StepBox: React.FC<StepProps> = ({
                 icon="mail"
                 iconType="outline"
               >
-                Download PDF
+                {t.buttons['downloadPDF']}
               </Button>
             )}
             {step >= 0 && step < 4 && (
               <Button variant="primary" onClick={nextStep} icon="arrowForward">
-                Continue to "{title}"
+                {t.buttons['continueTo']} "{title}"
               </Button>
             )}
           </Box>
