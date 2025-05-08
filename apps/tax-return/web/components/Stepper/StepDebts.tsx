@@ -18,6 +18,12 @@ import {
 import { gql, useQuery } from '@apollo/client'
 import { MortgageInterest, OtherReliabilities } from '../../graphql/schema'
 
+import { useRouter } from 'next/router'
+import en from '../../public/locales/en/stepper.json'
+import is from '../../public/locales/is/stepper.json'
+
+const translations: any = { en, is }
+
 // Debts and Interest
 const GET_MORTGAGE = gql`
   query GetAllMortgageInterestsByTaxSubmission($taxSubmissionId: Int!) {
@@ -56,6 +62,9 @@ const GET_RELIABLITIES = gql`
 `
 
 export const StepDebts = () => {
+  const { locale = 'en' } = useRouter()
+  const t = translations[locale] || translations.en
+
   const [show, setShow] = useState(false)
   const [showIndex, setShowIndex] = useState(0)
 
@@ -83,30 +92,29 @@ export const StepDebts = () => {
 
   const incomes: TaxReturnBoxProps[] = [
     {
-      title: 'Mortgage Interest - Residential Use',
-      description:
-        'If the number shown doesn’t match your payslips or income statements, you can adjust it. Make sure to enter the correct total before tax, based on what you earned during the year.',
+      title: t.stepperTitles['mortgage'],
+      description: t.stepperDescription['mortgage'],
       icon: 'trending',
       subCategories: mortgage
         ? mortgage.map((item: MortgageInterest) => ({
             title: item.lenderName,
             values: [
               {
-                label: 'Total Annual Payments',
+                label: t.valueLabels['totalAnnualPayments'],
                 value: item.totalAnnualPayments,
               },
               {
-                label: 'Principal Repayment',
+                label: t.valueLabels['principalRepayments'],
                 value: item.principalRepayment,
               },
               {
                 important: true,
-                label: 'Interest',
+                label: t.valueLabels['interest'],
                 value: item.interestAmount,
               },
               {
                 important: true,
-                label: 'Outstanding Balance',
+                label: t.valueLabels['outstandingBalance'],
                 value: item.outstandingBalance,
               },
             ],
@@ -114,20 +122,19 @@ export const StepDebts = () => {
         : [],
     },
     {
-      title: 'Other Loans and Interest',
-      description:
-        'If the number shown doesn’t match your payslips or income statements, you can adjust it. Make sure to enter the correct total before tax, based on what you earned during the year.',
+      title: t.stepperTitles['otherLoans'],
+      description: t.stepperDescription['otherLoans']
       icon: 'card',
       subCategories: reliabilites
         ? reliabilites.map((item: OtherReliabilities) => ({
             title: item.description,
             values: [
               {
-                label: 'Interest',
+                label: t.valueLabels['interest'],
                 value: item.interestAmount,
               },
               {
-                label: 'Balance',
+                label: t.valueLabels['balance'],
                 value: item.balance,
               },
             ],
@@ -151,13 +158,12 @@ export const StepDebts = () => {
   return (
     <>
       {' '}
-      <Text variant="eyebrow">Tax return 2024</Text>
+      <Text variant="eyebrow">{t.headings['taxreturn']}</Text>
       <Text variant="h1" as={'h1'} paddingBottom={1}>
-        Debts and Interest Expenses in 2024
+       {t.headings['debts']}
       </Text>
       <Text variant="default">
-        This section shows the income you received last year — for example,
-        wages, pensions or other taxable payments.
+        {t.descriptions['debtsDescription']}
       </Text>
       {incomes.map((income, index) => (
         <TaxReturnBox

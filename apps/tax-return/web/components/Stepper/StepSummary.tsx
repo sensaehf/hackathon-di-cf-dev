@@ -8,22 +8,26 @@ import {
 } from '@island.is/island-ui/core'
 import { SummaryBox } from '../Summary/SummaryBox'
 
+import { useRouter } from 'next/router'
+import en from '../../public/locales/en/stepper.json'
+import is from '../../public/locales/is/stepper.json'
+
+const translations: any = { en, is }
+
 export const StepSummary = () => {
+  const { locale = 'en' } = useRouter()
+  const t = translations[locale] || translations.en
+
   return (
     <>
       {' '}
-      <Text variant="eyebrow">Tax return 2024</Text>
+      <Text variant="eyebrow">{t.headings['taxReturn']}</Text>
       <Text variant="h1" as={'h1'} paddingBottom={1}>
-        Summary
+        {t.headings['summary']}
       </Text>
-      <Text paddingBottom={2}>
-        This page shows the information that has been pre-filled by the Tax
-        Administration, along with any updates you've made.
-      </Text>
-      <Text paddingBottom={2}>
-        Please review the details before you submit your return.
-      </Text>
-      <Button variant="text">Check my Tax Return for errors</Button>
+      <Text paddingBottom={2}>{t.descriptions['summaryDescription']}</Text>
+      <Text paddingBottom={2}>{t.descriptions['pleaseReviewDescription']}</Text>
+      <Button variant="text">{t.buttons['taxErrors']}</Button>
       <SummaryBox />
     </>
   )

@@ -32,7 +32,8 @@
         "grants": "Grants and Subsidies",
         "realEstate": "Domestic Real Estate",
         "vehicles": "Vehicles",
-        "mortgage": "Mortgage Interest - Residential Use"
+        "mortgage": "Mortgage Interest - Residential Use",
+        "otherLoans": "Other Loans and Interest"
     },
     "valueLabels": {
         "realEstateAssessment": "Real estate assesement value",
@@ -42,7 +43,8 @@
         "principalRepayments": "Principal Repayments",
         "interest": "Interest",
         "outstandingBalance": "Outstanding Balance",
-        "amountWeUse": "Amount we use in the tax calculation"
+        "amountWeUse": "Amount we use in the tax calculation",
+        "balance": "Balance"
     },
     "stepperDescription": {
         "salary": "Salary and work-related payments are automatically filled in from the tax authority. You can add or edit information if needed.",
@@ -50,7 +52,8 @@
         "vehicles": "If the vehicle no longer belongs to you, or if anything is incorrect, you can make changes here.",
         "realEstate": "If the real estate no longer belongs to you, or if anything is incorrect, you can make changes here.",
         "mortgage": "If the numbers shown don’t match your loan statements, you can adjust them. Make sure to enter the correct totals for payments, interest, principal, and the outstanding balance at the end of the year.",
-        "debts": "Here you can review the loans and debts you had in 2024, including mortgages, student loans, and other credit."
+        "debts": "Here you can review the loans and debts you had in 2024, including mortgages, student loans, and other credit.",
+        "otherLoans": "Here you can review the loans and debts you had in 2024, including mortgages, student loans, and other credit."
     },
     "summary": {
         "estimated": "Estimated tax for 2024",
@@ -58,7 +61,9 @@
         "wealthAfterDebt": "Wealth after debt",
         "netWealth": "Net Wealth",
         "total": "TOTAL",
-        "debtsAndInterestExpenses": "Debts and Interest Expenses"
+        "debtsAndInterestExpenses": "Debts and Interest Expenses",
+        "totalAssets": "TOTAL ASSETS",
+        "totalIncome": "TOTAL INCOME"
     },
     "receipt": {
         "title": "Your tax return has been submitted",

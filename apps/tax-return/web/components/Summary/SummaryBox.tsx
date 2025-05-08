@@ -17,6 +17,12 @@ import { TaxSubmission } from '../../graphql/schema'
 
 import { useQuery, gql } from '@apollo/client'
 
+import { useRouter } from 'next/router'
+import en from '../../public/locales/en/stepper.json'
+import is from '../../public/locales/is/stepper.json'
+
+const translations: any = { en, is }
+
 // GraphQL Query
 const FindAllTaxSubmissionsForUser = gql`
   query FindAllTaxSubmissionsForUser {
@@ -34,7 +40,8 @@ export const SummaryBox: React.FC = (props) => {
     FindAllTaxSubmissionsForUser,
   )
 
-  console.log(data)
+  const { locale = 'en' } = useRouter()
+  const t = translations[locale] || translations.en
 
   return (
     <>
@@ -44,7 +51,7 @@ export const SummaryBox: React.FC = (props) => {
             <GridColumn span={'12/12'}>
               <Box padding={3}>
                 <Text variant="h3" as="h2" marginBottom={1}>
-                  Income
+                  {t.timeline['income']}
                 </Text>
                 <GridContainer>
                   <GridRow>
@@ -55,7 +62,7 @@ export const SummaryBox: React.FC = (props) => {
                           justifyContent={'spaceBetween'}
                           marginBottom={1}
                         >
-                          <Text>Salary and Work-Related Payments</Text>
+                          <Text>{t.stepperTitles['salary']}</Text>
                           <Text>102,600,000</Text>
                         </Box>
                         <Box
@@ -63,7 +70,7 @@ export const SummaryBox: React.FC = (props) => {
                           justifyContent={'spaceBetween'}
                           marginBottom={1}
                         >
-                          <Text>Allowances and benefits</Text>
+                          <Text>{t.stepperTitles['perDiems']}</Text>
                           <Text>120,000</Text>
                         </Box>
                         <Box
@@ -71,7 +78,7 @@ export const SummaryBox: React.FC = (props) => {
                           justifyContent={'spaceBetween'}
                           marginBottom={1}
                         >
-                          <Text>Grants and Subsidies</Text>
+                          <Text>{t.stepperTitles['grants']}</Text>
                           <Text>205,000</Text>
                         </Box>
                         <Divider />
@@ -80,7 +87,7 @@ export const SummaryBox: React.FC = (props) => {
                           justifyContent={'spaceBetween'}
                           paddingTop={1}
                         >
-                          <Text>TOTAL INCOME</Text>
+                          <Text>{t.summary['totalIncome']}</Text>
                           <Text>205,000</Text>
                         </Box>
                       </Box>
@@ -94,7 +101,7 @@ export const SummaryBox: React.FC = (props) => {
             <GridColumn span={'12/12'}>
               <Box padding={3}>
                 <Text variant="h3" as="h2" marginBottom={1}>
-                  Assets
+                  {t.timeline['Assets']}
                 </Text>
                 <GridContainer>
                   <GridRow>
@@ -105,7 +112,7 @@ export const SummaryBox: React.FC = (props) => {
                           justifyContent={'spaceBetween'}
                           marginBottom={1}
                         >
-                          <Text>Domestic Real Estate</Text>
+                          <Text>{t.stepperTitles['realEstate']}</Text>
                           <Text>52,000,000</Text>
                         </Box>
                         <Box
@@ -113,7 +120,7 @@ export const SummaryBox: React.FC = (props) => {
                           justifyContent={'spaceBetween'}
                           marginBottom={1}
                         >
-                          <Text>Vehicles</Text>
+                          <Text>{t.stepperTitles['Vehicles']}</Text>
                           <Text>35,300,000</Text>
                         </Box>
                         <Divider />
@@ -122,7 +129,7 @@ export const SummaryBox: React.FC = (props) => {
                           justifyContent={'spaceBetween'}
                           paddingTop={1}
                         >
-                          <Text>TOTAL ASSETS</Text>
+                          <Text>{t.summary['totalAssets']}</Text>
                           <Text>205,000</Text>
                         </Box>
                       </Box>
@@ -136,7 +143,7 @@ export const SummaryBox: React.FC = (props) => {
             <GridColumn span={'12/12'}>
               <Box padding={3}>
                 <Text variant="h3" as="h2" marginBottom={1}>
-                  Debts and Interest Expenses
+                  {t.timeline['debts']}
                 </Text>
                 <Box display="flex" justifyContent="spaceBetween">
                   {/* First Column */}

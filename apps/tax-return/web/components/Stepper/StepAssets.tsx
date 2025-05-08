@@ -19,6 +19,12 @@ import {
 import { label } from 'libs/island-ui/core/src/lib/Input/Input.mixins'
 import { RealEstate, Vehicle } from '../../graphql/schema'
 
+import { useRouter } from 'next/router'
+import en from '../../public/locales/en/stepper.json'
+import is from '../../public/locales/is/stepper.json'
+
+const translations: any = { en, is }
+
 // Real estate
 const GET_REAL_ESTATE = gql`
   query GetAllRealEstatesByTaxSubmission($taxSubmissionId: Int!) {
@@ -46,6 +52,8 @@ const GET_VEHICLES = gql`
 `
 
 export const StepAssets = () => {
+  const { locale = 'en' } = useRouter()
+  const t = translations[locale] || translations.en
   const [show, setShow] = useState(false)
   const [showIndex, setShowIndex] = useState(0)
 
@@ -72,16 +80,15 @@ export const StepAssets = () => {
 
   const incomes: TaxReturnBoxProps[] = [
     {
-      title: 'Domestic Real Estate',
-      description:
-        'If the number shown doesn’t match your payslips or income statements, you can adjust it. Make sure to enter the correct total before tax, based on what you earned during the year.',
+      title: t.stepperTitles['realEstate'],
+      description: t.stepperDescription['realEstate'],
       icon: 'home',
       subCategories: realEstate
         ? realEstate.map((item: any) => ({
             title: item.address,
             values: [
               {
-                label: 'Real estate assesement value',
+                label: t.valueLabels['realEstateAssessment'],
                 value: item.assessedValue,
               },
             ],
@@ -95,20 +102,19 @@ export const StepAssets = () => {
           : realEstate[0].assessedValue,
     },
     {
-      title: 'Vehicles',
-      description:
-        'If the number shown doesn’t match your payslips or income statements, you can adjust it. Make sure to enter the correct total before tax, based on what you earned during the year.',
+      title: t.stepperTitles['vehicles'],
+      description: t.stepperDescription['vehicles'],
       icon: 'car',
       subCategories: vehicles
         ? vehicles.map((item: any) => ({
             title: item.id,
             values: [
               {
-                label: 'Purchase year:',
+                label: t.valueLabels['vehiclesPurchaseYear'],
                 value: item.purchaseYear,
               },
               {
-                label: 'Purchase price:',
+                label: t.valueLabels['vehiclesPurchasePrice'],
                 value: item.purchasePrice,
               },
             ],
@@ -125,15 +131,11 @@ export const StepAssets = () => {
 
   return (
     <>
-      {' '}
-      <Text variant="eyebrow">Tax return 2024</Text>
+      <Text variant="eyebrow">{t.headings['taxReturn']}</Text>
       <Text variant="h1" as={'h1'} paddingBottom={1}>
-        Assets in 2024
+        {t.headings['assets']}
       </Text>
-      <Text variant="default">
-        This section shows the income you received last year — for example,
-        wages, pensions or other taxable payments.
-      </Text>
+      <Text variant="default">{t.descriptions['assetsDescription']}</Text>
       {incomes.map((income, index) => (
         <TaxReturnBox
           title={income.title}

@@ -1,76 +1,81 @@
 {
   "headings": {
     "taxReturn": "Skattframtal 2024",
-    "income": "Tekjur fyrir 2024",
-    "assets": "Eignir árið 2024",
-    "debts": "Skuldir og vaxtagjöld árið 2024",
+    "income": "Tekjur ársins 2024",
+    "assets": "Eignir í árslok 2024",
+    "debts": "Skuldir og vaxtagjöld 2024",
     "summary": "Yfirlit"
   },
   "descriptions": {
-    "overviewIncomeAssetsLiabilities": "Hér finnur þú yfirlit yfir tekjur, eignir og skuldir frá síðasta ári.",
-    "reviewDetails": "Flestar upplýsingar hafa þegar verið fylltar út fyrir þig. Þitt verkefni er að fara yfir upplýsingarnar og gera nauðsynlegar breytingar áður en þú sendir inn.",
-    "saveProgress": "Þú getur vistað framvindu þína og komið aftur síðar. Upplýsingar þínar eru geymdar á öruggan hátt og ekkert er sent fyrr en þú velur að senda inn.",
-    "incomeDescription": "Þessi hluti sýnir tekjur sem þú fékkst á síðasta ári — til dæmis laun, lífeyri eða aðrar skattskyldar greiðslur.",
-    "assetsDescription": "Í þessum hluta ertu beðin(n) um að fara yfir og staðfesta eignir þínar fyrir árið 2024. Þetta felur í sér fasteignir, ökutæki, bankareikninga, verðbréf og aðrar verðmætar eignir sem þú áttir þann 31. desember.",
-    "debtsDescription": "Hér getur þú farið yfir lán og skuldir sem þú hafðir árið 2024, þar á meðal húsnæðislán, námslán og aðrar skuldir.",
-    "summaryDescription": "Þessi síða sýnir upplýsingar sem hafa verið fylltar út af Skattinum, ásamt þeim breytingum sem þú hefur gert.",
-    "pleaseReviewDescription": "Vinsamlegast farðu yfir upplýsingarnar áður en þú sendir inn framtalið."
+    "overviewIncomeAssetsLiabilities": "Hér finnur þú yfirlit yfir tekjur, eignir og skuldir þínar frá síðasta ári.",
+    "reviewDetails": "Flestar upplýsingar hafa þegar verið forskráðar. Þitt hlutverk er að fara yfir upplýsingarnar, gera breytingar ef þörf er á, og senda síðan inn framtalið.",
+    "saveProgress": "Þú getur vistað skattframtalið og haldið áfram síðar. Upplýsingarnar eru vistaðar á öruggan hátt og framtal er ekki sent inn fyrr en þú velur það.",
+    "incomeDescription": "Þessi hluti sýnir tekjur þínar síðasta ár, t.d. laun, lífeyri eða aðrar skattskyldar greiðslur.",
+    "assetsDescription": "Í þessum hluta þarftu að staðfesta eignir þínar í árslok 2024. Það eru t.d. fasteignir, ökutæki, bankareikningar, verðbréf og aðrar eignir þann 31. desember.",
+    "debtsDescription": "Hér getur þú farið yfir lán og skuldir sem þú varst með árið 2024, þ.m.t. húsnæðislán, námslán og aðrar skuldir.",
+    "summaryDescription": "Þessi síða sýnir upplýsingar sem skattayfirvöld hafa forskráð ásamt þeim breytingum sem þú hefur gert.",
+    "pleaseReviewDescription": "Vinsamlegast farðu vel yfir upplýsingarnar áður en þú sendir framtalið."
   },
   "buttons": {
-    "learnMore": "Lærðu meira hér",
-    "taxErrors": "Athugaðu skattframtalið mitt fyrir villur",
-    "change": "Breyta",
-    "back": "Til baka",
-    "submitTaxReturn": "Senda inn skattframtal",
-    "downloadPDF": "Sækja PDF",
-    "continueTo": "Halda áfram til",
-    "continueLater": "Halda áfram seinna"
+    "learnMore": "Frekari upplýsingar hér",
+    "taxErrors": "Skoða skattframtalið mitt",
+    "change": "Change",
+    "back": "Back",
+    "submitTaxReturn": "Submit Tax Return",
+    "downloadPDF": "Download PDF",
+    "continueTo": "Continue to",
+    "continueLater": "Continue later"
   },
   "stepperTitles": {
-    "salary": "Laun og greiðslur tengdar vinnu",
-    "perDiems": "Dagpeningar og fríðindi",
+    "salary": "Laun og starfstengdar greiðslur",
+    "perDiems": "Dagpeningar og hlunnindi",
     "grants": "Styrkir og niðurgreiðslur",
-    "realEstate": "Innlendar fasteignir",
+    "realEstate": "Fasteignir innanlands",
     "vehicles": "Ökutæki",
-    "mortgage": "Vaxtagjöld - Íbúðarhúsnæði"
+    "mortgage": "Íbúðarlán",
+    "otherLoans": "Other Loans and Interest"
   },
   "valueLabels": {
-    "realEstateAssessment": "Matsverð fasteigna",
-    "vehiclesPurchaseYear": "Kaupaár:",
+    "realEstateAssessment": "Fasteignamat",
+    "vehiclesPurchaseYear": "Kaupár:",
     "vehiclesPurchasePrice": "Kaupverð:",
-    "totalAnnualPayments": "Heildar árlegar greiðslur",
-    "principalRepayments": "Höfuðstólsgreiðslur",
+    "totalAnnualPayments": "Heildargreiðslur ársins",
+    "principalRepayments": "Afborganir",
     "interest": "Vextir",
     "outstandingBalance": "Eftirstöðvar",
-    "amountWeUse": "Upphæð sem við notum í skattútreikning"
+    "amountWeUse": "Amount we use in the tax calculation",
+    "balance": "Balance"
   },
   "stepperDescription": {
-    "salary": "Laun og greiðslur tengdar vinnu eru sjálfkrafa fylltar út af skattyfirvöldum. Þú getur bætt við eða breytt upplýsingum ef þörf krefur.",
-    "assets": "Eignir og skuldir eru sjálfkrafa fylltar út af skattyfirvöldum. Þú getur bætt við eða breytt upplýsingum ef þörf krefur.",
-    "vehicles": "Ef ökutækið tilheyrir þér ekki lengur, eða ef eitthvað er rangt, getur þú gert breytingar hér.",
-    "realEstate": "Ef fasteignin tilheyrir þér ekki lengur, eða ef eitthvað er rangt, getur þú gert breytingar hér.",
-    "mortgage": "Ef tölurnar sem sýndar eru passa ekki við lánayfirlit þitt, getur þú lagað þær. Gakktu úr skugga um að slá inn réttar heildartölur fyrir greiðslur, vexti, höfuðstól og eftirstöðvar í lok árs.",
-    "debts": "Hér getur þú farið yfir lán og skuldir sem þú hafðir árið 2024, þar á meðal húsnæðislán, námslán og aðrar skuldir."
+    "salary": "Laun og starfstengdar greiðslur eru forskráðar af skattayfirvöldum. Þú getur bætt við upplýsingum eða breytt þeim ef þörf er á.",
+    "assets": "Eignir og skuldir eru forskráðar af skattayfirvöldum. Þú getur bætt við upplýsingum eða breytt þeim ef þörf er á.",
+    "vehicles": "Ef ökutækið tilheyrir þér ekki lengur eða upplýsingar eru rangar getur þú gert breytingar hér.",
+    "realEstate": "Ef fasteignin tilheyrir þér ekki lengur eða upplýsingar eru rangar getur þú gert breytingar hér.",
+    "mortgage": "Ef uppgefnar tölur stemma ekki við yfirlit lánveitanda getur þú leiðrétt þær. Gakktu úr skugga um að heildargreiðslur, vextir, afborganir og eftirstöðvar í árslok séu réttar.",
+    "debts": "Hér getur þú farið yfir lán og skuldir sem þú varst með árið 2024, þ.m.t. húsnæðislán, námslán og aðrar skuldir.",
+    "otherLoans": "Here you can review the loans and debts you had in 2024, including mortgages, student loans, and other credit."
   },
   "summary": {
-    "estimated": "Áætlaður skattur fyrir 2024",
-    "provisionally": "Bráðabirgðareiknaður skattur og gjöld",
-    "wealthAfterDebt": "Eignir eftir skuldir",
+    "estimated": "Áætlaður skattur 2024",
+    "provisionally": "Bráðabirgðaútreiknaður skattur og gjöld",
+    "wealthAfterDebt": "Eignir að frádregnum skuldum",
     "netWealth": "Hrein eign",
     "total": "SAMTALS",
-    "debtsAndInterestExpenses": "Skuldir og vaxtagjöld"
+    "debtsAndInterestExpenses": "Skuldir og vaxtagjöld",
+    "totalAssets": "TOTAL ASSETS",
+    "totalIncome": "TOTAL INCOME"
   },
   "receipt": {
-    "title": "Skattframtalið þitt hefur verið sent inn",
-    "description": "Takk fyrir. Skattframtalið þitt hefur verið móttekið og verður yfirfarið af Skattinum. Þú munt fá álagningu þegar framtalið hefur verið afgreitt.",
-    "copyDescription": "Afrit af innsendu framtali þínu er aðgengilegt undir Mínar síður. Ef þú þarft að gera breytingar getur þú opnað framtalið aftur fram að skilafresti."
+    "title": "Skattframtalinu hefur verið skilað",
+    "description": "Takk fyrir. Skattframtalið hefur verið móttekið og verður yfirfarið af Skattinum. Þú færð álagningarseðil þegar framtalið hefur verið afgreitt.",
+    "copyDescription": "Afrit af innsendu skattframtali er aðgengilegt á Mínum síðum. Ef þú þarft að gera breytingar getur þú opnað framtalið aftur fram að skilafresti."
   },
   "timeline": {
-    "intro": "Kynning",
-    "income": "Tekjur",
-    "assets": "Eignir",
-    "debts": "Skuldir og vextir",
-    "summary": "Yfirlit",
-    "receipt": "Kvittun"
-}
+    "intro": "Introduction",
+    "income": "Income",
+    "assets": "Assets",
+    "debts": "Debts and Interest",
+    "summary": "Summary",
+    "receipt": "Receipt"
+  } 
 }
