@@ -96,6 +96,7 @@ export const TaxReturnBox: React.FC<TaxReturnBoxProps> = (props) => {
                   <>
                     {props.totals.map((total, index) => (
                       <Box
+                        key={index}
                         display="flex"
                         justifyContent={'spaceBetween'}
                         marginTop={1}

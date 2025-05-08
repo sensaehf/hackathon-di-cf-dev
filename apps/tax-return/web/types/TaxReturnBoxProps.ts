@@ -1,5 +1,12 @@
 import { Icon as IconType } from 'libs/island-ui/core/src/lib/IconRC/iconMap'
 
+export enum IncomeType{
+  Salary = 'Salary',
+  PerDiem = 'PerDiem',
+  Grants = 'Grants',
+}
+
+
 export interface TaxReturnBoxProps {
     title: string
     description: string
@@ -7,6 +14,7 @@ export interface TaxReturnBoxProps {
     subCategories: SubCategory[]
     total?: number
     totals?: number[]
+    type: IncomeType
   }
   
 export interface SubCategory {
