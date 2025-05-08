@@ -126,8 +126,7 @@ export const TaxReturnModal: React.FC<Modal> = ({
   const [deleteGrantsMutation] = useMutation(DeleteGrantsMutation)
 
   const onConfirm = async () => {
-    console.log('1')
-
+    
     const inputs = localData.flatMap((category: any) =>
       category.values.map((item: any) => ({
         employerName: item.label,
@@ -142,8 +141,14 @@ export const TaxReturnModal: React.FC<Modal> = ({
     )
 
     try {
+
+      if(type !== IncomeType.Salary) {
+        console.log('Ignoring unhandled income type:', type)
+        return
+      }
+
       for (const input of inputs) {
-        console.log(input)
+        console.log(input)        
         if (input.new) {
           // Run the create mutation
           const createVariables = {
