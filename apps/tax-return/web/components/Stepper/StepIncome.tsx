@@ -23,7 +23,6 @@ import {
 } from '../../graphql/schema'
 import { useRouter } from 'next/router'
 
-import { useRouter } from 'next/router'
 import en from '../../public/locales/en/stepper.json'
 import is from '../../public/locales/is/stepper.json'
 
