@@ -105,15 +105,15 @@ const StepPage = () => {
 
   return (
     <Box background={'purple100'} style={{ minHeight: '100vh' }}>
-      <Hidden above={'sm'}>
-        <Box marginTop={10}>
+      <Box>
+        <Hidden above={'sm'}>
           <FormStepperV2 sections={stepperNavItems}></FormStepperV2>
-        </Box>
-      </Hidden>
+        </Hidden>
+      </Box>
       <GridContainer>
         <GridRow>
           <GridColumn span={['12/12', '9/12']}>
-            <Box background={'white'} marginX={2} marginY={5}>
+            <Box background={'white'} marginY={5}>
               <StepBox
                 title={
                   steps[currentStepIndex + 1] !== undefined
