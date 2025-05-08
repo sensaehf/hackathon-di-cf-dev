@@ -17,6 +17,10 @@ import { NationalRegistryApi } from '../services/nationalRegistry'
 
 const debug = process.env.NODE_ENV === 'development'
 const playground = debug || process.env.GQL_PLAYGROUND_ENABLED === 'true'
+const allowedOrigins = [
+  'http://localhost:4200',
+  'https://cf-web.sensa-di.scm.is',
+]
 
 const autoSchemaFile = environment.production
   ? true
@@ -34,6 +38,11 @@ const autoSchemaFile = environment.production
         backendApi: new BackendAPI(), 
         nationalRegistryApi: new NationalRegistryApi()
       }),
+      cors: {
+        origin: allowedOrigins,
+        credentials: true,
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+      },
       driver: ApolloDriver,
     }),
     TaxSubmissionModule,
