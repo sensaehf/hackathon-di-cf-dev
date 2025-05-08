@@ -21,8 +21,8 @@ import {
   PerDiemAndPerks,
   SalaryWorkPayments,
 } from '../../graphql/schema'
-
 import { useRouter } from 'next/router'
+
 import en from '../../public/locales/en/stepper.json'
 import is from '../../public/locales/is/stepper.json'
 
@@ -97,6 +97,8 @@ export const StepIncome = () => {
   const grantsData = useQuery(GET_GRANTS, {
     variables: { taxSubmissionId: 1 },
   })
+
+  const router = useRouter()
 
   if (salaryData.loading || perDiemsData.loading || grantsData.loading) {
     return null
@@ -184,6 +186,11 @@ export const StepIncome = () => {
     },
   ]
 
+  const handleClose = (): void => {
+    setShow(false)
+    router.reload()
+  }
+
   return (
     <>
       {' '}
@@ -204,7 +211,7 @@ export const StepIncome = () => {
       ))}
       <TaxReturnModal
         isVisible={show}
-        onClose={() => setShow(false)}
+        onClose={() => handleClose()}
         data={incomes[showIndex].subCategories}
         title={incomes[showIndex].title}
         description={incomes[showIndex].description}
