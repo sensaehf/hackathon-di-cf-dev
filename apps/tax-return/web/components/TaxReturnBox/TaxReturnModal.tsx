@@ -465,12 +465,13 @@ export const TaxReturnModal: React.FC<Modal> = ({
               </Button>
               <Button
                 variant="primary"
-                onClick={(click) => {
-                  onConfirm()
-                }}
-                type="submit"
-              >
-                {t.buttons['confirm']}
+                onClick={() => {
+                  onConfirm().then(() => onClose());
+                  
+
+                }}                
+                type='submit'>
+                Confirm
               </Button>
             </Box>
           </Box>
