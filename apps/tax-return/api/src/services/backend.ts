@@ -23,6 +23,7 @@ import { UpdatePensionsGrantsSubsidyInput } from '../app/modules/pensions-grants
 import { UpdatePerDiemAndPerkInput } from '../app/modules/per-diem-and-perks/dto/update-per-diem-and-perk.input';
 import { UpdateSalaryWorkPaymentInput } from '../app/modules/salary-work-payments/dto/update-salary-work-payment.input';
 import { UpdateVehicleInput } from '../app/modules/vehicle/dto/update-vehicle.input';
+import { UpdateRealEstateInput } from '../app/modules/real-estate/dto/update-real-estate.input';
 
 @Injectable()
 export class BackendAPI extends RESTDataSource {
@@ -201,6 +202,22 @@ async deletePensionsGrantsSubsidy(id: number, taxSubmissionId: number): Promise<
     );
     return response;
   }
+
+async updateRealEstate(body: UpdateRealEstateInput): Promise<RealEstate> {
+  const { taxSubmissionId, ...rest } = body;
+  const response = await this.put<RealEstate>(
+    `tax-submissions/${taxSubmissionId}/real-estates/${body.id}`,
+    rest
+  );
+  return response;
+}
+
+async deleteRealEstate(id: string, taxSubmissionId: number): Promise<string> {
+  const response = await this.delete<string>(
+    `tax-submissions/${taxSubmissionId}/real-estates/${id}`
+  );
+  return response;
+}
 
   // -------------- Salary Work Payments ----------------
   
