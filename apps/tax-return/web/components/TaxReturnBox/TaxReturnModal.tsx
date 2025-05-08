@@ -13,44 +13,44 @@ import { values } from 'lodash'
 import { useEffect, useState } from 'react'
 import { IncomeType } from '../../types/TaxReturnBoxProps'
 import { gql, useMutation } from '@apollo/client'
+import {
+  TaxReturnBoxProps,
+  SubCategory,
+  Values,
+} from '../../types/TaxReturnBoxProps'
 
 interface Modal {
   isVisible: boolean
   onClose: () => void
   data: SubCategory[]
   title: string
-  description: string,
-  type: IncomeType,
-}
-
-
-interface SubCategory {
-  title?: string
-  values: Values[]
-}
-
-interface Values {
-  label: string
-  value: number
-  new?: boolean,
-  id: string
+  description: string
+  type?: IncomeType
 }
 
 const UpdateSalaryWorkPayment = gql`
-mutation UpdateSalaryWorkPayment($updateSalaryWorkPaymentInput: UpdateSalaryWorkPaymentInput!) {
-  updateSalaryWorkPayment(updateSalaryWorkPaymentInput: $updateSalaryWorkPaymentInput) {
-    employerName
-    amount
-    currency
-    description
-    year
+  mutation UpdateSalaryWorkPayment(
+    $updateSalaryWorkPaymentInput: UpdateSalaryWorkPaymentInput!
+  ) {
+    updateSalaryWorkPayment(
+      updateSalaryWorkPaymentInput: $updateSalaryWorkPaymentInput
+    ) {
+      employerName
+      amount
+      currency
+      description
+      year
+    }
   }
-}
 `
 
 const CreateSalaryWorkPayment = gql`
-  mutation CreateSalaryWorkPayment($createSalaryWorkPaymentInput: CreateSalaryWorkPaymentInput!) {
-    createSalaryWorkPayment(createSalaryWorkPaymentInput: $createSalaryWorkPaymentInput) {
+  mutation CreateSalaryWorkPayment(
+    $createSalaryWorkPaymentInput: CreateSalaryWorkPaymentInput!
+  ) {
+    createSalaryWorkPayment(
+      createSalaryWorkPaymentInput: $createSalaryWorkPaymentInput
+    ) {
       id
       taxSubmissionId
       employerName
@@ -68,17 +68,27 @@ export const TaxReturnModal: React.FC<Modal> = ({
   data,
   title,
   description,
-  type
+  type,
 }) => {
-  const [localData, setLocalData] = useState(() => JSON.parse(JSON.stringify(data)))
+  const [localData, setLocalData] = useState(() =>
+    JSON.parse(JSON.stringify(data)),
+  )
 
-  const handleValueChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, categoryIdx: number, itemIdx: number) => {
+  const handleValueChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    categoryIdx: number,
+    itemIdx: number,
+  ) => {
     const updatedData = [...localData]
     updatedData[categoryIdx].values[itemIdx].value = Number(e.target.value)
     setLocalData(updatedData)
   }
 
-  const handleLabelChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, categoryIdx: number, itemIdx: number) => {
+  const handleLabelChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    categoryIdx: number,
+    itemIdx: number,
+  ) => {
     const updatedData = [...localData]
     updatedData[categoryIdx].values[itemIdx].label = e.target.value
     setLocalData(updatedData)
@@ -86,12 +96,12 @@ export const TaxReturnModal: React.FC<Modal> = ({
 
   const [createSalaryWorkPayment] = useMutation(CreateSalaryWorkPayment)
   const [updateSalaryWorkPayment] = useMutation(UpdateSalaryWorkPayment)
-  
-  const onConfirm = async () => {
-    console.log("1")
 
-    const inputs = localData.flatMap((category) =>
-      category.values.map((item) => ({
+  const onConfirm = async () => {
+    console.log('1')
+
+    const inputs = localData.flatMap((category: any) =>
+      category.values.map((item: any) => ({
         employerName: item.label,
         amount: item.value,
         currency: 'ISK',
@@ -102,7 +112,7 @@ export const TaxReturnModal: React.FC<Modal> = ({
         id: item.id,
       })),
     )
-  
+
     try {
       for (const input of inputs) {
         console.log(input)
@@ -118,9 +128,15 @@ export const TaxReturnModal: React.FC<Modal> = ({
               year: input.year,
             },
           }
-  
-          const createResponse = await createSalaryWorkPayment({ variables: createVariables })
-          console.log('Create mutation response for:', input.employerName, createResponse)
+
+          const createResponse = await createSalaryWorkPayment({
+            variables: createVariables,
+          })
+          console.log(
+            'Create mutation response for:',
+            input.employerName,
+            createResponse,
+          )
         } else {
           // Run the update mutation
           const updateVariables = {
@@ -135,9 +151,15 @@ export const TaxReturnModal: React.FC<Modal> = ({
           }
 
           console.log('Update variables:', updateVariables)
-  
-          const updateResponse = await updateSalaryWorkPayment({ variables: updateVariables })
-          console.log('Update mutation response for:', input.employerName, updateResponse)
+
+          const updateResponse = await updateSalaryWorkPayment({
+            variables: updateVariables,
+          })
+          console.log(
+            'Update mutation response for:',
+            input.employerName,
+            updateResponse,
+          )
         }
       }
     } catch (error) {
@@ -180,7 +202,7 @@ export const TaxReturnModal: React.FC<Modal> = ({
             </Text>
             <Text marginBottom={5}>{description}</Text>
 
-            {localData.map((category, index) => (
+            {localData.map((category: any, index: any) => (
               <>
                 {category.title && (
                   <Box marginBottom={2}>
@@ -190,7 +212,7 @@ export const TaxReturnModal: React.FC<Modal> = ({
                   </Box>
                 )}
                 <Box marginBottom={4}>
-                  {category.values.map((item, i) => {
+                  {category.values.map((item: any, i: any) => {
                     if (!item.new) {
                       return (
                         <Box
@@ -222,7 +244,10 @@ export const TaxReturnModal: React.FC<Modal> = ({
                               colorScheme="light"
                               title="delete"
                               onClick={(e) => {
-                                console.log(`delete ${type} with id ${item.id}`,e )
+                                console.log(
+                                  `delete ${type} with id ${item.id}`,
+                                  e,
+                                )
                               }}
                             >
                               <Icon icon="trash" type="outline" />
@@ -245,7 +270,9 @@ export const TaxReturnModal: React.FC<Modal> = ({
                       }
                     }
 
-                    const getNewValueLabel = (type: any): string | undefined => {
+                    const getNewValueLabel = (
+                      type: any,
+                    ): string | undefined => {
                       switch (type) {
                         case IncomeType.Salary:
                           return 'New income'
@@ -267,8 +294,18 @@ export const TaxReturnModal: React.FC<Modal> = ({
                         marginBottom={4}
                       >
                         <>
-                          <Box background={'dark100'} width='full' padding={2} marginBottom={2} >
-                            <Box flexDirection={'row'} display={'flex'} justifyContent={'spaceBetween'} alignItems={'center'}>
+                          <Box
+                            background={'dark100'}
+                            width="full"
+                            padding={2}
+                            marginBottom={2}
+                          >
+                            <Box
+                              flexDirection={'row'}
+                              display={'flex'}
+                              justifyContent={'spaceBetween'}
+                              alignItems={'center'}
+                            >
                               <Text variant="h3" as={'h3'} marginBottom={2}>
                                 Add new entry
                               </Text>
@@ -277,7 +314,11 @@ export const TaxReturnModal: React.FC<Modal> = ({
                                 colorScheme="light"
                                 title="delete"
                                 onClick={() => {
-                                  setLocalData(localData.filter((_, idx) => idx === i))
+                                  setLocalData(
+                                    localData.filter(
+                                      (_: any, idx: any) => idx === i,
+                                    ),
+                                  )
                                 }}
                               >
                                 <Icon icon="trash" type="outline" />
@@ -286,36 +327,33 @@ export const TaxReturnModal: React.FC<Modal> = ({
 
                             <Input
                               label={getNewLabel(type)}
-                              name='New item'
+                              name="New item"
                               value={item.label}
                               readOnly={false}
                               type="text"
                               onChange={(e) => handleLabelChange(e, index, i)}
                               required={true}
-                              errorMessage='Make sure the field contains a string value'
+                              errorMessage="Make sure the field contains a string value"
                             />
                             <Box marginTop={2} />
 
                             <Input
                               label={getNewValueLabel(type)}
-                              name='New value'
+                              name="New value"
                               value={item.value}
                               type="number"
                               onChange={(e) => handleValueChange(e, index, i)}
                               required={true}
-                              errorMessage='Make sure the field contains a numeric value'
-                              />
+                              errorMessage="Make sure the field contains a numeric value"
+                            />
                           </Box>
-
                         </>
                         <Box
                           display={'flex'}
                           justifyContent={'flexStart'}
                           paddingRight={6}
                           paddingLeft={3}
-                        >
-
-                        </Box>
+                        ></Box>
                       </Box>
                     )
                   })}
@@ -324,20 +362,25 @@ export const TaxReturnModal: React.FC<Modal> = ({
             ))}
             <Box marginBottom={8}>
               <Box marginBottom={4}>
-                <Button variant="ghost" icon="add"
+                <Button
+                  variant="ghost"
+                  icon="add"
                   onClick={() => {
                     const updated = [...localData]
                     if (updated.length > 0) {
-                      updated.push(
-                        {
-                          title: type === IncomeType.Grants ? 'New Grant Category' : null,
-                          values: [
-                            {
-                              label: ``,
-                              value: null,
-                              new: true,
-                            }]
-                        })
+                      updated.push({
+                        title:
+                          type === IncomeType.Grants
+                            ? 'New Grant Category'
+                            : null,
+                        values: [
+                          {
+                            label: ``,
+                            value: null,
+                            new: true,
+                          },
+                        ],
+                      })
                       setLocalData(updated)
                     }
                   }}
@@ -355,8 +398,9 @@ export const TaxReturnModal: React.FC<Modal> = ({
                 variant="primary"
                 onClick={(click) => {
                   onConfirm()
-                }}                
-                type='submit'>
+                }}
+                type="submit"
+              >
                 Confirm
               </Button>
             </Box>

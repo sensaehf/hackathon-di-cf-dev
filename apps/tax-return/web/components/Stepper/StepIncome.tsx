@@ -22,7 +22,6 @@ import {
   SalaryWorkPayments,
 } from '../../graphql/schema'
 
-
 // Salary
 const GET_SALARY_WORK = gql`
   query GetAllSalaryWorkPaymentsByTaxSubmission($taxSubmissionId: Int!) {
@@ -94,8 +93,6 @@ export const StepIncome = () => {
     return null
   }
 
-  
-
   const salaries: SalaryWorkPayments[] =
     salaryData.data.findAllSalaryWorkPaymentsByTaxSubmission
   const perDiems: PerDiemAndPerks[] =
@@ -128,7 +125,7 @@ export const StepIncome = () => {
               return total + y.amount
             }, 0)
           : salaries[0].amount,
-        type: IncomeType.Salary,
+      type: IncomeType.Salary,
     },
     {
       title: 'Allowances and benefits',
@@ -199,7 +196,7 @@ export const StepIncome = () => {
           icon={income.icon}
           subCategories={income.subCategories}
           totalAmount={income.total}
-          setShow={() => handleShow(index)}          
+          setShow={() => handleShow(index)}
         />
       ))}
       <TaxReturnModal
