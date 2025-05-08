@@ -190,6 +190,73 @@ export const TaxReturnModal: React.FC<Modal> = ({
                 )}
                 <Box marginBottom={4}>
                   {category.values.map((item, i) => {
+                    if (!item.new) {
+                      return (
+                        <Box
+                          key={i}
+                          display="flex"
+                          justifyContent={'spaceBetween'}
+                          alignItems={'center'}
+                          marginBottom={4}
+                        >
+                          <Box width="full">
+                            <Input
+                              label={item.label}
+                              name={item.label}
+                              value={item.value}
+                              readOnly={false}
+                              onChange={(e) => handleValueChange(e, index, i)}
+                              type="number"
+                              required={true}
+                            />
+                          </Box>
+                          <Box
+                            display={'flex'}
+                            justifyContent={'flexStart'}
+                            paddingRight={10}
+                            paddingLeft={3}
+                          >
+                            <Button
+                              circle={true}
+                              colorScheme="light"
+                              title="delete"
+                              onClick={(e) => {
+                                console.log(`delete ${type} with id ${item.id}`,e )
+                              }}
+                            >
+                              <Icon icon="trash" type="outline" />
+                            </Button>
+                          </Box>
+                        </Box>
+                      )
+                    }
+
+                    const getNewLabel = (type: any): string | undefined => {
+                      switch (type) {
+                        case IncomeType.Salary:
+                          return 'Name of employer'
+                        case IncomeType.PerDiem:
+                          return 'Name of allowance or benefit'
+                        case IncomeType.Grants:
+                          return 'Name of grant or subsidy'
+                        default:
+                          return undefined
+                      }
+                    }
+
+                    const getNewValueLabel = (type: any): string | undefined => {
+                      switch (type) {
+                        case IncomeType.Salary:
+                          return 'New income'
+                        case IncomeType.PerDiem:
+                          return 'New income'
+                        case IncomeType.Grants:
+                          return 'New grant amount'
+                        default:
+                          return undefined
+                      }
+                    }
+
                     return (
                       <Box
                         key={i}
@@ -198,51 +265,53 @@ export const TaxReturnModal: React.FC<Modal> = ({
                         alignItems={'center'}
                         marginBottom={4}
                       >
-                        <Box width="full">
-                          {!item.new &&
+                        <>
+                          <Box background={'dark100'} width='full' padding={2} marginBottom={2} >
+                            <Box flexDirection={'row'} display={'flex'} justifyContent={'spaceBetween'} alignItems={'center'}>
+                              <Text variant="h3" as={'h3'} marginBottom={2}>
+                                Add new entry
+                              </Text>
+                              <Button
+                                circle={true}
+                                colorScheme="light"
+                                title="delete"
+                                onClick={() => {
+                                  setLocalData(localData.filter((_, idx) => idx === i))
+                                }}
+                              >
+                                <Icon icon="trash" type="outline" />
+                              </Button>
+                            </Box>
+
                             <Input
-                              label={item.label}
-                              name={item.label}
-                              value={item.value}
+                              label={getNewLabel(type)}
+                              name='New item'
+                              value={item.label}
                               readOnly={false}
-                              onChange={(e) => handleValueChange(e, index, i)}
-                              type="number"
+                              type="text"
+                              onChange={(e) => handleLabelChange(e, index, i)}
+                              required={true}
                             />
-                            ||
-                            <>
-                              <Box display={'flex'} columnGap={1} marginLeft={'auto'}>
-                                <Input
-                                  label="New item"
-                                  name='New item'
-                                  value={item.label}
-                                  readOnly={false}
-                                  type="text"
-                                  onChange={(e) => handleLabelChange(e, index, i)}                                  
-                                />
-                           
-                                <Input
-                                  label="New value"
-                                  name='New value'
-                                  value={item.value}
-                                  type="number"
-                                  onChange={(e) => handleValueChange(e, index, i)}
-                                />
-                              </Box>
-                            </>}
-                        </Box>
+                            <Box marginTop={2} />
+
+                            <Input
+                              label={getNewValueLabel(type)}
+                              name='New value'
+                              value={item.value}
+                              type="number"
+                              onChange={(e) => handleValueChange(e, index, i)}
+                              required={true}
+                            />
+                          </Box>
+
+                        </>
                         <Box
                           display={'flex'}
                           justifyContent={'flexStart'}
-                          paddingRight={10}
+                          paddingRight={6}
                           paddingLeft={3}
                         >
-                          <Button
-                            circle={true}
-                            colorScheme="light"
-                            title="delete"
-                          >
-                            <Icon icon="trash" type="outline" />
-                          </Button>
+
                         </Box>
                       </Box>
                     )
@@ -279,7 +348,12 @@ export const TaxReturnModal: React.FC<Modal> = ({
               <Button variant="ghost" onClick={onClose}>
                 Cancel
               </Button>
-              <Button variant="primary" onClick={onConfirm}>
+              <Button
+                variant="primary"
+                onClick={(click) => {
+                  console.log(`clicked it - upsert ${type}`, click)
+                }}                
+                type='submit'>
                 Confirm
               </Button>
             </Box>
