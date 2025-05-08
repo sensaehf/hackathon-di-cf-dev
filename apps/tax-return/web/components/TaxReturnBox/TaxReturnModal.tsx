@@ -9,6 +9,9 @@ import {
   Tooltip,
 } from '@island.is/island-ui/core'
 import { Icon as IconType } from 'libs/island-ui/core/src/lib/IconRC/iconMap'
+import { values } from 'lodash'
+import { useEffect, useState } from 'react'
+import { IncomeType } from '../../types/TaxReturnBoxProps'
 
 interface Modal {
   isVisible: boolean
@@ -18,12 +21,6 @@ interface Modal {
   description: string
 }
 
-interface TaxReturnBoxProps {
-  title: string
-  icon: IconType
-  subCategories: SubCategory[]
-  total: number
-}
 
 interface SubCategory {
   title?: string
@@ -33,6 +30,7 @@ interface SubCategory {
 interface Values {
   label: string
   value: number
+  new?: boolean
 }
 
 export const TaxReturnModal: React.FC<Modal> = ({
@@ -41,7 +39,25 @@ export const TaxReturnModal: React.FC<Modal> = ({
   data,
   title,
   description,
+  type
 }) => {
+  const [localData, setLocalData] = useState(() => JSON.parse(JSON.stringify(data)))
+
+  const handleValueChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, categoryIdx: number, itemIdx: number) => {
+    const updatedData = [...localData]
+    updatedData[categoryIdx].values[itemIdx].value = Number(e.target.value)
+    setLocalData(updatedData)
+  }
+
+  const handleLabelChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, categoryIdx: number, itemIdx: number) => {
+    const updatedData = [...localData]
+    updatedData[categoryIdx].values[itemIdx].label = e.target.value
+    setLocalData(updatedData)
+  }
+
+  useEffect(() => {
+    setLocalData(() => JSON.parse(JSON.stringify(data)))
+  }, [data])
   return (
     <ModalBase baseId={'dialog'} isVisible={isVisible}>
       <div
@@ -74,7 +90,7 @@ export const TaxReturnModal: React.FC<Modal> = ({
             </Text>
             <Text marginBottom={5}>{description}</Text>
 
-            {data.map((category, index) => (
+            {localData.map((category, index) => (
               <>
                 {category.title && (
                   <Box marginBottom={2}>
@@ -87,18 +103,43 @@ export const TaxReturnModal: React.FC<Modal> = ({
                   {category.values.map((item, i) => {
                     return (
                       <Box
+                        key={i}
                         display="flex"
                         justifyContent={'spaceBetween'}
                         alignItems={'center'}
                         marginBottom={4}
                       >
                         <Box width="full">
-                          <Input
-                            label={item.label}
-                            name={item.label}
-                            value={item.value}
-                            type="number"
-                          />
+                          {!item.new &&
+                            <Input
+                              label={item.label}
+                              name={item.label}
+                              value={item.value}
+                              readOnly={false}
+                              onChange={(e) => handleValueChange(e, index, i)}
+                              type="number"
+                            />
+                            ||
+                            <>
+                              <Box display={'flex'} columnGap={1} marginLeft={'auto'}>
+                                <Input
+                                  label="New item"
+                                  name='New item'
+                                  value={item.label}
+                                  readOnly={false}
+                                  type="text"
+                                  onChange={(e) => handleLabelChange(e, index, i)}                                  
+                                />
+                           
+                                <Input
+                                  label="New value"
+                                  name='New value'
+                                  value={item.value}
+                                  type="number"
+                                  onChange={(e) => handleValueChange(e, index, i)}
+                                />
+                              </Box>
+                            </>}
                         </Box>
                         <Box
                           display={'flex'}
@@ -122,7 +163,24 @@ export const TaxReturnModal: React.FC<Modal> = ({
             ))}
             <Box marginBottom={8}>
               <Box marginBottom={4}>
-                <Button variant="ghost" icon="add">
+                <Button variant="ghost" icon="add"
+                  onClick={() => {
+                    const updated = [...localData]
+                    if (updated.length > 0) {
+                      updated.push(
+                        {
+                          title: type === IncomeType.Grants ? 'New Grant Category' : null,
+                          values: [
+                            {
+                              label: ``,
+                              value: null,
+                              new: true,
+                            }]
+                        })
+                      setLocalData(updated)
+                    }
+                  }}
+                >
                   Add other information
                 </Button>
               </Box>
