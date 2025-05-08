@@ -98,7 +98,8 @@ export const TaxReturnModal: React.FC<Modal> = ({
         taxSubmissionId: 1,
         description: `Payment for ${item.label}`,
         year: 2025,
-        new: item.new,
+        new: item.id === undefined,
+        id: item.id,
       })),
     )
   
@@ -353,7 +354,7 @@ export const TaxReturnModal: React.FC<Modal> = ({
               <Button
                 variant="primary"
                 onClick={(click) => {
-                  console.log(`clicked it - upsert ${type}`, click)
+                  onConfirm()
                 }}                
                 type='submit'>
                 Confirm
