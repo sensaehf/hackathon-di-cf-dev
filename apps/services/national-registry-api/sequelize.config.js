@@ -5,6 +5,7 @@ module.exports = {
     password: 'dev_db',
     database: 'national_reg',
     host: 'host.docker.internal',
+    port: 5435,
     dialect: 'postgres',
   },
   test: {

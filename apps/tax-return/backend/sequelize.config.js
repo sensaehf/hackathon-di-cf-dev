@@ -4,7 +4,7 @@ module.exports = {
     username: 'dev_db',
     password: 'dev_db',
     database: 'dev_db',
-    host: '127.0.0.1',
+    host: 'host.docker.internal',
     dialect: 'postgres',
   },
   test: {
