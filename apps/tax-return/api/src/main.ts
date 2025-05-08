@@ -10,7 +10,7 @@ bootstrap({
   name: 'tax-return-api',
   port: 3333,
   enableCors: {
-    origin: allowedOrigins, // Allow requests from this origin
+    origin: '*', // Allow requests from this origin
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Allowed HTTP methods
     credentials: true, // Allow cookies or other credentials
   },
