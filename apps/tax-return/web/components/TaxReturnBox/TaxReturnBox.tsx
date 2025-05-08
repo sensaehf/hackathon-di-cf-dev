@@ -12,6 +12,12 @@ import {
 } from '@island.is/island-ui/core'
 import { Icon as IconType } from 'libs/island-ui/core/src/lib/IconRC/iconMap'
 
+import { useRouter } from 'next/router'
+import en from '../../public/locales/en/stepper.json'
+import is from '../../public/locales/is/stepper.json'
+
+const translations: any = { en, is }
+
 interface TaxReturnBoxProps {
   title: string
   icon: IconType
@@ -34,6 +40,9 @@ interface Values {
 }
 
 export const TaxReturnBox: React.FC<TaxReturnBoxProps> = (props) => {
+  const { locale = 'en' } = useRouter()
+  const t = translations[locale] || translations.en
+
   return (
     <>
       <Box background={'blue100'} borderColor="blue200" marginY={3}>
@@ -87,7 +96,7 @@ export const TaxReturnBox: React.FC<TaxReturnBoxProps> = (props) => {
                     paddingX={1}
                   >
                     <>
-                      <Text>Amount we use in the tax calculation</Text>
+                      <Text>{t.valueLabels['amountWeUse']}</Text>
                       <Text>{props.totalAmount.toLocaleString()}</Text>
                     </>
                   </Box>
@@ -122,7 +131,7 @@ export const TaxReturnBox: React.FC<TaxReturnBoxProps> = (props) => {
                   icon="pencil"
                   onClick={props.setShow}
                 >
-                  Change
+                  {t.buttons['change']}
                 </Button>
               </Box>
             </GridColumn>

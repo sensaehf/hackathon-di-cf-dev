@@ -22,6 +22,12 @@ import {
   SalaryWorkPayments,
 } from '../../graphql/schema'
 
+import { useRouter } from 'next/router'
+import en from '../../public/locales/en/stepper.json'
+import is from '../../public/locales/is/stepper.json'
+
+const translations: any = { en, is }
+
 // Salary
 const GET_SALARY_WORK = gql`
   query GetAllSalaryWorkPaymentsByTaxSubmission($taxSubmissionId: Int!) {
@@ -69,6 +75,9 @@ const GET_GRANTS = gql`
 `
 
 export const StepIncome = () => {
+  const { locale = 'en' } = useRouter()
+  const t = translations[locale] || translations.en
+
   const [show, setShow] = useState(false)
   const [showIndex, setShowIndex] = useState(0)
 
@@ -104,9 +113,8 @@ export const StepIncome = () => {
 
   const incomes: TaxReturnBoxProps[] = [
     {
-      title: 'Salary and Work-Related Payments',
-      description:
-        'If the number shown doesn’t match your payslips or income statements, you can adjust it. Make sure to enter the correct total before tax, based on what you earned during the year.',
+      title: t.stepperTitles['salary'],
+      description: t.stepperDescription['salary'],
       icon: 'card',
       subCategories: salaries
         ? salaries.map((item: any) => ({
@@ -128,9 +136,8 @@ export const StepIncome = () => {
       type: IncomeType.Salary,
     },
     {
-      title: 'Allowances and benefits',
-      description:
-        'If the number shown doesn’t match your payslips or income statements, you can adjust it. Make sure to enter the correct total before tax, based on what you earned during the year.',
+      title: t.stepperTitles['perDiems'],
+      description: t.stepperDescription['salary'],
       icon: 'cash',
       subCategories: perDiems
         ? perDiems.map((item: any) => ({
@@ -152,9 +159,8 @@ export const StepIncome = () => {
       type: IncomeType.PerDiem,
     },
     {
-      title: 'Grants and Subsidies',
-      description:
-        'If the number shown doesn’t match your payslips or income statements, you can adjust it. Make sure to enter the correct total before tax, based on what you earned during the year.',
+      title: t.stepperTitles['grants'],
+      description: t.stepperDescription['salary'],
       icon: 'cash',
       subCategories: grants
         ? grants.map((item: any) => ({
@@ -181,14 +187,11 @@ export const StepIncome = () => {
   return (
     <>
       {' '}
-      <Text variant="eyebrow">Tax return 2024</Text>
+      <Text variant="eyebrow">{t.headings['taxReturn']}</Text>
       <Text variant="h1" as={'h1'} paddingBottom={1}>
-        Income for 2024
+        {t.headings['income']}
       </Text>
-      <Text variant="default">
-        This section shows the income you received last year — for example,
-        wages, pensions or other taxable payments.
-      </Text>
+      <Text variant="default">{t.descriptions['incomeDescription']}</Text>
       {incomes.map((income, index) => (
         <TaxReturnBox
           key={income.type}

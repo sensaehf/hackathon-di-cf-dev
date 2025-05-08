@@ -49,7 +49,7 @@ export const AppLayout = ({ children }: { children: React.ReactNode }) => {
             <Header
               info={{
                 title: 'Skatturinn',
-                description: 'View and amend your tax return',
+                description: t.appDescription,
               }}
               headerItems={headerItems()}
             />

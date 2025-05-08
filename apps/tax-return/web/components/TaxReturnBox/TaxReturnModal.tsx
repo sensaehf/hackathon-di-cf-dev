@@ -19,6 +19,12 @@ import {
   Values,
 } from '../../types/TaxReturnBoxProps'
 
+import { useRouter } from 'next/router'
+import en from '../../public/locales/en/stepper.json'
+import is from '../../public/locales/is/stepper.json'
+
+const translations: any = { en, is }
+
 interface Modal {
   isVisible: boolean
   onClose: () => void
@@ -67,7 +73,7 @@ const DeleteSalaryWorkPayment = gql`
     deleteSalaryWorkPayment(id: $id, taxSubmissionId: $taxSubmissionId)
   }
 `
-const DeletePerDiemAndPerks = gql`  
+const DeletePerDiemAndPerks = gql`
   mutation DeletePerDiemAndPerk($id: String!, $taxSubmissionId: Int!) {
     deletePerDiemAndPerk(id: $id, taxSubmissionId: $taxSubmissionId)
   }
@@ -86,6 +92,9 @@ export const TaxReturnModal: React.FC<Modal> = ({
   description,
   type,
 }) => {
+  const { locale = 'en' } = useRouter()
+  const t = translations[locale] || translations.en
+
   const [localData, setLocalData] = useState(() =>
     JSON.parse(JSON.stringify(data)),
   )
@@ -186,41 +195,49 @@ export const TaxReturnModal: React.FC<Modal> = ({
     }
   }
 
-  const handleDelete = async (type: IncomeType | undefined, id: string | undefined, categoryIdx: number, itemIdx: number) => {
+  const handleDelete = async (
+    type: IncomeType | undefined,
+    id: string | undefined,
+    categoryIdx: number,
+    itemIdx: number,
+  ) => {
     if (!id) {
-      console.error('No ID provided for deletion');
-      return;
+      console.error('No ID provided for deletion')
+      return
     }
-  
+
     try {
       switch (type) {
         case IncomeType.Salary:
-          console.log(`Running delete mutation for Salary with ID: ${id}`);
-          await deleteSalaryMutation({ variables: { id, taxSubmissionId: 1 } });
-          break;
-  
+          console.log(`Running delete mutation for Salary with ID: ${id}`)
+          await deleteSalaryMutation({ variables: { id, taxSubmissionId: 1 } })
+          break
+
         case IncomeType.PerDiem:
-          console.log(`Running delete mutation for Per Diem with ID: ${id}`);
-          await deletePerDiemMutation({ variables: { id: +id, taxSubmissionId: 1 } });
-          break;
-  
+          console.log(`Running delete mutation for Per Diem with ID: ${id}`)
+          await deletePerDiemMutation({
+            variables: { id: +id, taxSubmissionId: 1 },
+          })
+          break
+
         case IncomeType.Grants:
-          console.log(`Running delete mutation for Grants with ID: ${id}`);
-          await deleteGrantsMutation({ variables: { id: +id, taxSubmissionId: 1 } });
-          break;
-  
+          console.log(`Running delete mutation for Grants with ID: ${id}`)
+          await deleteGrantsMutation({
+            variables: { id: +id, taxSubmissionId: 1 },
+          })
+          break
+
         default:
-          console.error('Unknown type for deletion');
+          console.error('Unknown type for deletion')
       }
 
-
-      const updatedData = [...localData];
-      updatedData[categoryIdx].values.splice(itemIdx, 1);
-      setLocalData(updatedData);
+      const updatedData = [...localData]
+      updatedData[categoryIdx].values.splice(itemIdx, 1)
+      setLocalData(updatedData)
     } catch (error) {
-      console.error('Error executing delete mutation:', error);
+      console.error('Error executing delete mutation:', error)
     }
-  };
+  }
 
   useEffect(() => {
     setLocalData(() => JSON.parse(JSON.stringify(data)))
@@ -298,7 +315,9 @@ export const TaxReturnModal: React.FC<Modal> = ({
                               circle={true}
                               colorScheme="light"
                               title="delete"
-                              onClick={() => handleDelete(type, item.id, index, i)}
+                              onClick={() =>
+                                handleDelete(type, item.id, index, i)
+                              }
                             >
                               <Icon icon="trash" type="outline" />
                             </Button>
@@ -435,14 +454,14 @@ export const TaxReturnModal: React.FC<Modal> = ({
                     }
                   }}
                 >
-                  Add other information
+                  {t.buttons['addOtherInformation']}
                 </Button>
               </Box>
               <Divider />
             </Box>
             <Box display="flex" justifyContent={'spaceBetween'} marginTop={5}>
               <Button variant="ghost" onClick={onClose}>
-                Cancel
+                {t.buttons['cancel']}
               </Button>
               <Button
                 variant="primary"
@@ -451,7 +470,7 @@ export const TaxReturnModal: React.FC<Modal> = ({
                 }}
                 type="submit"
               >
-                Confirm
+                {t.buttons['confirm']}
               </Button>
             </Box>
           </Box>

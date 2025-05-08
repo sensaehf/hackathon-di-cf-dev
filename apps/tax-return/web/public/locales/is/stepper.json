@@ -25,7 +25,10 @@
     "downloadPDF": "Hlaða niður PDF",
     "continueTo": "Halda áfram",
     "continueLater": "Halda áfram síðar",
-    "previousReturns": "Skoða fyrri skattframtöl"
+    "previousReturns": "Skoða fyrri skattframtöl",
+    "addOtherInformation": "Bæta við öðrum upplýsingum",
+    "cancel": "Hætta við",
+    "confirm": "Staðfesta"
   },
   "stepperTitles": {
     "salary": "Laun og starfstengdar greiðslur",
