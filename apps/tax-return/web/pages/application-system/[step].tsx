@@ -9,6 +9,7 @@ import {
   Section,
   Text,
   FormStepperV2,
+  Hidden,
 } from '@island.is/island-ui/core'
 import { AppLayout } from '../../layouts/AppLayout'
 import { StepBox } from '../../components/Stepper/StepBox'
@@ -103,7 +104,12 @@ const StepPage = () => {
   ]
 
   return (
-    <Box background={'purple100'} height={'full'} style={{ height: '100vh' }}>
+    <Box background={'purple100'} style={{ minHeight: '100vh' }}>
+      <Hidden above={'sm'}>
+        <Box marginTop={10}>
+          <FormStepperV2 sections={stepperNavItems}></FormStepperV2>
+        </Box>
+      </Hidden>
       <GridContainer>
         <GridRow>
           <GridColumn span={['12/12', '9/12']}>
@@ -124,9 +130,11 @@ const StepPage = () => {
             </Box>
           </GridColumn>
           <GridColumn span={['12/12', '3/12']}>
-            <Box marginTop={20}>
-              <FormStepperV2 sections={stepperNavItems}></FormStepperV2>
-            </Box>
+            <Hidden below={'sm'}>
+              <Box marginTop={10}>
+                <FormStepperV2 sections={stepperNavItems}></FormStepperV2>
+              </Box>
+            </Hidden>
           </GridColumn>
         </GridRow>
       </GridContainer>
