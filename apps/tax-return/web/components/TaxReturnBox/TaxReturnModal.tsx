@@ -62,6 +62,22 @@ const CreateSalaryWorkPayment = gql`
   }
 `
 
+const DeleteSalaryWorkPayment = gql`
+  mutation DeleteSalaryWorkPayment($id: String!, $taxSubmissionId: Int!) {
+    deleteSalaryWorkPayment(id: $id, taxSubmissionId: $taxSubmissionId)
+  }
+`
+const DeletePerDiemAndPerks = gql`  
+  mutation DeletePerDiemAndPerk($id: String!, $taxSubmissionId: Int!) {
+    deletePerDiemAndPerk(id: $id, taxSubmissionId: $taxSubmissionId)
+  }
+`
+const DeleteGrantsMutation = gql`
+  mutation DeletePensionsGrantsSubsidy($id: Int!, $taxSubmissionId: Int!) {
+    deletePensionsGrantsSubsidy(id: $id, taxSubmissionId: $taxSubmissionId)
+  }
+`
+
 export const TaxReturnModal: React.FC<Modal> = ({
   isVisible,
   onClose,
@@ -96,6 +112,9 @@ export const TaxReturnModal: React.FC<Modal> = ({
 
   const [createSalaryWorkPayment] = useMutation(CreateSalaryWorkPayment)
   const [updateSalaryWorkPayment] = useMutation(UpdateSalaryWorkPayment)
+  const [deleteSalaryMutation] = useMutation(DeleteSalaryWorkPayment)
+  const [deletePerDiemMutation] = useMutation(DeletePerDiemAndPerks)
+  const [deleteGrantsMutation] = useMutation(DeleteGrantsMutation)
 
   const onConfirm = async () => {
     console.log('1')
@@ -166,6 +185,42 @@ export const TaxReturnModal: React.FC<Modal> = ({
       console.error('Error executing mutation:', error)
     }
   }
+
+  const handleDelete = async (type: IncomeType | undefined, id: string | undefined, categoryIdx: number, itemIdx: number) => {
+    if (!id) {
+      console.error('No ID provided for deletion');
+      return;
+    }
+  
+    try {
+      switch (type) {
+        case IncomeType.Salary:
+          console.log(`Running delete mutation for Salary with ID: ${id}`);
+          await deleteSalaryMutation({ variables: { id, taxSubmissionId: 1 } });
+          break;
+  
+        case IncomeType.PerDiem:
+          console.log(`Running delete mutation for Per Diem with ID: ${id}`);
+          await deletePerDiemMutation({ variables: { id: +id, taxSubmissionId: 1 } });
+          break;
+  
+        case IncomeType.Grants:
+          console.log(`Running delete mutation for Grants with ID: ${id}`);
+          await deleteGrantsMutation({ variables: { id: +id, taxSubmissionId: 1 } });
+          break;
+  
+        default:
+          console.error('Unknown type for deletion');
+      }
+
+
+      const updatedData = [...localData];
+      updatedData[categoryIdx].values.splice(itemIdx, 1);
+      setLocalData(updatedData);
+    } catch (error) {
+      console.error('Error executing delete mutation:', error);
+    }
+  };
 
   useEffect(() => {
     setLocalData(() => JSON.parse(JSON.stringify(data)))
@@ -243,12 +298,7 @@ export const TaxReturnModal: React.FC<Modal> = ({
                               circle={true}
                               colorScheme="light"
                               title="delete"
-                              onClick={(e) => {
-                                console.log(
-                                  `delete ${type} with id ${item.id}`,
-                                  e,
-                                )
-                              }}
+                              onClick={() => handleDelete(type, item.id, index, i)}
                             >
                               <Icon icon="trash" type="outline" />
                             </Button>
