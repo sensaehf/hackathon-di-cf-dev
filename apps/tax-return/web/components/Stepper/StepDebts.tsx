@@ -123,7 +123,7 @@ export const StepDebts = () => {
     },
     {
       title: t.stepperTitles['otherLoans'],
-      description: t.stepperDescription['otherLoans']
+      description: t.stepperDescription['otherLoans'],
       icon: 'card',
       subCategories: reliabilites
         ? reliabilites.map((item: OtherReliabilities) => ({
@@ -160,11 +160,9 @@ export const StepDebts = () => {
       {' '}
       <Text variant="eyebrow">{t.headings['taxreturn']}</Text>
       <Text variant="h1" as={'h1'} paddingBottom={1}>
-       {t.headings['debts']}
+        {t.headings['debts']}
       </Text>
-      <Text variant="default">
-        {t.descriptions['debtsDescription']}
-      </Text>
+      <Text variant="default">{t.descriptions['debtsDescription']}</Text>
       {incomes.map((income, index) => (
         <TaxReturnBox
           title={income.title}

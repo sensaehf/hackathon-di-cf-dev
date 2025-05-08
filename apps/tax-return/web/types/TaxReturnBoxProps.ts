@@ -14,7 +14,7 @@ export interface TaxReturnBoxProps {
     subCategories: SubCategory[]
     total?: number
     totals?: number[]
-    type: IncomeType
+    type?: IncomeType
   }
   
 export interface SubCategory {
