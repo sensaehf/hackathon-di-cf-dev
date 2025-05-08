@@ -22,6 +22,7 @@ import {
 import { useRouter } from 'next/router'
 import en from '../../public/locales/en/stepper.json'
 import is from '../../public/locales/is/stepper.json'
+import { CreatePerDiemMutation, UpdatePerDiemMutation } from './AllowancesAndBenefits'
 
 const translations: any = { en, is }
 
@@ -124,13 +125,14 @@ export const TaxReturnModal: React.FC<Modal> = ({
   const [deleteSalaryMutation] = useMutation(DeleteSalaryWorkPayment)
   const [deletePerDiemMutation] = useMutation(DeletePerDiemAndPerks)
   const [deleteGrantsMutation] = useMutation(DeleteGrantsMutation)
+  const [updatePerDiemMutation] = useMutation(UpdatePerDiemMutation)
+  const [createPerDiemMutation] = useMutation(CreatePerDiemMutation)
 
   const onConfirm = async () => {
-    console.log('1')
 
     const inputs = localData.flatMap((category: any) =>
       category.values.map((item: any) => ({
-        employerName: item.label,
+        label: item.label,
         amount: item.value,
         currency: 'ISK',
         taxSubmissionId: 1,
@@ -138,56 +140,108 @@ export const TaxReturnModal: React.FC<Modal> = ({
         year: 2025,
         new: item.id === undefined,
         id: item.id,
+
       })),
     )
 
     try {
+
+      if (type !== IncomeType.Salary && type !== IncomeType.PerDiem) {
+        console.log('Ignoring unhandled income type:', type)
+        return
+      }
+
       for (const input of inputs) {
-        console.log(input)
-        if (input.new) {
-          // Run the create mutation
-          const createVariables = {
-            createSalaryWorkPaymentInput: {
-              employerName: input.employerName,
-              amount: input.amount,
-              currency: input.currency,
-              taxSubmissionId: input.taxSubmissionId,
-              description: input.description,
-              year: input.year,
-            },
+
+        if (type === IncomeType.PerDiem) {
+          if (input.new) {
+            console.log('Creating new Per Diem entry:', input.label)
+            const createPerDiemVariables = {
+              createPerDiemAndPerkInput: {
+                type: input.label,
+                amount: input.amount,
+                currency: input.currency,
+                taxSubmissionId: input.taxSubmissionId,
+                description: input.description,
+              },
+            }
+
+            const createPerDiemResponse = await createPerDiemMutation({variables: createPerDiemVariables})
+
+            console.log(
+              'Create Per Diem mutation response for:',
+              input.label,
+              createPerDiemResponse)
+          }
+          else {
+            const updatePerDiemVariables = {
+              updatePerDiemAndPerkInput: {
+                id: input.id,
+                type: input.label,
+                amount: input.amount,
+                currency: input.currency,
+                taxSubmissionId: input.taxSubmissionId,                
+              },
+            }
+
+            const updatePerDiemResponse = await updatePerDiemMutation({
+              variables: updatePerDiemVariables,
+            })
+            console.log(
+              'Update Per Diem mutation response for:',
+              input.label,
+              updatePerDiemResponse,
+            ) 
           }
 
-          const createResponse = await createSalaryWorkPayment({
-            variables: createVariables,
-          })
-          console.log(
-            'Create mutation response for:',
-            input.employerName,
-            createResponse,
-          )
-        } else {
-          // Run the update mutation
-          const updateVariables = {
-            updateSalaryWorkPaymentInput: {
-              id: input.id,
-              employerName: input.employerName,
-              amount: input.amount,
-              currency: input.currency,
-              description: input.description,
-              year: input.year,
-            },
+        }
+        else {
+          if (input.new) {
+            // Run the create mutation
+            const createVariables = {
+              createSalaryWorkPaymentInput: {
+                employerName: input.label,
+                amount: input.amount,
+                currency: input.currency,
+                taxSubmissionId: input.taxSubmissionId,
+                description: input.description,
+                year: input.year,
+              },
+            }
+
+            const createResponse = await createSalaryWorkPayment({
+              variables: createVariables,
+            })
+            console.log(
+              'Create mutation response for:',
+              input.label,
+              createResponse,
+            )
+          } else {
+
+            // Run the update mutation
+            const updateVariables = {
+              updateSalaryWorkPaymentInput: {
+                id: input.id,
+                employerName: input.label,
+                amount: input.amount,
+                currency: input.currency,
+                description: input.description,
+                year: input.year,
+              },
+            }
+
+            console.log('Update variables:', updateVariables)
+
+            const updateResponse = await updateSalaryWorkPayment({
+              variables: updateVariables,
+            })
+            console.log(
+              'Update mutation response for:',
+              input.label,
+              updateResponse,
+            )
           }
-
-          console.log('Update variables:', updateVariables)
-
-          const updateResponse = await updateSalaryWorkPayment({
-            variables: updateVariables,
-          })
-          console.log(
-            'Update mutation response for:',
-            input.employerName,
-            updateResponse,
-          )
         }
       }
     } catch (error) {
@@ -467,9 +521,9 @@ export const TaxReturnModal: React.FC<Modal> = ({
                 variant="primary"
                 onClick={() => {
                   onConfirm().then(() => onClose());
-                  
 
-                }}                
+
+                }}
                 type='submit'>
                 Confirm
               </Button>

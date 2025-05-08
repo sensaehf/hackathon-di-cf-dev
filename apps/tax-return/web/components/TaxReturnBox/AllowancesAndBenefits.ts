@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const UpdateBenefitsAndAllowances = gql`
+export const UpdatePerDiemMutation = gql`
 mutation UpdatePerDiemsAndPerks($updatePerDiemAndPerkInput: UpdatePerDiemAndPerkInput!) {
     updatePerDiemAndPerk( updatePerDiemAndPerkInput: $updatePerDiemAndPerkInput) {
         id
@@ -8,17 +8,19 @@ mutation UpdatePerDiemsAndPerks($updatePerDiemAndPerkInput: UpdatePerDiemAndPerk
         type
         amount
         currency
+        description
     }
 }
 `
 
-export const CreatePerDiemWorkPayment = gql`
+export const CreatePerDiemMutation = gql`
     mutation CreatePerDiemsAndPerks($createPerDiemAndPerkInput: CreatePerDiemAndPerkInput!) {
         createPerDiemAndPerk( createPerDiemAndPerkInput: $createPerDiemAndPerkInput) {        
         taxSubmissionId
         type
         amount
         currency
+        description
     }   
 }
 `
