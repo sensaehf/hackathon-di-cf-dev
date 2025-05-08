@@ -22,6 +22,16 @@ export const AppLayout = ({ children }: { children: React.ReactNode }) => {
   const thisLocale = locale === 'en' ? 'IS' : 'EN'
   const headerItems = () => (
     <>
+      <Button
+        variant="utility"
+        onClick={() =>
+          push({ pathname, query }, asPath, {
+            locale: `${locale.toLowerCase() === 'en' ? 'is' : 'en'}`,
+          })
+        }
+      >
+        {thisLocale}
+      </Button>
       <Button variant="utility" icon={'chevronDown'}>
         {mockUser.firstName} {mockUser.lastName}
       </Button>

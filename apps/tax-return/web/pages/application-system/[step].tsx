@@ -1,6 +1,6 @@
 // pages/application/[step].tsx
 import { useRouter } from 'next/router'
-import { steps } from '../../components/Stepper/stepperConfig'
+import { getSteps } from '../../components/Stepper/stepperConfig'
 import {
   Box,
   GridContainer,
@@ -16,11 +16,15 @@ import { ReactElement } from 'react'
 
 const StepPage = () => {
   const router = useRouter()
+
+  const steps = getSteps(router.locale)
+
   const { step } = router.query
 
   if (!router.isReady) {
     return null
   }
+
   // Find the current step based on the URL
   const currentStepIndex = steps.findIndex((s) => s.id === step)
 
@@ -46,7 +50,7 @@ const StepPage = () => {
 
   const stepperNavItems: ReactElement[] = [
     <Section
-      section={'Tax returns 2024'}
+      section={steps[0].title}
       isActive={
         steps[currentStepIndex].id === 'intro' ||
         steps[currentStepIndex].id === 'assets' ||
@@ -63,7 +67,7 @@ const StepPage = () => {
             steps[currentStepIndex].id === 'income' ? 'semiBold' : 'regular'
           }
         >
-          Income
+          {steps[1].title}
         </Text>,
         <Text
           variant="medium"
@@ -72,7 +76,7 @@ const StepPage = () => {
             steps[currentStepIndex].id === 'assets' ? 'semiBold' : 'regular'
           }
         >
-          Assets
+          {steps[2].title}
         </Text>,
         <Text
           variant="medium"
@@ -81,17 +85,17 @@ const StepPage = () => {
             steps[currentStepIndex].id === 'debts' ? 'semiBold' : 'regular'
           }
         >
-          Debts and Interest Payment
+          {steps[3].title}
         </Text>,
       ]}
     />,
     <Section
-      section={'Summary'}
+      section={steps[4].title}
       sectionIndex={1}
       isActive={steps[currentStepIndex].id === 'summary'}
     />,
     <Section
-      section={'Receipt'}
+      section={steps[5].title}
       sectionIndex={2}
       isActive={steps[currentStepIndex].id === 'receipt'}
     />,

@@ -7,26 +7,29 @@ import {
   Button,
 } from '@island.is/island-ui/core'
 
+import { useRouter } from 'next/router'
+import en from '../../public/locales/en/stepper.json'
+import is from '../../public/locales/is/stepper.json'
+
+const translations: any = { en, is }
+
 export const StepIntro = () => {
+  const { locale = 'en' } = useRouter()
+
+  const t = translations[locale] || translations.en
+
   return (
     <>
-      {' '}
       <Text variant="h1" as={'h1'} paddingBottom={1}>
-        Tax return 2024
+        {t.headings['taxReturn']}
       </Text>
       <Text paddingBottom={2}>
-        Here you’ll find an overview of your income, assets and liabilities from
-        last year.
+        {t.descriptions['overviewIncomeAssetsLiabilities']}{' '}
       </Text>
-      <Text paddingBottom={2}>
-        Most of the information has already been filled in for you. Your task is
-        to review the details and make any necessary changes before submitting.
-      </Text>
-      <Text paddingBottom={2}>
-        You can save your progress and return later. Your information is stored
-        securely, and nothing is sent until you choose to submit.
-      </Text>
-      <Button variant="text">Learn more here</Button>
+      <Text paddingBottom={2}>{t.descriptions['reviewDetails']} </Text>
+
+      <Text paddingBottom={2}>{t.descriptions['saveProgress']} </Text>
+      <Button variant="text">{t.buttons['learnMore']}</Button>
     </>
   )
 }

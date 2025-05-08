@@ -153,7 +153,7 @@ export const StepDebts = () => {
       {' '}
       <Text variant="eyebrow">Tax return 2024</Text>
       <Text variant="h1" as={'h1'} paddingBottom={1}>
-        Assets in 2024
+        Debts and Interest Expenses in 2024
       </Text>
       <Text variant="default">
         This section shows the income you received last year — for example,

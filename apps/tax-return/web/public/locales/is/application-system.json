@@ -1,0 +1,22 @@
+{
+  "navigation": {
+    "myApplications": "Umsóknir mínar",
+    "applicationsInProgress": "Umsóknir í vinnslu",
+    "unfinishedApplications": "Ókláraðar umsóknir",
+    "finishedApplications": "Lokið umsóknir"
+  },
+  "buttons": {
+    "backToDashboard": "Til baka á yfirlit",
+    "continueTaxReturn": "Halda áfram með skattframtal"
+  },
+  "headings": {
+    "applications": "Umsóknir",
+    "myTaxReturns": "Skattframtöl mín",
+    "taxReturn2024": "Skattframtal 2024"
+  },
+  "descriptions": {
+    "taxReturnsIntro": "Hér finnur þú allt sem tengist skattframtölum þínum á einum stað.",
+    "taxReturnsDetails": "Þú getur skoðað stöðu núverandi skattframtals, skoðað fyrri innsendingar og haldið áfram þar sem frá var horfið.",
+    "taxReturn2024Details": "Skoða, breyta og senda inn skattframtal"
+  }
+}

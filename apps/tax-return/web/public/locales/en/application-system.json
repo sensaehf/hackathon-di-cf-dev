@@ -1,0 +1,22 @@
+{
+    "navigation": {
+      "myApplications": "My applications",
+      "applicationsInProgress": "Applications in progress",
+      "unfinishedApplications": "Unfinished applications",
+      "finishedApplications": "Finished applications"
+    },
+    "buttons": {
+      "backToDashboard": "Back to dashboard",
+      "continueTaxReturn": "Continue Tax Return"
+    },
+    "headings": {
+      "applications": "Applications",
+      "myTaxReturns": "My tax returns",
+      "taxReturn2024": "Tax Return 2024"
+    },
+    "descriptions": {
+      "taxReturnsIntro": "Here you’ll find everything related to your tax returns in one place.",
+      "taxReturnsDetails": "You can view the status of your current tax return, check previous submissions, and continue where you left off.",
+      "taxReturn2024Details": "View, edit and submit your Tax Return"
+    }
+  }
