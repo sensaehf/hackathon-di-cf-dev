@@ -2,8 +2,8 @@
     "tableOfContentsTitle": "Efnisyfirlit",
     "headings": {
         "0": "Skattframtal",
-        "1": "Skattaafsláttarkort",
-        "2": "Skattareiknivél"
+        "1": "Skattkort",
+        "2": "Reiknivélar"
     },
     "breadcrumbs": {
         "islandIs": "Island.is",
@@ -11,20 +11,20 @@
         "fileYourTaxReturn": "Skila inn skattframtali"
     },
     "pageTitle": "Skila inn skattframtali",
-    "introText": "Á hverju ári þarf hver sem býr á Íslandi að skila inn skattframtali. Það gefur yfirlit yfir tekjur, eignir og skuldir á síðasta ári.",
-    "filingInfo": "Að skila inn skattframtali er einfalt og öruggt í gegnum Ísland.is. Flestar upplýsingar eru þegar fylltar inn fyrir þig. Þú getur yfirfarið, breytt og sent inn þegar þú ert tilbúin/n.",
-    "checkTaxesTitle": "Yfirfara skatta",
-    "checkTaxesInfo": "Til að tryggja að þú hafir ekki greitt of mikið eða of lítið í skatt þarftu að ganga úr skugga um að upplýsingarnar í skattframtalinu séu réttar.",
-    "heading": "Hvað þú getur gert",
+    "introText": "ç",
+    "filingInfo": "Það er einfalt og öruggt að skila inn skattframtali í gegnum Ísland.is, enda eru margar upplýsingar þegar forskráðar. Til að tryggja að þú greiðir hvorki of mikið né of lítið í skatt er mikilvægt að yfirfara vel hvort allar upplýsingar séu réttar og fullnægjandi",
+    "checkTaxesTitle": "Yfirfara skattframtal",
+    "checkTaxesInfo": "Til að tryggja að þú greiðir hvorki of mikið né of lítið í skatt er mikilvægt að staðfesta að upplýsingarnar í skattframtalinu séu réttar.",
+    "heading": "Hvað er hægt að gera",
     "bulletList": {
-        "logIn": "Skráðu þig inn og fáðu aðgang að skattframtalinu þínu",
-        "review": "Yfirfara og uppfæra upplýsingarnar þínar",
-        "saveDraft": "Vista drög og halda áfram síðar",
-        "submit": "Skila þegar þú ert tilbúin/n",
+        "logIn": "Skrá sig inn til að fá aðgang að skattframtali",
+        "review": "Yfirfara og uppfæra upplýsingar",
+        "saveDraft": "Vista drög af skattframtali og halda áfram síðar",
+        "submit": "Skila skattframtali",
         "viewPrevious": "Skoða fyrri skattframtöl (kemur fljótlega)"
     },
     "actionCard": {
-        "heading": "Athugaðu skatta þína",
-        "ctaLabel": "Athugaðu skatta þína"
+        "heading": "Skoðaðu skattframtal",
+        "ctaLabel": "Skoða"
     }
 }

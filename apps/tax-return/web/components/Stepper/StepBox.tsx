@@ -30,7 +30,7 @@ export const StepBox: React.FC<StepProps> = ({
   title,
   step,
 }) => {
-  const { locale = 'en' } = useRouter()
+  const { locale = 'en', push } = useRouter()
 
   const t = translations[locale] || translations.en
   return (
@@ -39,7 +39,7 @@ export const StepBox: React.FC<StepProps> = ({
         <Box padding={5}>{children}</Box>
         <Divider></Divider>
         <Box padding={5} display={'flex'} columnGap={1}>
-          {step > 0 && (
+          {step > 0 && step < 5 && (
             <Box>
               <Button variant="ghost" onClick={previousStep}>
                 {t.buttons['back']}
@@ -47,7 +47,11 @@ export const StepBox: React.FC<StepProps> = ({
             </Box>
           )}
           <Box display={'flex'} columnGap={1} marginLeft={'auto'}>
-            <Button variant="ghost">{t.buttons['continueLater']}</Button>
+            <Button variant="ghost" onClick={() => push('/application-system')}>
+              {step === 5
+                ? t.buttons['previousReturns']
+                : t.buttons['continueLater']}
+            </Button>
             {step === 4 && (
               <Button
                 variant="primary"

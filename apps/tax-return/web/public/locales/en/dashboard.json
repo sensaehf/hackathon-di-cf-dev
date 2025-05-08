@@ -3,9 +3,9 @@
       "name": "Applications",
       "description": "Status of applications you have applied for through island.is"
     },
-    "accessControl": {
-      "name": "Access control",
-      "description": "Access management and overview of accesses you have granted"
+    "taxReturn": {
+      "name": "Tax Return",
+      "description": "Overview of your tax returns"
     },
     "digitalMailbox": {
       "title": "Digital mailbox"

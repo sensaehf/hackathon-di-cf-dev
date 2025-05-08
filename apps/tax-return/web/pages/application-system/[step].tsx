@@ -57,7 +57,7 @@ const StepPage = () => {
         steps[currentStepIndex].id === 'income' ||
         steps[currentStepIndex].id === 'debts'
       }
-      isComplete={true}
+      isComplete={currentStepIndex > 3}
       sectionIndex={0}
       subSections={[
         <Text
@@ -93,6 +93,7 @@ const StepPage = () => {
       section={steps[4].title}
       sectionIndex={1}
       isActive={steps[currentStepIndex].id === 'summary'}
+      isComplete={currentStepIndex > 4}
     />,
     <Section
       section={steps[5].title}

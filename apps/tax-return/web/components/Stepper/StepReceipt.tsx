@@ -7,23 +7,25 @@ import {
   Button,
 } from '@island.is/island-ui/core'
 
+import { useRouter } from 'next/router'
+import en from '../../public/locales/en/stepper.json'
+import is from '../../public/locales/is/stepper.json'
+
+const translations: any = { en, is }
+
 export const StepReceipt = () => {
+  const { locale = 'en' } = useRouter()
+
+  const t = translations[locale] || translations.en
+
   return (
     <>
-      <Text variant="eyebrow">Tax return 2024</Text>
+      <Text variant="eyebrow">{t.headings['taxReturn']}</Text>
       <Text variant="h1" as={'h1'} paddingBottom={1}>
-        Your tax return has been submitted
+        {t.receipt['title']}
       </Text>
-      <Text paddingBottom={2}>
-        Thank you. Your tax return has been received and will be reviewed by the
-        Tax Administration.You will receive a tax assessment once your return
-        has been processed.
-      </Text>
-      <Text paddingBottom={2}>
-        A copy of your submitted return is available under My Pages. If you need
-        to make changes, you can reopen your return until the submission
-        deadline.
-      </Text>
+      <Text paddingBottom={2}>{t.receipt['description']}</Text>
+      <Text paddingBottom={2}>{t.receipt['copyDescription']}</Text>
     </>
   )
 }

@@ -24,7 +24,8 @@
       "submitTaxReturn": "Submit Tax Return",
       "downloadPDF": "Download PDF",
       "continueTo": "Continue to",
-      "continueLater": "Continue later"
+      "continueLater": "Continue later",
+      "previousReturns": "View previous returns"
     },
     "stepperTitles": {
         "salary": "Salary and Work-Related Payments",

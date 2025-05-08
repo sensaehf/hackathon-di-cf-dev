@@ -19,12 +19,13 @@
   "buttons": {
     "learnMore": "Frekari upplýsingar hér",
     "taxErrors": "Skoða skattframtalið mitt",
-    "change": "Change",
-    "back": "Back",
-    "submitTaxReturn": "Submit Tax Return",
-    "downloadPDF": "Download PDF",
-    "continueTo": "Continue to",
-    "continueLater": "Continue later"
+    "change": "Breyta",
+    "back": "Til baka",
+    "submitTaxReturn": "Senda inn skattframtal",
+    "downloadPDF": "Hlaða niður PDF",
+    "continueTo": "Halda áfram",
+    "continueLater": "Halda áfram síðar",
+    "previousReturns": "Skoða fyrri skattframtöl"
   },
   "stepperTitles": {
     "salary": "Laun og starfstengdar greiðslur",
@@ -33,7 +34,7 @@
     "realEstate": "Fasteignir innanlands",
     "vehicles": "Ökutæki",
     "mortgage": "Íbúðarlán",
-    "otherLoans": "Other Loans and Interest"
+    "otherLoans": "Önnur lán og vextir"
   },
   "valueLabels": {
     "realEstateAssessment": "Fasteignamat",
@@ -43,8 +44,8 @@
     "principalRepayments": "Afborganir",
     "interest": "Vextir",
     "outstandingBalance": "Eftirstöðvar",
-    "amountWeUse": "Amount we use in the tax calculation",
-    "balance": "Balance"
+    "amountWeUse": "Upphæð sem notuð er í útreikning skatts",
+    "balance": "Staða"
   },
   "stepperDescription": {
     "salary": "Laun og starfstengdar greiðslur eru forskráðar af skattayfirvöldum. Þú getur bætt við upplýsingum eða breytt þeim ef þörf er á.",
@@ -53,7 +54,7 @@
     "realEstate": "Ef fasteignin tilheyrir þér ekki lengur eða upplýsingar eru rangar getur þú gert breytingar hér.",
     "mortgage": "Ef uppgefnar tölur stemma ekki við yfirlit lánveitanda getur þú leiðrétt þær. Gakktu úr skugga um að heildargreiðslur, vextir, afborganir og eftirstöðvar í árslok séu réttar.",
     "debts": "Hér getur þú farið yfir lán og skuldir sem þú varst með árið 2024, þ.m.t. húsnæðislán, námslán og aðrar skuldir.",
-    "otherLoans": "Here you can review the loans and debts you had in 2024, including mortgages, student loans, and other credit."
+    "otherLoans": "Hér getur þú farið yfir önnur lán og skuldir ásamt vöxtum sem þú greiddir árið 2024."
   },
   "summary": {
     "estimated": "Áætlaður skattur 2024",
@@ -62,8 +63,8 @@
     "netWealth": "Hrein eign",
     "total": "SAMTALS",
     "debtsAndInterestExpenses": "Skuldir og vaxtagjöld",
-    "totalAssets": "TOTAL ASSETS",
-    "totalIncome": "TOTAL INCOME"
+    "totalAssets": "Samtals eignir",
+    "totalIncome": "Samtals tekjur"
   },
   "receipt": {
     "title": "Skattframtalinu hefur verið skilað",
@@ -71,11 +72,11 @@
     "copyDescription": "Afrit af innsendu skattframtali er aðgengilegt á Mínum síðum. Ef þú þarft að gera breytingar getur þú opnað framtalið aftur fram að skilafresti."
   },
   "timeline": {
-    "intro": "Introduction",
-    "income": "Income",
-    "assets": "Assets",
-    "debts": "Debts and Interest",
-    "summary": "Summary",
-    "receipt": "Receipt"
-  } 
+    "intro": "Inngangur",
+    "income": "Tekjur",
+    "assets": "Eignir",
+    "debts": "Skuldir og vextir",
+    "summary": "Yfirlit",
+    "receipt": "Afrit"
+  }
 }

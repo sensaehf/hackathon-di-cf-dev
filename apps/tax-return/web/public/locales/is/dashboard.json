@@ -3,9 +3,9 @@
       "name": "Umsóknir",
       "description": "Staða umsókna sem þú hefur sótt um í gegnum island.is"
     },
-    "accessControl": {
-      "name": "Aðgangsstýring",
-      "description": "Aðgangsstýring og yfirlit yfir aðganga sem þú hefur veitt"
+    "taxReturn": {
+      "name": "Skattaskýrsla",
+      "description": "Yfirlit yfir skattaskýrslur þínar"
     },
     "digitalMailbox": {
       "title": "Stafræn pósthólf"

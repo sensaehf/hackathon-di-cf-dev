@@ -18,6 +18,7 @@ import * as styles from './Dashboard.css'
 import en from '../../public/locales/en/dashboard.json'
 import is from '../../public/locales/is/dashboard.json'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
 
 const translations: any = { en, is }
 
@@ -43,10 +44,10 @@ export const Dashboard = () => {
       enabled: true,
     },
     {
-      path: '/dashboard',
-      name: t.accessControl['name'],
-      description: t.accessControl['description'],
-      icon: 'lockClosed',
+      path: 'application-system',
+      name: t.taxReturn['name'],
+      description: t.taxReturn['description'],
+      icon: 'calculator',
       enabled: true,
     },
   ]
@@ -82,10 +83,10 @@ export const Dashboard = () => {
                 heading={navRoot.name}
                 icon={
                   <Icon
-                    color="blue600"
+                    color="blue400"
                     type="outline"
                     icon={navRoot.icon}
-                    size="small"
+                    size="medium"
                   ></Icon>
                 }
                 text={navRoot.description}
@@ -133,9 +134,12 @@ export const Dashboard = () => {
                     className={cn([styles.mailIcon, styles.svgOutline])}
                   ></Box>
 
-                  <Text as="h2" variant="h4" color="blue400" truncate>
-                    {t.digitalMailbox['title']}
-                  </Text>
+                  <Box>
+                    <Text as="h2" variant="h4" color="blue400" truncate>
+                      {t.digitalMailbox['title']}
+                    </Text>
+                    <Text>You have no new mails</Text>
+                  </Box>
                   <Box borderRadius="full" />
                 </Box>
               </div>
