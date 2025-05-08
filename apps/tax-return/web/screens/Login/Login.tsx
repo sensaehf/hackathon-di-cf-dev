@@ -24,7 +24,9 @@ const Login = () => {
       <br></br>
       <Input name="tel" label={t.label} type="tel" placeholder="000-000" />
       <br></br>
-      <Button onClick={() => push('/dashboard')}>{t.buttonTitle}</Button>
+      <Button onClick={() => push('/application-system/intro')}>
+        {t.buttonTitle}
+      </Button>
     </Box>
   )
 }
