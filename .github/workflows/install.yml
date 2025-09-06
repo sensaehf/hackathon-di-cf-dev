@@ -183,7 +183,7 @@ jobs:
       # See this for more information:
       # https://github.blog/changelog/2020-10-08-github-actions-ability-to-change-retention-days-for-artifacts-and-logs/
       - name: Keep PR run event
-        uses: actions/upload-artifact@b18b1d32f3f31abcdc29dee3f2484801fe7822f4
+        uses: actions/upload-artifact@6027e3dd177782cd8ab9af838c04fd81a07f1d47
 
         # Don't run this step locally
         if: ${{ !github.event.localrun && inputs.run_merge_queue == false }}
